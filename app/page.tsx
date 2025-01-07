@@ -1,7 +1,6 @@
 import EpisodeButton from '@/components/buttons/social-icons/episode-cards-button/EpisodeButton'
 import SocialIcon from '@/components/buttons/social-icons/SocialIcon'
 import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
-import Link from 'next/link'
 import { FaSoundcloud, FaSpotify } from 'react-icons/fa'
 import { FaPlay } from 'react-icons/fa6'
 
@@ -9,7 +8,7 @@ export default function page() {
   return (
     <NavFooterWrapper>
       {/* hero section */}
-      <section className='w-full min-h-[80vh] md:min-h-screen main-hero-section flex flex-col-reverse md:flex-row items-center justify-center gap-8 px-20 md:py-0 lg:px-28 xl:pl-40 xl:pr-20 overflow-hidden'>
+      <section className='w-full min-h-[80vh] md:min-h-screen main-hero-section flex flex-col-reverse md:flex-row items-center justify-center gap-8 px-7 md:py-0 lg:px-28 xl:pl-40 xl:pr-20 overflow-hidden'>
         <div className='w-full md:w-1/2 text-center md:!text-left space-y-4 text-white rounded-2xl backdrop-blur-lg p-4 shadow-xl'>
 
           <p className='tracking-widest text-2xl lg:pt-10'>Let’s Start Now</p>
@@ -168,6 +167,11 @@ export default function page() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Slider Section */}
+      <section className='slider-section-bg min-h-screen w-full'>
+
       </section>
     </NavFooterWrapper>
   )
