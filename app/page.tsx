@@ -180,7 +180,7 @@ export default function page() {
         <HomeCarousel />
       </section>
 
-      <section className='w-full min-h-screen streaming-section-bg grid place-items-center'>
+      <section className='w-full min-h-[70vh] streaming-section-bg grid place-items-center'>
         <div className='w-2/3 lg:w-1/2 text-center space-y-5 text-white grid place-items-center'>
           <div className='flex items-center gap-2'>
             <ImPodcast className='text-xl' />
