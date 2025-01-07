@@ -6,7 +6,6 @@ import { CiMenuFries, CiSearch } from "react-icons/ci";
 
 export default function Nav() {
   return (
-
     <>
       {/* Topbar */}
       <div className="w-full bg-[#4052d6] text-white flex justify-center md:justify-between items-center py-4 px-8">
@@ -31,7 +30,7 @@ export default function Nav() {
       </div>
 
       {/* navigation */}
-      <nav className="flex justify-between items-center py-2 px-8">
+      <nav className="flex justify-between items-center py-2 px-8 z-[100] bg-white">
         {/* Large screen logo */}
         <div className="block">
           <Logo width={120} height={120} />

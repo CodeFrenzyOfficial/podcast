@@ -1,6 +1,7 @@
 import EpisodeButton from '@/components/buttons/social-icons/episode-cards-button/EpisodeButton'
 import SocialIcon from '@/components/buttons/social-icons/SocialIcon'
 import HomeCarousel from '@/components/home-carousel/HomeCarousel'
+import { episodesData } from '@/data/episodes/data'
 import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
 import { FaSoundcloud, FaSpotify } from 'react-icons/fa'
 import { FaPlay } from 'react-icons/fa6'
@@ -192,6 +193,38 @@ export default function page() {
             Support and stand by listening to our most recent show on apple Podcast
           </h2>
           <EpisodeButton link='/' content='View All Episodes' />
+        </div>
+      </section>
+
+      {/* View all episodes Section */}
+      <section className='max-w-screen-xl mx-auto space-y-10 py-10 min-h-screen px-10'>
+        <div className='grid place-items-center space-y-2'>
+          <p className='text-neutral-500'>List of episodes</p>
+          <h2 className='text-4xl font-semibold'>Watch Feature episodes</h2>
+        </div>
+
+        {/* Episode Data mapping */}
+        <div className='flex flex-col gap-8'>
+          {
+            episodesData.map((episodesData, index) => (
+              <div className='w-full rounded-2xl overflow-hidden flex flex-col items-start gap-5 lg:gap-0 lg:flex-row lg:items-center justify-between py-5 px-5 bg-gray-500/10 shadow-lg shadow-black/10 transition-all duration-200 hover:shadow-black/20 hover:-translate-y-2 cursor-pointer' key={index}>
+                {/* icon & Content*/}
+                <div className='flex items-center gap-5'>
+                  <div className='rounded-full bg-yellow-500 text-white p-3 shadow-xl'>
+                    <FaPlay className='text-2xl' />
+                  </div>
+                  <h2 className='text-lg font-medium'>{episodesData.episodeTitle}</h2>
+                </div>
+
+                <div className='flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-20'>
+                  <h2>{episodesData.hostname}</h2>
+                  <h2>{episodesData.episodeDetail}</h2>
+                  <EpisodeButton link='/' content='Watch Now' />
+                </div>
+
+              </div>
+            ))
+          }
         </div>
       </section>
     </NavFooterWrapper>
