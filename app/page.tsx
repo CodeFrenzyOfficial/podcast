@@ -1,10 +1,13 @@
 import EpisodeButton from '@/components/buttons/social-icons/episode-cards-button/EpisodeButton'
 import SocialIcon from '@/components/buttons/social-icons/SocialIcon'
-import HomeCarousel from '@/components/home-carousel/HomeCarousel'
+import HomeCarousel from '@/components/carousels/home-carousel/HomeCarousel'
+import HostCarousel from '@/components/carousels/hosts-carousel/HostCarousel'
 import { episodesData } from '@/data/episodes/data'
 import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
+import { BiPodcast } from 'react-icons/bi'
 import { FaSoundcloud, FaSpotify } from 'react-icons/fa'
-import { FaPlay } from 'react-icons/fa6'
+import { FaComments, FaPlay, FaUser } from 'react-icons/fa6'
+import { GiMoebiusStar } from 'react-icons/gi'
 import { ImPodcast } from 'react-icons/im'
 
 export default function page() {
@@ -47,9 +50,9 @@ export default function page() {
       </section>
 
       {/* Episodes Card grid Section */}
-      <section className='w-full py-10 px-7 md:px-16 lg:px-20 xl:px-40 min-h-screen space-y-10'>
+      <section className='overflow-hidden w-full py-10 px-7 md:px-16 lg:px-20 xl:px-40 min-h-screen space-y-10'>
 
-        <div className='grid place-items-center space-y-2'>
+        <div className='w-full grid place-items-center space-y-2 text-center'>
           <h2 className='text-4xl font-semibold'>Enjoy New Shows</h2>
           <p className='text-neutral-500'>Explore All Episodes</p>
         </div>
@@ -181,7 +184,7 @@ export default function page() {
         <HomeCarousel />
       </section>
 
-      <section className='w-full min-h-[70vh] streaming-section-bg grid place-items-center'>
+      <section className='w-full min-h-[70vh] streaming-section-bg grid place-items-center '>
         <div className='w-2/3 lg:w-1/2 text-center space-y-5 text-white grid place-items-center'>
           <div className='flex items-center gap-2'>
             <ImPodcast className='text-xl' />
@@ -198,7 +201,7 @@ export default function page() {
 
       {/* View all episodes Section */}
       <section className='max-w-screen-xl mx-auto space-y-10 py-10 min-h-screen px-10'>
-        <div className='grid place-items-center space-y-2'>
+        <div className='grid place-items-center space-y-2 text-center'>
           <p className='text-neutral-500'>List of episodes</p>
           <h2 className='text-4xl font-semibold'>Watch Feature episodes</h2>
         </div>
@@ -227,6 +230,150 @@ export default function page() {
           }
         </div>
       </section>
+
+      {/* overlapping "learn" section */}
+      <section className='overflow-hidden py-10'>
+        <div className='w-full p-10 bg-blue-600' />
+
+        <div className='relative -top-16 md:-top-20 flex justify-between items-center space-y-5 bg-white -rotate-3 shadow-lg shadow-black/10 py-8'>
+
+          {/* learn card */}
+          <div className='text-yellow-500 text-4xl'><GiMoebiusStar /></div>
+          <div className='flex items-center space-y-4'>
+            <h2 className='text-4xl font-semibold'>LEARN</h2>
+          </div>
+          {/* learn card */}
+          <div className='text-yellow-500 text-4xl'><GiMoebiusStar /></div>
+          <div className='flex items-center space-y-4'>
+            <h2 className='text-4xl font-semibold'>LEARN</h2>
+          </div>
+          {/* learn card */}
+          <div className='text-yellow-500 text-4xl'><GiMoebiusStar /></div>
+          <div className='flex items-center space-y-4'>
+            <h2 className='text-4xl font-semibold'>LEARN</h2>
+          </div>
+          {/* learn card */}
+          <div className='text-yellow-500 text-4xl'><GiMoebiusStar /></div>
+          <div className='flex items-center space-y-4'>
+            <h2 className='text-4xl font-semibold'>LEARN</h2>
+          </div>
+          {/* learn card */}
+          <div className='text-yellow-500 text-4xl'><GiMoebiusStar /></div>
+          <div className='flex items-center space-y-4'>
+            <h2 className='text-4xl font-semibold'>LEARN</h2>
+          </div>
+          {/* learn card */}
+          <div className='text-yellow-500 text-4xl'><GiMoebiusStar /></div>
+          <div className='flex items-center space-y-4'>
+            <h2 className='text-4xl font-semibold'>LEARN</h2>
+          </div>
+          {/* learn card */}
+          <div className='text-yellow-500 text-4xl'><GiMoebiusStar /></div>
+          <div className='flex items-center space-y-4'>
+            <h2 className='text-4xl font-semibold'>LEARN</h2>
+          </div>
+        </div>
+      </section>
+
+      {/* Hosts Carousel */}
+      <section className='py-10 w-full min-h-screen host-bg space-y-5'>
+        <div className='grid place-items-center space-y-2 text-center'>
+          <p className='text-neutral-500'>Expert People</p>
+          <h2 className='text-4xl font-semibold'>Meet our Podcast Hosts</h2>
+        </div>
+        <div className='max-w-screen-lg mx-auto'>
+          <HostCarousel />
+        </div>
+      </section>
+
+      {/*  */}
+      <section className='py-10 w-full min-h-screen space-y-10 px-10'>
+        <div className='grid place-items-center space-y-2 text-center'>
+          <p className='text-neutral-500'>Streaming Application</p>
+          <h2 className='text-4xl font-semibold'>Direct from the best Blog Posts
+          </h2>
+        </div>
+
+        <div className='max-w-screen-lg mx-auto flex flex-col gap-5'>
+          {/* Card 1 */}
+          <div className='flex flex-col lg:flex-row rounded-2xl overflow-hidden lg:max-h-[50vh] border border-px border-neutral-300'>
+
+            <div className='lg:w-1/2'>
+              <img src="/assets/hero-sections-bg/microphone.jpg" className='object-cover' alt="" />
+            </div>
+
+            <div className='lg:w-1/2 px-5 py-5 lg:py-0 gap-6  flex flex-col items-start justify-center lg:gap-3'>
+
+              <div className='flex items-center gap-3'>
+                <div className='flex items-center gap-1'>
+                  <FaUser />
+                  <p className='text-neutral-500 text-xs'>Jhon Doe</p>
+                </div>
+                <div className='flex items-center gap-1'>
+                  <FaComments />
+                  <p className='text-neutral-500 text-xs'>3 comments</p>
+                </div>
+                <div className='flex items-center gap-1'>
+                  <FaComments />
+                  <p className='text-neutral-500 text-xs'>3 March 2024</p>
+                </div>
+              </div>
+
+              <h2 className='text-3xl font-semibold'>
+                10 Must-Listen Podcasts For Comedy Fans
+              </h2>
+
+              <EpisodeButton content="Check Episode" link="/" contentClassName="text-sm" />
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className='flex flex-col lg:flex-row rounded-2xl overflow-hidden lg:max-h-[50vh] border border-px border-neutral-300'>
+            <div className='lg:w-1/2 px-5 py-5 lg:py-0 gap-6  flex flex-col items-start justify-center lg:gap-'>
+
+              <div className='flex items-center gap-3'>
+                <div className='flex items-center gap-1'>
+                  <FaUser />
+                  <p className='text-neutral-500 text-xs'>Jhon Doe</p>
+                </div>
+                <div className='flex items-center gap-1'>
+                  <FaComments />
+                  <p className='text-neutral-500 text-xs'>3 comments</p>
+                </div>
+                <div className='flex items-center gap-1'>
+                  <FaComments />
+                  <p className='text-neutral-500 text-xs'>3 March 2024</p>
+                </div>
+              </div>
+
+              <h2 className='text-3xl font-semibold'>
+                Clever ways to get your podcast heard
+              </h2>
+
+              <EpisodeButton content="Check Episode" link="/" contentClassName="text-sm" />
+            </div>
+
+            <div className='lg:w-1/2'>
+              <img src="/assets/slider-imgs/5.jpg" className='object-cover' alt="" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NewsLetter Section */}
+      <section className='newsletter-bg min-h-[60vh] px-10 py-10 grid place-items-center'>
+        <div className='max-w-screen-lg mx-auto  text-center space-y-4 text-white'>
+          <div className='grid place-items-center'>
+            <BiPodcast className='text-4xl' />
+            <div className='flex items-center gap-1'>
+              <p className='font-light'>Get early access to the new episodes.</p>
+            </div>
+            <h2 className='text-4xl font-semibold'>Subscribe to newsletter!</h2>
+          </div>
+          <input type="text" placeholder='Enter your email' className='w-[90%] outline-none border-none rounded-full py-2 px-4 text-black' />
+        </div>
+      </section>
+
     </NavFooterWrapper>
   )
 }

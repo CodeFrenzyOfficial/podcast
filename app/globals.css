@@ -92,3 +92,23 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+
+.all-episode-bg {
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../public/assets/hero-sections-bg/mic-2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.host-bg {
+  background-image: url('../public/assets/elements/host-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.newsletter-bg {
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/assets/hero-sections-bg/mic-2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom;
+}
