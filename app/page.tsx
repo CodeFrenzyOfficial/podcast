@@ -1,5 +1,6 @@
 import EpisodeButton from '@/components/buttons/social-icons/episode-cards-button/EpisodeButton'
 import SocialIcon from '@/components/buttons/social-icons/SocialIcon'
+import HomeCarousel from '@/components/home-carousel/HomeCarousel'
 import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
 import { FaSoundcloud, FaSpotify } from 'react-icons/fa'
 import { FaPlay } from 'react-icons/fa6'
@@ -107,7 +108,7 @@ export default function page() {
 
             {/* Button */}
             <div className='grid place-items-center pt-5'>
-             <EpisodeButton link='/' content='View All Episodes' />
+              <EpisodeButton link='/' content='View All Episodes' />
             </div>
           </div>
 
@@ -170,8 +171,12 @@ export default function page() {
       </section>
 
       {/* Slider Section */}
-      <section className='slider-section-bg min-h-screen w-full'>
-
+      <section className='slider-section-bg min-h-screen w-full overflow-x-hidden grid place-items-center py-10'>
+        <div className='grid place-items-center space-y-2'>
+          <h2 className='text-4xl font-semibold'>Enjoy New Shows</h2>
+          <p className='text-neutral-500'>Explore All Episodes</p>
+        </div>
+        <HomeCarousel />
       </section>
     </NavFooterWrapper>
   )

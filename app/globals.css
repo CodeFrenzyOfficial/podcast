@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-*,body {
+*,
+body {
   font-family: "Poppins", serif;
 }
 
@@ -34,6 +35,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -66,19 +68,20 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
-.main-hero-section{
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)) , url("../public/assets/hero-sections-bg/1.jpg");
+.main-hero-section {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../public/assets/hero-sections-bg/1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.slider-section-bg{
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)) url('../public/assets/svgs/slider-section-bg.jpg');
+.slider-section-bg {
+  background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgba(0, 0, 0, 0)), url('../public/assets/svgs/slider-section-bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
 }
