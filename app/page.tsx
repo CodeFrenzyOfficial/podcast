@@ -4,6 +4,7 @@ import HomeCarousel from '@/components/home-carousel/HomeCarousel'
 import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
 import { FaSoundcloud, FaSpotify } from 'react-icons/fa'
 import { FaPlay } from 'react-icons/fa6'
+import { ImPodcast } from 'react-icons/im'
 
 export default function page() {
   return (
@@ -177,6 +178,21 @@ export default function page() {
           <p className='text-neutral-500'>Explore All Episodes</p>
         </div>
         <HomeCarousel />
+      </section>
+
+      <section className='w-full min-h-screen streaming-section-bg grid place-items-center'>
+        <div className='w-2/3 lg:w-1/2 text-center space-y-5 text-white grid place-items-center'>
+          <div className='flex items-center gap-2'>
+            <ImPodcast className='text-xl' />
+            <p>
+              Streaming Applications
+            </p>
+          </div>
+          <h2 className='text-3xl font-semibold'>
+            Support and stand by listening to our most recent show on apple Podcast
+          </h2>
+          <EpisodeButton link='/' content='View All Episodes' />
+        </div>
       </section>
     </NavFooterWrapper>
   )
