@@ -1,7 +1,11 @@
-import React from 'react'
+import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
 
 export default function page() {
   return (
-    <div>page</div>
+    <NavFooterWrapper>
+      <section className="">
+
+      </section>
+    </NavFooterWrapper>
   )
 }

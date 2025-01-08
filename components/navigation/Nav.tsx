@@ -3,6 +3,7 @@ import { FaClock, FaFacebook, FaSquareXTwitter } from "react-icons/fa6";
 import { IoMdMailOpen } from "react-icons/io";
 import Logo from "../svgs/Logo";
 import { CiMenuFries, CiSearch } from "react-icons/ci";
+import Link from "next/link";
 
 export default function Nav() {
   return (
@@ -38,13 +39,13 @@ export default function Nav() {
 
         {/* Routing List */}
         <ul className="hidden md:flex items-center gap-6">
-          <li>Home</li>
-          <li>About Us</li>
-          <li>
+          <Link href="/">Home</Link>
+          <Link href="/about">About Us</Link>
+          <Link href="/podcasts">
             Podcasts
-          </li>
-          <li>Blog</li>
-          <li>Contact</li>
+          </Link>
+          <Link href="/blogs">Blog</Link>
+          <Link href="/contact">Contact</Link>
         </ul>
 
         {/* Search icons etc */}

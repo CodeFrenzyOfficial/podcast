@@ -112,3 +112,39 @@ body {
   background-attachment: fixed;
   background-position: bottom;
 }
+
+
+/* about page styles */
+.about-hero-bg {
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../public/assets/hero-sections-bg/about-hero-bg-2.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+
+.about-section-bg {
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../public/assets/hero-sections-bg/about-hero-bg-3.jpg');
+  background-attachment: fixed;
+}
+
+.about-player-section {
+  background-image: url('../public/assets/hero-sections-bg/about-hero-bg.png');
+  background-size: cover;
+
+}
+
+.about-player-img {
+  padding: 0 25px 50px 0;
+}
+
+.about-player-img::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border: 3px solid #d9d9d9;
+  border-radius: 0 235px 235px 235px;
+  box-shadow: inset 0 0 15px #898989;
+}
