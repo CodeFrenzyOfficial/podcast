@@ -6,7 +6,7 @@ import { MdLocalPhone } from "react-icons/md";
 
 export default function Footer() {
   return (
-    <footer className="bg-black w-full min-h-[60vh] px-10 py-10 border-t border-px border-solid border-white">
+    <footer className="bg-black w-full min-h-[60vh] px-10 py-10">
       <div className="max-w-screen-lg mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {/* card 1 */}
         <div className="space-y-5">

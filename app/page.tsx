@@ -3,6 +3,7 @@ import SocialIcon from '@/components/buttons/social-icons/SocialIcon'
 import HomeCarousel from '@/components/carousels/home-carousel/HomeCarousel'
 import HostCarousel from '@/components/carousels/hosts-carousel/HostCarousel'
 import AllPodcasts from '@/components/sections/all-podcasts/AllPodcasts'
+import Newsletter from '@/components/sections/newsletter/Newsletter'
 import { episodesData } from '@/data/episodes/data'
 import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
 import { BiPodcast } from 'react-icons/bi'
@@ -333,18 +334,7 @@ export default function page() {
       </section>
 
       {/* NewsLetter Section */}
-      <section className='newsletter-bg min-h-[60vh] px-10 py-10 grid place-items-center'>
-        <div className='max-w-screen-lg mx-auto  text-center space-y-4 text-white'>
-          <div className='grid place-items-center'>
-            <BiPodcast className='text-4xl' />
-            <div className='flex items-center gap-1'>
-              <p className='font-light'>Get early access to the new episodes.</p>
-            </div>
-            <h2 className='text-4xl font-semibold'>Subscribe to newsletter!</h2>
-          </div>
-          <input type="text" placeholder='Enter your email' className='w-[90%] outline-none border-none rounded-full py-2 px-4 text-black' />
-        </div>
-      </section>
+      <Newsletter />
 
     </NavFooterWrapper>
   )

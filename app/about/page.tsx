@@ -1,5 +1,6 @@
 import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton";
 import AllPodcasts from "@/components/sections/all-podcasts/AllPodcasts";
+import Newsletter from "@/components/sections/newsletter/Newsletter";
 import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
 import Link from "next/link";
 import { BsFillRssFill } from "react-icons/bs";
@@ -104,7 +105,7 @@ export default function page() {
                     <div className="col-span-2 lg:col-span-3 grid place-items-center text-center">
                         <PiApplePodcastsLogoFill className="text-4xl" />
                         <h2 className="">Apple Podcast</h2>
-                    </div>                    
+                    </div>
                 </div>
             </section>
 
@@ -128,6 +129,10 @@ export default function page() {
 
             {/* All Episodes */}
             <AllPodcasts />
+
+            {/* Newsletter */}
+            <Newsletter />
+
         </NavFooterWrapper>
     )
 }
