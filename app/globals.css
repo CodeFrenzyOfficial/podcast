@@ -156,3 +156,9 @@ body {
   background-position: center;
 
 }
+
+.signup-bg{
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('../public/assets/hero-sections-bg/mic-1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}

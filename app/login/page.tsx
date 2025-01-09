@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton"
 import Logo from "@/components/svgs/Logo"
+import Link from "next/link"
+import { BiPodcast } from "react-icons/bi"
 
 
 interface FormDataType {
@@ -39,16 +41,22 @@ export default function Login() {
 
   return (
     <section className="flex flex-col md:flex-row justify-center md:justify-normal items-center md:items-start h-screen overflow-hidden relative">
-      <div className="hidden md:block md:w-1/2 login-bg h-screen">
+      <div className="hidden md:grid md:w-1/2 login-bg h-screen place-items-center relative">
+        <div className="w-[90%] grid place-items-center space-y-1 px-10 text-white text-center">
+          <BiPodcast className='text-4xl' />
+          <h2 className="text-4xl font-bold ">Explore Unlimited Podcasts</h2>
+          <p className="text-2xl">From trending topics to niche discussions, we have it all.</p>
+        </div>
+
+        <div className="absolute top-5 left-10">
+          <Logo width={120} height={120} />
+        </div>
       </div>
 
-      <div className="w-full px-5 md:w-1/2 h-full grid place-items-center md:px-10 z-20">
+      <div className="w-full px-5 md:w-1/2 h-full grid place-items-center md:px-10 z-20 relative">
         <div className="w-full xl:w-2/3 mx-auto px-4 py-8 border border-px border-solid border-neutral-200 rounded-2xl space-y-10 md:space-y-4 bg-white shadow-xl shadow-black/30">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-              <div className="grid place-items-center">
-                <Logo width={80} height={80} />
-              </div>
               <h2 className="w-full text-center text-3xl font-semibold">Login to your Account</h2>
               {/* Email */}
               <FormField
@@ -80,6 +88,10 @@ export default function Login() {
                 )}
               />
 
+              <div className="flex justify-end">
+                <Link href={'/forgot-password'} className="underline text-sm">Forgot Password ?</Link>
+              </div>
+
               <button type="submit" className='w-full text-center py-2 px-8 flex justify-center items-center gap-2 rounded-full bg-blue-700 text-white relative overflow-hidden group/card-btn'>
                 <h2 className={cn("z-10")}>{"Login"}</h2>
 
@@ -100,11 +112,12 @@ export default function Login() {
 
             <EpisodeButton link='/signup' content="Signup" className="w-full bg-black hover:opacity-70" />
           </div>
-
-          <p className="text-center text-sm">
-            By clicking continue, you agree to our <span className="underline cursor-pointer"> Terms of Service</span> and <span className="underline cursor-pointer">
-              Privacy Policy</span>
-          </p>
+          <div className="grid place-items-center">
+            <p className="w-2/3 text-center text-sm">
+              By clicking continue, you agree to our <span className="underline cursor-pointer"> Terms of Service</span> and <span className="underline cursor-pointer">
+                Privacy Policy</span>
+            </p>
+          </div>
         </div>
       </div>
 
