@@ -4,12 +4,14 @@ import { IoMdMailOpen } from "react-icons/io";
 import Logo from "../svgs/Logo";
 import { CiMenuFries, CiSearch } from "react-icons/ci";
 import Link from "next/link";
+import HomeSidebar from "../home-sidebar/HomeSidebar";
+import EpisodeButton from "../buttons/social-icons/episode-cards-button/EpisodeButton";
 
 export default function Nav() {
   return (
     <>
       {/* Topbar */}
-      <div className="w-full bg-[#4052d6] text-white flex justify-center md:justify-between items-center py-4 px-8">
+      <div className="w-full bg-[#4052d6] text-white flex justify-center md:justify-between items-center py-3 px-8">
         <div className="flex items-center gap-4">
           <div className="flex gap-2 items-center">
             <FaClock className="text-base" />
@@ -31,11 +33,11 @@ export default function Nav() {
       </div>
 
       {/* navigation */}
-      <nav className="flex justify-between items-center py-2 px-8 z-[100] bg-white">
+      <nav className="flex justify-between items-center py-1 px-8 z-[100] bg-white">
         {/* Large screen logo */}
-        <div className="block">
-          <Logo width={120} height={120} />
-        </div>
+        <Link href="/" className="block">
+          <Logo width={110} height={110} />
+        </Link>
 
         {/* Routing List */}
         <ul className="hidden md:flex items-center gap-6">
@@ -50,9 +52,13 @@ export default function Nav() {
 
         {/* Search icons etc */}
         <div className="flex items-center gap-4">
-          <CiSearch className="text-2xl md:text-3xl" />
-          
-          <CiMenuFries className="text-2xl md:text-3xl" />
+          <EpisodeButton content="Login" link="/login" />
+
+          <HomeSidebar>
+            <div className="cursor-pointer p-2 transition-all duration-200 hover:bg-black hover:text-white rounded-full">
+              <CiMenuFries className="text-2xl md:text-2xl" />
+            </div>
+          </HomeSidebar>
         </div>
       </nav>
     </>
