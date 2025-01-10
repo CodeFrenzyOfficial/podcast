@@ -34,7 +34,7 @@ export default function Signup() {
       f_name: "",
       l_name: "",
       email: "",
-      number: "",
+      phone: "",
       role: "",
       password: "",
       passwordConfirmation: "",
@@ -98,10 +98,10 @@ export default function Signup() {
                 </FormItem>
               )}
             />
-            {/* Number */}
+            {/* phone */}
             <FormField
               control={form.control}
-              name="number"
+              name="phone"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Your Number</FormLabel>
@@ -128,8 +128,11 @@ export default function Signup() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="outline-none ring-0">
-                      <SelectItem value="individual">Individual</SelectItem>
-                      <SelectItem value="company">Company</SelectItem>
+                      <SelectItem value="dj">DJ</SelectItem>
+                      <SelectItem value="prmoter/host">Promoter/Host</SelectItem>
+                      <SelectItem value="service worker">Service Worker</SelectItem>
+                      <SelectItem value="venue owner">Venue Owner</SelectItem>
+                      <SelectItem value="regular patron">Regular Patron (Party Goer)</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

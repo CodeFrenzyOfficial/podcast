@@ -59,7 +59,7 @@ const InputComponent = React.forwardRef<HTMLInputElement, InputComponentProps>(
     ({ className, ...props }, ref) => (
         <Input
             className={cn(
-                "outline-none w-full bg-transparent py-3 px-4 transition-all duration-300 md:text-sm md:placeholder:text-sm border boder-solid boder-black/50 placeholder:transition-all placeholder:duration-200 focus:placeholder:opacity-0 focus:border-black rounded-tr-xl rounded-br-xl",
+                "outline-none w-full bg-transparent py-3 px-4 transition-all duration-300 md:text-sm md:placeholder:text-sm border boder-solid boder-black/50 placeholder:transition-all placeholder:duration-200",
                 className
             )}
             {...props}
