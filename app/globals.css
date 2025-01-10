@@ -116,7 +116,7 @@ body {
 
 /* about page styles */
 .about-hero-bg {
-  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../public/assets/hero-sections-bg/about-hero-bg-2.jpg');
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../public/assets/hero-sections-bg/about-hero-bg-4.jpg');
   background-size: cover;
   background-position: center;
 }

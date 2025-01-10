@@ -54,11 +54,14 @@ export default function Nav() {
         <div className="flex items-center gap-4">
           <EpisodeButton content="Login" link="/login" />
 
-          <HomeSidebar>
-            <div className="cursor-pointer p-2 transition-all duration-200 hover:bg-black hover:text-white rounded-full">
-              <CiMenuFries className="text-2xl md:text-2xl" />
-            </div>
-          </HomeSidebar>
+          <div className="md:hidden">
+            <HomeSidebar>
+              <div className="cursor-pointer p-2 transition-all duration-200 hover:bg-black hover:text-white rounded-full">
+                <CiMenuFries className="text-2xl md:text-2xl" />
+              </div>
+            </HomeSidebar>
+          </div>
+
         </div>
       </nav>
     </>
