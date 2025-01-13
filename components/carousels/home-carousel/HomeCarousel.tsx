@@ -40,7 +40,7 @@ export default function HomeCarousel() {
     }, [emblaApi]);
 
     return (
-        <>
+        <div className="overflow-hidden">
             <Carousel plugins={[
                 Autoplay({
                     delay: 2000,
@@ -58,6 +58,6 @@ export default function HomeCarousel() {
                 <CarouselPrevious variant={"default"} className="hidden lg:inline-flex bg-white disabled:bg-white/20" />
                 <CarouselNext variant={"default"} className="hidden lg:inline-flex bg-white disabled:bg-white/20" />
             </Carousel>
-        </>
+        </div>
     );
 }

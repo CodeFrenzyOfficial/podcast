@@ -46,7 +46,7 @@ export default function Nav() {
           <Link href="/podcasts">
             Podcasts
           </Link>
-          <Link href="/blogs">Blog</Link>
+          <Link href="/blogs">Blogs</Link>
           <Link href="/contact">Contact</Link>
         </ul>
 

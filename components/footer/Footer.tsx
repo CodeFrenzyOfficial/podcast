@@ -3,6 +3,7 @@ import { FaArrowRight, FaFacebook, FaLocationDot, FaSquareXTwitter } from "react
 import Logo from "../svgs/Logo";
 import { IoIosTime, IoMdMail } from "react-icons/io";
 import { MdLocalPhone } from "react-icons/md";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -36,27 +37,27 @@ export default function Footer() {
           <div className="text-white space-y-3">
             <div className="flex items-center gap-2">
               <FaArrowRight />
-              <h2>
+              <Link href={'/about'}>
                 About
-              </h2>
+              </Link>
             </div>
             <div className="flex items-center gap-2">
               <FaArrowRight />
-              <h2>
+              <Link href={'/podcasts'}>
                 All Podcasts
-              </h2>
+              </Link>
             </div>
             <div className="flex items-center gap-2">
               <FaArrowRight />
-              <h2>
+              <Link href={'/blogs'}>
                 Blogs
-              </h2>
+              </Link>
             </div>
             <div className="flex items-center gap-2">
               <FaArrowRight />
-              <h2>
+              <Link href={'/contact'}>
                 Contact Us
-              </h2>
+              </Link>
             </div>
           </div>
         </div>
