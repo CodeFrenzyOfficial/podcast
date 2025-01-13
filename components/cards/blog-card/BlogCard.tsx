@@ -1,5 +1,6 @@
-import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton";
+import BlogButton from "@/components/buttons/social-icons/blog-button/BlogButton";
 import { BlogCardProps } from "@/data/blogs/data";
+import { useMemo } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { FaComments } from "react-icons/fa6";
 
@@ -25,7 +26,10 @@ export default function BlogCard({ blogDesc, imgSrc, title }: BlogCardProps) {
                         {title}
                     </h2>
                     <p className="text-neutral-400 select-none line-clamp-5">{blogDesc ? blogDesc : ''}</p>
-                    {/* <EpisodeButton content="Check Blog" link="/" contentClassName="text-sm" /> */}
+                    <BlogButton
+                        content="Check Blog"
+                        contentClassName="text-sm"
+                    />
                 </div>
             </div>
         </div>

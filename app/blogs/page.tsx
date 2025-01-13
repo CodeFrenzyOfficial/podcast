@@ -1,6 +1,7 @@
 import BlogList from '@/components/blogs-list/BlogList'
 import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
 import Link from 'next/link'
+import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
 
 export default function page() {
   return (
@@ -32,6 +33,26 @@ export default function page() {
         </div>
 
         <BlogList />
+
+        {/* Pagination Controls */}
+        <div className='w-full flex justify-center items-center gap-2'>
+          <div className='rounded-full w-10 h-10 grid place-items-center text-xl cursor-pointer bg-yellow-500 text-white opacity-50'>
+            <FaArrowLeftLong />
+          </div>
+          <div className='rounded-full w-10 h-10 grid place-items-center text-xl cursor-pointer bg-yellow-500 text-white'>
+            1
+          </div>
+          <div className='rounded-full w-10 h-10 grid place-items-center text-xl cursor-pointer bg-yellow-500 text-white'>
+            2
+          </div>
+          <div className='rounded-full w-10 h-10 grid place-items-center text-xl cursor-pointer bg-yellow-500 text-white'>
+            ...
+          </div>
+          <div className='rounded-full w-10 h-10 grid place-items-center text-xl cursor-pointer bg-yellow-500 text-white'>
+            <FaArrowRightLong />
+          </div>
+
+        </div>
       </section>
     </NavFooterWrapper>
   )
