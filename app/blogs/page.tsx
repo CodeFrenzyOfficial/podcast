@@ -36,19 +36,19 @@ export default function page() {
 
         {/* Pagination Controls */}
         <div className='w-full flex justify-center items-center gap-2'>
-          <div className='rounded-full w-10 h-10 grid place-items-center text-xl cursor-pointer bg-yellow-500 text-white opacity-50'>
+          <div className='rounded-full w-10 h-10 grid place-items-center text-base shadow-lg shadow-black/50 cursor-pointer bg-black text-white opacity-50'>
             <FaArrowLeftLong />
           </div>
-          <div className='rounded-full w-10 h-10 grid place-items-center text-xl cursor-pointer bg-yellow-500 text-white'>
+          <div className='rounded-full w-10 h-10 grid place-items-center text-base shadow-lg shadow-black/50 cursor-pointer bg-black text-white'>
             1
           </div>
-          <div className='rounded-full w-10 h-10 grid place-items-center text-xl cursor-pointer bg-yellow-500 text-white'>
+          <div className='rounded-full w-10 h-10 grid place-items-center text-base shadow-lg shadow-black/50 cursor-pointer bg-black text-white'>
             2
           </div>
-          <div className='rounded-full w-10 h-10 grid place-items-center text-xl cursor-pointer bg-yellow-500 text-white'>
+          <div className='rounded-full w-10 h-10 grid place-items-center text-base shadow-lg shadow-black/50 cursor-pointer bg-black text-white'>
             ...
           </div>
-          <div className='rounded-full w-10 h-10 grid place-items-center text-xl cursor-pointer bg-yellow-500 text-white'>
+          <div className='rounded-full w-10 h-10 grid place-items-center text-base shadow-lg shadow-black/50 cursor-pointer bg-black text-white'>
             <FaArrowRightLong />
           </div>
 

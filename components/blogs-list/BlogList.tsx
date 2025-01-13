@@ -9,11 +9,10 @@ import Link from "next/link";
 export default function BlogList() {
     const [search, setSearch] = useState('');
 
-    // Filter blogs based on search input
     const filteredBlogs = useMemo(() => {
-        if (!search) return blogData; // If no search input, return all blogs
+        if (!search) return blogData;
         return blogData.filter((blog) =>
-            blog.title.toLowerCase().includes(search.toLowerCase()) // Search by title
+            blog.title.toLowerCase().includes(search.toLowerCase())
         );
     }, [search]);
 

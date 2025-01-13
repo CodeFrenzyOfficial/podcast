@@ -6,7 +6,7 @@ import { FaComments } from "react-icons/fa6";
 
 export default function BlogCard({ blogDesc, imgSrc, title }: BlogCardProps) {
     return (
-        <div className="w-full min-h-[30vh] md:min-h-[50vh] rounded-2xl overflow-hidden border border-solid border-neutral-300 group">
+        <div className="w-full min-h-[30vh] md:min-h-[50vh] rounded-2xl overflow-hidden group shadow-lg shadow-black/10">
             <div className="w-full overflow-hidden z-0">
                 <img src={imgSrc} className="w-full h-72 group-hover:h-60 transition-all duration-300 object-cover object-center select-none" alt="" />
             </div>
