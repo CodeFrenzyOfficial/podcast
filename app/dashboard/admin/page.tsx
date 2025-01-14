@@ -11,10 +11,10 @@ export default function page() {
       </div>
 
       <div
-        className="max-w-screen-xl mx-auto min-h-[50vh] rounded-2xl shadow-lg shadow-neutral-400/30 bg-gradient-to-tr from-neutral-300/70 to-neutral-100/70 grid place-items-center py-10 px-5"
+        className="max-w-screen-xl mx-auto min-h-[50vh] rounded-2xl shadow-lg shadow-neutral-400/30 bg-gradient-to-tr from-neutral-300/70 to-neutral-100/70 grid place-items-center py-5 lg:py-10 px-2 md:px-5"
       >
         {/* Blog Grid Data Mapping */}
-        <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7 lg:gap-4">
           {
             podcastData.slice(0, 6).map((podcastData, index) => (
               <div key={index}>

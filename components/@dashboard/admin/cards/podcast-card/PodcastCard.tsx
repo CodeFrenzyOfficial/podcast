@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 export default function PodcastCard({ title, desc, imgSrc, upload_date }: PodcastDataType) {
     return (
-        <div className="w-full max-h-[26rem] h-full rounded-lg bg-neutral-100 shadow-xl space-y-4">
+        <div className="w-full lg:max-h-[26rem] h-full rounded-lg bg-neutral-100 shadow-xl space-y-4">
             {/* podcast thumbnail */}
             <img src={imgSrc} className="w-full h-52 object-cover rounded-lg" alt="" />
 
