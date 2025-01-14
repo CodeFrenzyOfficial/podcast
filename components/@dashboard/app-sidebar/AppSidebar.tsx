@@ -11,11 +11,11 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import Logo from "../svgs/Logo"
+import Logo from "../../svgs/Logo"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
-import EpisodeButton from "../buttons/social-icons/episode-cards-button/EpisodeButton"
+import EpisodeButton from "../../buttons/social-icons/episode-cards-button/EpisodeButton"
 
 // Menu items.
 const items = [
