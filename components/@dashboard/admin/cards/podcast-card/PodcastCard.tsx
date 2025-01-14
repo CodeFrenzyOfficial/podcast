@@ -2,10 +2,12 @@ import { PodcastDataType } from "@/data/podcasts/data";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import PodcastEditSheet from "../../podcast-edit-sheet/PodcastEditSheet";
+import DeleteDialog from "../../delete-dialog/DeleteDialog";
+import { Button } from "@/components/ui/button";
 
 export default function PodcastCard({ title, desc, imgSrc, upload_date }: PodcastDataType) {
     return (
-        <div className="w-full max-h-[26rem] h-full rounded-lg bg-neutral-100 shadow-xl space-y-4 group">
+        <div className="w-full max-h-[26rem] h-full rounded-lg bg-neutral-100 shadow-xl space-y-4">
             {/* podcast thumbnail */}
             <img src={imgSrc} className="w-full h-52 object-cover rounded-lg" alt="" />
 
@@ -23,22 +25,28 @@ export default function PodcastCard({ title, desc, imgSrc, upload_date }: Podcas
                         <p className="text-sm text-neutral-500">{upload_date}</p>
                     </div>
 
-                    {/* button */}
-                    <PodcastEditSheet>
-                        <div className="flex items-center">
-                            <div className="flex items-center relative transition-all duration-300">
-                                <p className="transition-all duration-300 z-20 relative left-0 group-hover:-left-5">
-                                    Edit
-                                </p>
-                                <div className="text-xl transition-all duration-300 opacity-0 group-hover:opacity-100 absolute right-0 top-[10%] z-0">
-                                    <IoIosArrowRoundForward />
+                    {/* Edit & delete Button */}
+                    <div className="flex items-center gap-8">
+                        <DeleteDialog>
+                            <div className="bg-red-500 text-white px-2 py-1 rounded-md text-sm transition-all duration-200 hover:bg-red-600 cursor-pointer">Delete</div>
+                        </DeleteDialog>
+
+                        {/* button */}
+                        <PodcastEditSheet>
+                            <div className="flex items-center">
+                                <div className="flex items-center relative transition-all duration-300 group">
+                                    <p className="transition-all duration-300 z-20 relative left-0 group-hover:-left-5">
+                                        Edit
+                                    </p>
+                                    <div className="text-xl transition-all duration-300 opacity-0 group-hover:opacity-100 absolute right-0 top-[10%] z-0">
+                                        <IoIosArrowRoundForward />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </PodcastEditSheet>
+                        </PodcastEditSheet>
+                    </div>
                 </div>
             </div>
-
         </div>
     )
 }
