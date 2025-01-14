@@ -2,7 +2,7 @@ import { PodcastDataType } from "@/data/podcasts/data";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import PodcastEditSheet from "../../podcast-edit-sheet/PodcastEditSheet";
-import DeleteDialog from "../../delete-dialog/DeleteDialog";
+import DeleteDialog from "../../dialog-box/delete-dialog/DeleteDialog";
 import { Button } from "@/components/ui/button";
 
 export default function PodcastCard({ title, desc, imgSrc, upload_date }: PodcastDataType) {
