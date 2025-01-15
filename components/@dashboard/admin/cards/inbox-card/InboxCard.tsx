@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { InboxDataType } from '@/data/inbox/data'
 import React from "react";
 function InboxCard({
     fullName,
@@ -18,7 +16,7 @@ function InboxCard({
             </div>
 
             <div className="flex justify-end">
-                <Button>Click to view</Button>
+                <div className="bg-black rounded-md text-white px-4 py-2 text-sm">Click to view</div>
             </div>
         </div>
     )

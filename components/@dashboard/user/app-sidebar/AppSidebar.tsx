@@ -1,5 +1,5 @@
 'use client'
-import { Home, Inbox, Podcast } from "lucide-react"
+import { Home, User2 } from "lucide-react"
 
 import {
     Sidebar,
@@ -11,33 +11,34 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import Logo from "../../svgs/Logo"
+import Logo from "../../../svgs/Logo"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
-import EpisodeButton from "../../buttons/social-icons/episode-cards-button/EpisodeButton"
+import EpisodeButton from "../../../buttons/social-icons/episode-cards-button/EpisodeButton"
+import { RiBloggerFill } from "react-icons/ri"
 
 // Menu items.
 const items = [
     {
         title: "Home",
-        url: "/dashboard/admin",
+        url: "/dashboard/user",
         icon: Home,
     },
     {
-        title: "Podcasts",
-        url: "/dashboard/admin/upload-podcast",
-        icon: Podcast,
+        title: "Share Blogs",
+        url: "/dashboard/user/blogs",
+        icon: RiBloggerFill,
     },
     {
-        title: "Inbox",
-        url: "/dashboard/admin/inbox",
-        icon: Inbox,
-    }
+        title: "Profile",
+        url: "/dashboard/user/profile",
+        icon: User2,
+    },
 ]
 
-export function AppSidebar() {
-    const pathname = usePathname()
+export function UserSidebar() {
+    const pathname = usePathname();
     return (
         <Sidebar className="rounded-r-3xl shadow-lg">
             <SidebarContent>

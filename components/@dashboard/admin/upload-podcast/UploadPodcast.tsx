@@ -4,8 +4,8 @@ import { Input } from "@/components/ui/input";
 
 export default function UploadPodcast() {
     return (
-        <Card className="bg-white/90">
-            <CardContent className="p-6 space-y-4">
+        <Card className="w-full bg-white/90">
+            <CardContent className="w-full p-6 space-y-4">
                 <div className="border-2 border-dashed border-gray-200 rounded-lg flex flex-col gap-1 p-6 items-center">
                     <FileIcon className="w-12 h-12" />
                     <span className="text-sm font-medium text-gray-500">

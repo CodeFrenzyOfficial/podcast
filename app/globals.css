@@ -195,3 +195,47 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
+
+.custom-animate-spin {
+  animation: customSpin infinite 3s linear;
+
+}
+
+@keyframes customSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Upload Podcast Page  */
+.upload-podcast-skeleton::after {
+  position: absolute;
+  top: 0;
+  left: -10%;
+  content: "";
+  width: 2px;
+  height: 100%;
+  background: #474747ac;
+  z-index: 10;
+  animation: moveToRight 6s ease-in-out infinite;
+}
+
+@keyframes moveToRight {
+  0% {
+    left: -10%;
+  }
+
+  33.33% {
+    left: 100%;
+    /* End of the movement phase */
+  }
+
+  100% {
+    left: 100%;
+    /* Pauses for the remaining 66.67% of the cycle */
+  }
+}

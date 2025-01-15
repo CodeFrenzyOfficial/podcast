@@ -41,8 +41,6 @@ export default function Page() {
           <FaArrowRightLong />
         </div>
       </div>
-
-
     </section>
   )
 }
