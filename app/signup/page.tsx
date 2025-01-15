@@ -23,8 +23,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 
 interface FormDataType {
-  email: string
-  password: string
+  f_name: string;
+  l_name: string;
+  email: string;
+  phone?: string | undefined;
+  role: string;
+  password: string;
+  passwordConfirmation: string;
 }
 
 export default function Signup() {

@@ -239,3 +239,11 @@ body {
     /* Pauses for the remaining 66.67% of the cycle */
   }
 }
+
+
+/* User profile page */
+.user-profile-bg{
+  background-image: url('../public/assets/background/1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}

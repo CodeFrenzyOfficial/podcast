@@ -1,7 +1,7 @@
 import { FaUserLock } from "react-icons/fa";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import DashDropdown from "../dropdown/dash-dropdown";
-import UserDashDropdown from "../../user/user-dash-dropdown/UserDashDropdown";
+import DashDropdown from "../admin/dropdown/dash-dropdown";
+import UserDashDropdown from "../user/user-dash-dropdown/UserDashDropdown";
 import { IoMdSettings } from "react-icons/io";
 
 export default function DashHeader({ type = "admin" }: { type?: string }) {
@@ -13,7 +13,8 @@ export default function DashHeader({ type = "admin" }: { type?: string }) {
                 {type === "user" && <img src="/assets/dashboard/user-2.png" className="h-16 w-16 object-contain mx-4" alt="" />}
                 <h2 className="text-xl font-medium">Welcome Back!</h2>
             </div>
-            <div className="flex items-center gap-2">
+
+            <div className="flex flex-col-reverse md:flex-row justify-center items-center gap-2 mt-5 md:m-0">
                 {/* User Name */}
                 <h2 className="bg-black text-white py-1 px-3 rounded-lg">
                     {type === "admin" ? "Admin" : "User"}
@@ -21,13 +22,13 @@ export default function DashHeader({ type = "admin" }: { type?: string }) {
                 {
                     type === "admin" ? (
                         <DashDropdown>
-                            <div className="p-4 text-xl rounded-full bg-neutral-100 hover:bg-neutral-200 cursor-pointer">
+                            <div className="p-2 md:p-4 text-xl rounded-full bg-neutral-100 hover:bg-neutral-200 cursor-pointer">
                                 <FaUserLock />
                             </div>
                         </DashDropdown>
                     ) : (
                         <UserDashDropdown>
-                            <div className="p-4 text-xl rounded-full bg-neutral-100 hover:bg-neutral-200 cursor-pointer">
+                            <div className="p-2 md:p-4 text-xl rounded-full bg-neutral-100 hover:bg-neutral-200 cursor-pointer">
                                 <IoMdSettings className="custom-animate-spin" />
                             </div>
                         </UserDashDropdown>

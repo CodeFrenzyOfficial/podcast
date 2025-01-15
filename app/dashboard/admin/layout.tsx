@@ -6,7 +6,7 @@ const NextProgress = dynamic(
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/components/@dashboard/admin/app-sidebar/AppSidebar";
-import DashHeader from "@/components/@dashboard/admin/dash-header/DashHeader";
+import DashHeader from "@/components/@dashboard/dash-header/DashHeader";
 
 export default function layout({ children }: { children: React.ReactNode }) {
     return (
