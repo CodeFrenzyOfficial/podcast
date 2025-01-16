@@ -3,9 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PhoneInput } from "@/components/ui/phone-input";
 import { userProfileSchema } from "@/schemas/dashboard/user/profile/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import PhoneInputWithCountrySelect from "react-phone-number-input";
 
 interface FormDataType {
     f_name: string,
@@ -63,7 +65,7 @@ export default function UserProfileForm() {
                         <FormItem>
                             <FormLabel>Phone Number</FormLabel>
                             <FormControl>
-                                <Input placeholder="Edit number" className="bg-transparent border-neutral-400 transition-all hover:border-black" {...field} />
+                                <PhoneInput placeholder="Edit number" className="bg-transparent border border-solid !border-neutral-400 !transition-all hover:!border-black rounded-md" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

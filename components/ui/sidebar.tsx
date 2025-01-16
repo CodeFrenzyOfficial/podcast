@@ -279,7 +279,7 @@ const SidebarTrigger = React.forwardRef<
       }}
       {...props}
     >
-      <RiMenu2Fill className="animate-pulse " />
+      <RiMenu2Fill className="animate-pulse" />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )

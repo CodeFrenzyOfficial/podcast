@@ -3,7 +3,7 @@ import * as yup from "yup";
 const ACCEPTED_FILE_FORMATS = ["audio/mpeg", "audio/mp3", "video/mp4"];
 const ACCEPTED_IMAGE_FORMATS = ["image/jpeg", "image/png"];
 
-export const editBlogSchema = yup.object().shape({
+export const uploadBlogSchema = yup.object().shape({
     title: yup
         .string()
         .required("Title is required")

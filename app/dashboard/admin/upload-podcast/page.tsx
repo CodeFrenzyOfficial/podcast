@@ -50,7 +50,7 @@ export default function Page() {
     return (
         <section className="px-5 md:px-10">
             <div className="grid place-items-center text-center pb-5 space-y-1">
-                <h2 className="text-2xl md:text-3xl">Share You Latest Podcasts</h2>
+                <h2 className="text-2xl md:text-3xl">Share Your Latest Podcasts</h2>
                 <p className="text-neutral-500 text-sm">
                     Upload your latest podcast episodes effortlessly!
                 </p>

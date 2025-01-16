@@ -24,6 +24,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { editPodcastSchema } from "@/schemas/dashboard/admin/edit-podcast/schema";
+import { editBlogSchema } from "@/schemas/dashboard/user/edit-blog/schema";
 
 interface EditFormType {
     title: string;
@@ -35,7 +36,7 @@ export default function PodcastEditSheet({ children }: { children: React.ReactNo
     const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
 
     const form = useForm<EditFormType>({
-        resolver: yupResolver(editPodcastSchema),
+        resolver: yupResolver(editBlogSchema),
         defaultValues: {
             title: "",
             description: "",
