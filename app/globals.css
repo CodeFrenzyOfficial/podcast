@@ -105,6 +105,7 @@ body {
 .streaming-section-bg {
   background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../public/assets/hero-sections-bg/mic-1.jpg");
   background-size: cover;
+  background-position: top left;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -134,7 +135,7 @@ body {
 .about-hero-bg {
   background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../public/assets/hero-sections-bg/about-hero-bg-4.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: top center;
   background-attachment: fixed;
 }
 
@@ -242,8 +243,24 @@ body {
 
 
 /* User profile page */
-.user-profile-bg{
+.user-profile-bg {
   background-image: url('../public/assets/background/1.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+@media (max-width: 500px) {
+  .about-hero-bg {
+    background-position-x: -35rem;
+  }
+
+  /* about streaming section */
+  .about-section-bg {
+    background-position: center;
+  }
+
+  .podcast-hero-bg {
+    background-attachment: local;
+    background-position: center;
+  }
 }

@@ -48,7 +48,8 @@ export default function ContactForm() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-          <div className="w-full flex justify-between  items-center gap-5">            {/* First name */}
+          <div className="w-full flex flex-col lg:flex-row justify-between  items-center gap-5">
+            {/* First name */}
             <FormField
               control={form.control}
               name="name"
@@ -80,15 +81,13 @@ export default function ContactForm() {
             />
           </div>
 
-          <div className="w-full flex justify-between  items-center gap-5">
-
+          <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-5">
             {/* phone */}
             <FormField
               control={form.control}
               name="phone"
               render={({ field }) => (
                 <FormItem className="w-full">
-
                   <FormLabel>Number</FormLabel>
                   <FormControl>
                     <PhoneInput placeholder='+1 (555) 123-4567' {...field} />
@@ -97,7 +96,6 @@ export default function ContactForm() {
                 </FormItem>
               )}
             />
-
 
             {/* Subject */}
             <FormField

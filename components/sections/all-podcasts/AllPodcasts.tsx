@@ -5,9 +5,9 @@ import { FaPlay } from "react-icons/fa6";
 export default function AllPodcasts() {
     return (
         <section className='max-w-screen-xl mx-auto space-y-10 py-10 min-h-screen px-10'>
-            <div className='grid place-items-center space-y-2 text-center'>
+            <div className='px-5 lg:px-0 grid place-items-center space-y-2 text-center'>
                 <p className='text-neutral-500'>List of episodes</p>
-                <h2 className='text-4xl font-semibold'>Watch Feature episodes</h2>
+                <h2 className='text-3xl lg:text-4xl font-semibold'>Watch Feature episodes</h2>
             </div>
 
             {/* Episode Data mapping */}
@@ -24,12 +24,14 @@ export default function AllPodcasts() {
                                 <div className='rounded-full bg-yellow-500 text-white p-3 shadow-xl'>
                                     <FaPlay className='text-2xl' />
                                 </div>
-                                <h2 className='text-lg font-medium'>{episodesData.episodeTitle}</h2>
+                                <h2 className='leading-tight text-lg font-medium'>{episodesData.episodeTitle}</h2>
                             </div>
 
-                            <div className='px-4 py-2 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-20'>
-                                <h2>{episodesData.hostname}</h2>
-                                <h2>{episodesData.episodeDetail}</h2>
+                            <div className='w-full lg:w-auto px-4 py-2 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-20'>
+                                <div className="w-full lg:w-auto flex items-center justify-between gap-5">
+                                    <h2>{episodesData.hostname}</h2>
+                                    <h2>{episodesData.episodeDetail}</h2>
+                                </div>
                                 <EpisodeButton link='/' content='Watch Now' />
                             </div>
 

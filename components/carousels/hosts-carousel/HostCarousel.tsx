@@ -47,9 +47,9 @@ export default function HostCarousel() {
                 }),
             ]} className="w-full" setApi={setEmblaApi}>
 
-                <CarouselContent className="ml-[3px] !space-x-8 !m-0">
+                <CarouselContent className="ml-5 !space-x-8">
                     {HostData?.map((episode, index) => (
-                        <CarouselItem className="p-0 basis-full md:basis-1/2 xl:basis-1/3 rounded-3xl !mt-5 !mb-10" key={index}>
+                        <CarouselItem className="p-0 basis-2/3 md:basis-1/2 xl:basis-1/3 rounded-3xl !mt-5 !mb-10" key={index}>
                             <HostCard {...episode} />
                         </CarouselItem>
                     ))}

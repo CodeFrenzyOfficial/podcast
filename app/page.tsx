@@ -67,8 +67,8 @@ export default function page() {
               <img src="/assets/hero-sections-bg/episodes-card-1.jpg" className='group-hover/card:scale-125 group-hover/card:rotate-12 transition-all duration-300  group-hover/card:blur-md' alt="" />
             </div>
 
-            <div className='w-[90%] space-y-4'>
-              <h2 className='capitalize text-2xl font-medium'>
+            <div className='md:w-[90%] space-y-4'>
+              <h2 className='capitalize text-lg leading-tight lg:text-2xl font-medium'>
                 The World Of technology that connect us
               </h2>
 
@@ -80,8 +80,8 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
@@ -93,8 +93,8 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
@@ -106,8 +106,8 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
@@ -126,8 +126,8 @@ export default function page() {
             </div>
 
             <div className='w-[90%] space-y-4'>
-              <h2 className='capitalize text-2xl font-medium'>
-                Have you picked the right polaroid camera ?
+              <h2 className='capitalize text-lg leading-tight lg:text-2xl font-medium'>
+                The World Of technology that connect us
               </h2>
 
               {/* episodes details #1 */}
@@ -138,8 +138,8 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
@@ -151,12 +151,13 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
               {/* episodes details #3 */}
+              
               <div className='flex items-start gap-3'>
                 {/* play icon */}
                 <div className='rounded-full bg-blue-600 text-white p-3'>
@@ -164,8 +165,8 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
@@ -178,8 +179,8 @@ export default function page() {
       </section>
 
       {/* Slider Section */}
-      <section className='slider-section-bg min-h-screen w-full overflow-x-hidden grid place-items-center py-10'>
-        <div className='grid place-items-center space-y-2'>
+      <section className='slider-section-bg lg:min-h-[90vh] w-full overflow-x-hidden  py-10'>
+        <div className='w-full grid place-items-center space-y-2 mb-10'>
           <h2 className='text-4xl font-semibold'>Enjoy New Shows</h2>
           <p className='text-neutral-500'>Explore All Episodes</p>
         </div>
@@ -194,7 +195,7 @@ export default function page() {
               Streaming Applications
             </p>
           </div>
-          <h2 className='text-3xl font-semibold'>
+          <h2 className='text-2xl md:text-3xl font-semibold'>
             Support and stand by listening to our most recent show on apple Podcast
           </h2>
           <EpisodeButton link='/' content='View All Episodes' />
@@ -249,10 +250,10 @@ export default function page() {
       </section>
 
       {/* Hosts Carousel */}
-      <section className='py-10 w-full min-h-screen host-bg space-y-5'>
+      <section className='py-10 w-full min-h-[60vh] lg:min-h-[90vh] host-bg space-y-5'>
         <div className='grid place-items-center space-y-2 text-center'>
           <p className='text-neutral-500'>Expert People</p>
-          <h2 className='text-4xl font-semibold'>Meet our Podcast Hosts</h2>
+          <h2 className='text-3xl lg:text-4xl font-semibold'>Meet our Podcast Hosts</h2>
         </div>
         <div className='max-w-screen-lg mx-auto'>
           <HostCarousel />
@@ -292,7 +293,7 @@ export default function page() {
                 </div>
               </div>
 
-              <h2 className='text-3xl font-semibold'>
+              <h2 className='text-2xl lg:text-3xl font-semibold'>
                 10 Must-Listen Podcasts For Comedy Fans
               </h2>
 
@@ -319,7 +320,7 @@ export default function page() {
                 </div>
               </div>
 
-              <h2 className='text-3xl font-semibold'>
+              <h2 className='text-2xl lg:text-3xl font-semibold'>
                 Clever ways to get your podcast heard
               </h2>
 
