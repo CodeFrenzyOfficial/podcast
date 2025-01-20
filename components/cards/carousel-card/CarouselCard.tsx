@@ -10,7 +10,7 @@ export default function CarouselCard({ episodeDetail, imgSrc, title }: CarouselD
                        {title}
                     </h2>
                     <p className="text-neutral-400 select-none">{episodeDetail}</p>
-                    <EpisodeButton content="Check Episode" link="/" contentClassName="text-xs md:text-base" className="px-2 md:px-5" />
+                    <EpisodeButton content="Check Episode" link="/podcasts" contentClassName="text-xs md:text-base" className="px-2 md:px-5" />
                 </div>
             </div>
 

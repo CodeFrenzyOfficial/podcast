@@ -1,24 +1,24 @@
+import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
+
 import EpisodeButton from '@/components/buttons/social-icons/episode-cards-button/EpisodeButton'
 import SocialIcon from '@/components/buttons/social-icons/SocialIcon'
 import HomeCarousel from '@/components/carousels/home-carousel/HomeCarousel'
 import HostCarousel from '@/components/carousels/hosts-carousel/HostCarousel'
 import AllPodcasts from '@/components/sections/all-podcasts/AllPodcasts'
 import Newsletter from '@/components/sections/newsletter/Newsletter'
-import { episodesData } from '@/data/episodes/data'
-import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
-import { BiPodcast } from 'react-icons/bi'
-import { FaSoundcloud, FaSpotify } from 'react-icons/fa'
+
 import { FaComments, FaPlay, FaUser } from 'react-icons/fa6'
 import { GiMoebiusStar } from 'react-icons/gi'
+import { FaApple, FaSoundcloud, FaSpotify } from 'react-icons/fa'
 import { ImPodcast } from 'react-icons/im'
+import { IoLogoAmazon } from "react-icons/io5";
 
 export default function page() {
   return (
     <NavFooterWrapper>
-      {/* hero section */}
-      <section className='w-full min-h-[80vh] md:min-h-screen main-hero-section flex flex-col-reverse md:flex-row items-center justify-center gap-8 px-7 md:py-0 lg:px-28 xl:pl-40 xl:pr-20 overflow-hidden'>
+      {/* Hero section */}
+      <section className='w-full min-h-[80vh] md:min-h-screen main-hero-section flex flex-col-reverse md:flex-row items-center justify-center gap-8 px-7 md:py-0 lg:px-10 xl:pl-40 xl:pr-20 overflow-hidden'>
         <div className='w-full md:w-1/2 text-center md:!text-left space-y-4 text-white rounded-2xl backdrop-blur-lg p-4 shadow-xl'>
-
           <p className='tracking-widest text-2xl lg:pt-10'>Let’s Start Now</p>
 
           <h2 className='w-full text-4xl md:text-5xl lg:text-6xl font-bold'>
@@ -29,20 +29,21 @@ export default function page() {
             <p>
               Available on Apple Soundcast and spotify
             </p>
-
             <img src="/assets/svgs/1.svg" alt="" className='hidden lg:block' />
           </div>
+
           {/* buttons */}
           <div className='lg:relative -top-20 space-y-4'>
-
-            <hr className='w-full lg:w-2/3 h-px bg-neutral-300' />
+            <hr className='w-full lg:w-2/3 h-px bg-neutral-300 space-y-3' />
             <div className='flex justify-center items-center md:justify-start gap-3 '>
               <SocialIcon title='Soundcloud' icon={<FaSoundcloud className='text-xl' />} link='https://soundcloud.com' />
               <SocialIcon title='Spotify' icon={<FaSpotify className='text-xl' />} link='https://soundcloud.com' />
-
+            </div>
+            <div className='flex justify-center items-center md:justify-start gap-3 '>
+              <SocialIcon className='bg-white text-black hover:text-white' title='Apple Podcast' icon={<FaApple className='text-xl' />} link='https://soundcloud.com' />
+              <SocialIcon className='bg-white text-black hover:text-white' title='Amazon' icon={<IoLogoAmazon className='text-xl' />} link='https://soundcloud.com' />
             </div>
           </div>
-
         </div>
 
         {/* Headphone image */}
@@ -157,7 +158,7 @@ export default function page() {
               </div>
 
               {/* episodes details #3 */}
-              
+
               <div className='flex items-start gap-3'>
                 {/* play icon */}
                 <div className='rounded-full bg-blue-600 text-white p-3'>
@@ -336,7 +337,6 @@ export default function page() {
 
       {/* NewsLetter Section */}
       <Newsletter />
-
     </NavFooterWrapper>
   )
 }
