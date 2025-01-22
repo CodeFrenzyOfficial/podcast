@@ -10,7 +10,7 @@ export const signupSchema = yup.object().shape({
         "Invalid phone number",
         (value) => isValidPhoneNumber(value || "")
     ),
-    role: yup.string().email().required("Role is required"),
+    role: yup.string().required("Role is required"),
     password: yup.string().required('Password is required'),
     passwordConfirmation: yup.string()
         .oneOf([yup.ref('password')], 'Passwords must match').required('Password confirmation is required'),

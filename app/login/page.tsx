@@ -35,8 +35,27 @@ export default function Login() {
     }
   })
 
-  const onSubmit = (formData: FormDataType) => {
-    console.log(formData)
+  const onSubmit = async (formData: FormDataType) => {
+    try {
+      const response = await fetch("http://localhost:8000/auth/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json(); 
+
+      if (response.ok) {
+        console.log("User login successfully:", result);
+        window.location.href = '/';
+      } else {
+        console.error("Error during registration:", result);
+      }
+    } catch (error) {
+      console.error("Error during API request:", error);
+    }
   }
 
   return (

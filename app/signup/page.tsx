@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { useForm } from "react-hook-form"
-import { yupResolver } from '@hookform/resolvers/yup'
-import { signupSchema } from "@/schemas/signup/schema"
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signupSchema } from "@/schemas/signup/schema";
 
 import {
   Form,
@@ -11,23 +11,31 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
-import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton"
-import Logo from "@/components/svgs/Logo"
-import Link from "next/link"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton";
+import Logo from "@/components/svgs/Logo";
+import Link from "next/link";
 // import { BiPodcast } from "react-icons/bi"
-import { PhoneInput } from "@/components/ui/phone-input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { PhoneInput } from "@/components/ui/phone-input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
+// import { useRouter } from 'next/router';
 
 interface FormDataType {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
 export default function Signup() {
+  // const router = useRouter();
   const form = useForm({
     resolver: yupResolver(signupSchema),
     defaultValues: {
@@ -38,19 +46,39 @@ export default function Signup() {
       role: "",
       password: "",
       passwordConfirmation: "",
-    }
-  })
+    },
+  });
 
-  const onSubmit = (formData: FormDataType) => {
-    console.log(formData)
-  }
+  const onSubmit = async (formData: FormDataType) => {
+    try {
+      const response = await fetch("http://localhost:8000/auth/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json(); 
+
+      if (response.ok) {
+        console.log("User registered successfully:", result);
+        window.location.href = '/login';
+      } else {
+        console.error("Error during registration:", result);
+      }
+    } catch (error) {
+      console.error("Error during API request:", error);
+    }
+  };
 
   return (
     <section className="grid overflow-hidden relative place-items-center signup-bg px-5 py-10 md:px-10">
       <div className="max-w-screen-sm mx-auto px-4 py-8 border border-px border-solid border-neutral-200 rounded-2xl space-y-10 md:space-y-4 bg-white shadow-xl shadow-black/30">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-            <h2 className="w-full text-center text-3xl font-semibold">Signup to
+            <h2 className="w-full text-center text-3xl font-semibold">
+              Signup to
               <span className="text-blue-500"> Go</span>
               <span className="text-yellow-400">Win</span>
               <span className="text-blue-500">Out</span>
@@ -63,7 +91,11 @@ export default function Signup() {
                 <FormItem>
                   <FormLabel>First Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your first name" className="" {...field} />
+                    <Input
+                      placeholder="Your first name"
+                      className=""
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -78,7 +110,11 @@ export default function Signup() {
                 <FormItem>
                   <FormLabel>Your Last name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your last name" className="" {...field} />
+                    <Input
+                      placeholder="Your last name"
+                      className=""
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,7 +142,7 @@ export default function Signup() {
                 <FormItem>
                   <FormLabel>Your Number</FormLabel>
                   <FormControl>
-                    <PhoneInput placeholder='+1 (555) 123-4567' {...field} />
+                    <PhoneInput placeholder="+1 (555) 123-4567" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -120,8 +156,10 @@ export default function Signup() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Select your role</FormLabel>
-                  <Select onValueChange={field.onChange}
-                    defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger className="outline-none ring-0">
                         <SelectValue placeholder="Select one option" />
@@ -129,10 +167,16 @@ export default function Signup() {
                     </FormControl>
                     <SelectContent className="outline-none ring-0">
                       <SelectItem value="dj">DJ</SelectItem>
-                      <SelectItem value="prmoter/host">Promoter/Host</SelectItem>
-                      <SelectItem value="service worker">Service Worker</SelectItem>
+                      <SelectItem value="prmoter/host">
+                        Promoter/Host
+                      </SelectItem>
+                      <SelectItem value="service worker">
+                        Service Worker
+                      </SelectItem>
                       <SelectItem value="venue owner">Venue Owner</SelectItem>
-                      <SelectItem value="regular patron">Regular Patron (Party Goer)</SelectItem>
+                      <SelectItem value="regular patron">
+                        Regular Patron (Party Goer)
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -148,7 +192,11 @@ export default function Signup() {
                 <FormItem>
                   <FormLabel>Your password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your password" className="" {...field} />
+                    <Input
+                      placeholder="Your password"
+                      className=""
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -163,7 +211,11 @@ export default function Signup() {
                 <FormItem>
                   <FormLabel>Confirm your password</FormLabel>
                   <FormControl>
-                    <Input placeholder="confirm your password" className="" {...field} />
+                    <Input
+                      placeholder="confirm your password"
+                      className=""
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -171,10 +223,15 @@ export default function Signup() {
             />
 
             <div className="flex justify-end">
-              <Link href={'/forgot-password'} className="underline text-sm">Forgot Password ?</Link>
+              <Link href={"/forgot-password"} className="underline text-sm">
+                Forgot Password ?
+              </Link>
             </div>
 
-            <button type="submit" className='w-full text-center py-2 px-8 flex justify-center items-center gap-2 rounded-full bg-blue-700 text-white relative overflow-hidden group/card-btn'>
+            <button
+              type="submit"
+              className="w-full text-center py-2 px-8 flex justify-center items-center gap-2 rounded-full bg-blue-700 text-white relative overflow-hidden group/card-btn"
+            >
               <h2 className={cn("z-10")}>{"Signup"}</h2>
 
               {/* before container on hover */}
@@ -192,12 +249,17 @@ export default function Signup() {
             </div>
           </div>
 
-          <EpisodeButton link='/login' content="Login" className="w-full bg-black hover:opacity-70" />
+          <EpisodeButton
+            link="/login"
+            content="Login"
+            className="w-full bg-black hover:opacity-70"
+          />
         </div>
         <div className="grid place-items-center">
           <p className="w-2/3 text-center text-sm">
-            By clicking continue, you agree to our <span className="underline cursor-pointer"> Terms of Service</span> and <span className="underline cursor-pointer">
-              Privacy Policy</span>
+            By clicking continue, you agree to our{" "}
+            <span className="underline cursor-pointer"> Terms of Service</span>{" "}
+            and <span className="underline cursor-pointer">Privacy Policy</span>
           </p>
         </div>
       </div>
@@ -206,5 +268,5 @@ export default function Signup() {
         <Logo width={120} height={120} />
       </div>
     </section>
-  )
+  );
 }
