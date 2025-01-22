@@ -30,8 +30,13 @@ import {
 // import { useRouter } from 'next/router';
 
 interface FormDataType {
+  f_name: string;
+  l_name: string;
   email: string;
+  phone?: string | undefined;
+  role: string;
   password: string;
+  passwordConfirmation: string;
 }
 
 export default function Signup() {

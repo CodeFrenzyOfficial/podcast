@@ -1,24 +1,24 @@
+import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
+
 import EpisodeButton from '@/components/buttons/social-icons/episode-cards-button/EpisodeButton'
 import SocialIcon from '@/components/buttons/social-icons/SocialIcon'
 import HomeCarousel from '@/components/carousels/home-carousel/HomeCarousel'
 import HostCarousel from '@/components/carousels/hosts-carousel/HostCarousel'
 import AllPodcasts from '@/components/sections/all-podcasts/AllPodcasts'
 import Newsletter from '@/components/sections/newsletter/Newsletter'
-import { episodesData } from '@/data/episodes/data'
-import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
-import { BiPodcast } from 'react-icons/bi'
-import { FaSoundcloud, FaSpotify } from 'react-icons/fa'
+
 import { FaComments, FaPlay, FaUser } from 'react-icons/fa6'
 import { GiMoebiusStar } from 'react-icons/gi'
+import { FaApple, FaSoundcloud, FaSpotify } from 'react-icons/fa'
 import { ImPodcast } from 'react-icons/im'
+import { IoLogoAmazon } from "react-icons/io5";
 
 export default function page() {
   return (
     <NavFooterWrapper>
-      {/* hero section */}
-      <section className='w-full min-h-[80vh] md:min-h-screen main-hero-section flex flex-col-reverse md:flex-row items-center justify-center gap-8 px-7 md:py-0 lg:px-28 xl:pl-40 xl:pr-20 overflow-hidden'>
+      {/* Hero section */}
+      <section className='w-full min-h-[80vh] md:min-h-screen main-hero-section flex flex-col-reverse md:flex-row items-center justify-center gap-8 px-7 md:py-0 lg:px-10 xl:pl-40 xl:pr-20 overflow-hidden'>
         <div className='w-full md:w-1/2 text-center md:!text-left space-y-4 text-white rounded-2xl backdrop-blur-lg p-4 shadow-xl'>
-
           <p className='tracking-widest text-2xl lg:pt-10'>Let’s Start Now</p>
 
           <h2 className='w-full text-4xl md:text-5xl lg:text-6xl font-bold'>
@@ -29,20 +29,21 @@ export default function page() {
             <p>
               Available on Apple Soundcast and spotify
             </p>
-
             <img src="/assets/svgs/1.svg" alt="" className='hidden lg:block' />
           </div>
+
           {/* buttons */}
           <div className='lg:relative -top-20 space-y-4'>
-
-            <hr className='w-full lg:w-2/3 h-px bg-neutral-300' />
+            <hr className='w-full lg:w-2/3 h-px bg-neutral-300 space-y-3' />
             <div className='flex justify-center items-center md:justify-start gap-3 '>
               <SocialIcon title='Soundcloud' icon={<FaSoundcloud className='text-xl' />} link='https://soundcloud.com' />
               <SocialIcon title='Spotify' icon={<FaSpotify className='text-xl' />} link='https://soundcloud.com' />
-
+            </div>
+            <div className='flex justify-center items-center md:justify-start gap-3 '>
+              <SocialIcon className='bg-white text-black hover:text-white' title='Apple Podcast' icon={<FaApple className='text-xl' />} link='https://soundcloud.com' />
+              <SocialIcon className='bg-white text-black hover:text-white' title='Amazon' icon={<IoLogoAmazon className='text-xl' />} link='https://soundcloud.com' />
             </div>
           </div>
-
         </div>
 
         {/* Headphone image */}
@@ -67,8 +68,8 @@ export default function page() {
               <img src="/assets/hero-sections-bg/episodes-card-1.jpg" className='group-hover/card:scale-125 group-hover/card:rotate-12 transition-all duration-300  group-hover/card:blur-md' alt="" />
             </div>
 
-            <div className='w-[90%] space-y-4'>
-              <h2 className='capitalize text-2xl font-medium'>
+            <div className='md:w-[90%] space-y-4'>
+              <h2 className='capitalize text-lg leading-tight lg:text-2xl font-medium'>
                 The World Of technology that connect us
               </h2>
 
@@ -80,8 +81,8 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
@@ -93,8 +94,8 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
@@ -106,8 +107,8 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
@@ -126,8 +127,8 @@ export default function page() {
             </div>
 
             <div className='w-[90%] space-y-4'>
-              <h2 className='capitalize text-2xl font-medium'>
-                Have you picked the right polaroid camera ?
+              <h2 className='capitalize text-lg leading-tight lg:text-2xl font-medium'>
+                The World Of technology that connect us
               </h2>
 
               {/* episodes details #1 */}
@@ -138,8 +139,8 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
@@ -151,12 +152,13 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
               {/* episodes details #3 */}
+
               <div className='flex items-start gap-3'>
                 {/* play icon */}
                 <div className='rounded-full bg-blue-600 text-white p-3'>
@@ -164,8 +166,8 @@ export default function page() {
                 </div>
 
                 <div className=''>
-                  <p className='text-neutral-500'>Episode #8 - Classic</p>
-                  <h2 className='text-xl font-semibold'>The most remarkable style plans for you</h2>
+                  <p className='text-sm md:text-base text-neutral-500'>Episode #8 - Classic</p>
+                  <h2 className='text-base md:text-xl font-semibold'>The most remarkable style plans for you</h2>
                 </div>
               </div>
 
@@ -178,8 +180,8 @@ export default function page() {
       </section>
 
       {/* Slider Section */}
-      <section className='slider-section-bg min-h-screen w-full overflow-x-hidden grid place-items-center py-10'>
-        <div className='grid place-items-center space-y-2'>
+      <section className='slider-section-bg lg:min-h-[90vh] w-full overflow-x-hidden  py-10'>
+        <div className='w-full grid place-items-center space-y-2 mb-10'>
           <h2 className='text-4xl font-semibold'>Enjoy New Shows</h2>
           <p className='text-neutral-500'>Explore All Episodes</p>
         </div>
@@ -194,7 +196,7 @@ export default function page() {
               Streaming Applications
             </p>
           </div>
-          <h2 className='text-3xl font-semibold'>
+          <h2 className='text-2xl md:text-3xl font-semibold'>
             Support and stand by listening to our most recent show on apple Podcast
           </h2>
           <EpisodeButton link='/' content='View All Episodes' />
@@ -249,10 +251,10 @@ export default function page() {
       </section>
 
       {/* Hosts Carousel */}
-      <section className='py-10 w-full min-h-screen host-bg space-y-5'>
+      <section className='py-10 w-full min-h-[60vh] lg:min-h-[90vh] host-bg space-y-5'>
         <div className='grid place-items-center space-y-2 text-center'>
           <p className='text-neutral-500'>Expert People</p>
-          <h2 className='text-4xl font-semibold'>Meet our Podcast Hosts</h2>
+          <h2 className='text-3xl lg:text-4xl font-semibold'>Meet our Podcast Hosts</h2>
         </div>
         <div className='max-w-screen-lg mx-auto'>
           <HostCarousel />
@@ -292,7 +294,7 @@ export default function page() {
                 </div>
               </div>
 
-              <h2 className='text-3xl font-semibold'>
+              <h2 className='text-2xl lg:text-3xl font-semibold'>
                 10 Must-Listen Podcasts For Comedy Fans
               </h2>
 
@@ -319,7 +321,7 @@ export default function page() {
                 </div>
               </div>
 
-              <h2 className='text-3xl font-semibold'>
+              <h2 className='text-2xl lg:text-3xl font-semibold'>
                 Clever ways to get your podcast heard
               </h2>
 
@@ -335,7 +337,6 @@ export default function page() {
 
       {/* NewsLetter Section */}
       <Newsletter />
-
     </NavFooterWrapper>
   )
 }

@@ -34,6 +34,14 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
@@ -61,6 +69,14 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -89,6 +105,7 @@ body {
 .streaming-section-bg {
   background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../public/assets/hero-sections-bg/mic-1.jpg");
   background-size: cover;
+  background-position: top left;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -118,7 +135,8 @@ body {
 .about-hero-bg {
   background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../public/assets/hero-sections-bg/about-hero-bg-4.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: top center;
+  background-attachment: fixed;
 }
 
 
@@ -168,4 +186,81 @@ body {
   background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../public/assets/hero-sections-bg/contact-bg.jpg');
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
+}
+
+.podcast-hero-bg {
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../public/assets/hero-sections-bg/podcast-bg.jpg');
+  background-size: cover;
+  /* background-position-y: -10rem; */
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.custom-animate-spin {
+  animation: customSpin infinite 3s linear;
+
+}
+
+@keyframes customSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Upload Podcast Page  */
+.upload-podcast-skeleton::after {
+  position: absolute;
+  top: 0;
+  left: -10%;
+  content: "";
+  width: 2px;
+  height: 100%;
+  background: #474747ac;
+  z-index: 10;
+  animation: moveToRight 6s ease-in-out infinite;
+}
+
+@keyframes moveToRight {
+  0% {
+    left: -10%;
+  }
+
+  33.33% {
+    left: 100%;
+    /* End of the movement phase */
+  }
+
+  100% {
+    left: 100%;
+    /* Pauses for the remaining 66.67% of the cycle */
+  }
+}
+
+
+/* User profile page */
+.user-profile-bg {
+  background-image: url('../public/assets/background/1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 500px) {
+  .about-hero-bg {
+    background-position-x: -35rem;
+  }
+
+  /* about streaming section */
+  .about-section-bg {
+    background-position: center;
+  }
+
+  .podcast-hero-bg {
+    background-attachment: local;
+    background-position: center;
+  }
 }

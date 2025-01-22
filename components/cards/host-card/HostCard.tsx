@@ -2,7 +2,7 @@ import { HostDataType } from "@/data/hosts/data";
 
 export default function HostCard({ imgSrc, name, position }: HostDataType) {
     return (
-        <div className="space-y-5 pb-5 rounded-xl bg-white overflow-hidden">
+        <div className="space-y-5 pb-5 rounded-xl bg-white overflow-hidden select-none">
             <div>
                 <img src={imgSrc} alt="" />
             </div>

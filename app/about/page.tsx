@@ -44,7 +44,7 @@ export default function page() {
                                 <FaMicrophoneAlt className="text-yellow-400 text-xl" />
                                 <p>we make your playlist easyer</p>
                             </div>
-                            <h2 className="text-4xl font-medium">The Best Place to Listen to Your Favorite Song</h2>
+                            <h2 className="text-3xl !leading-tight lg:text-4xl font-medium">The Best Place to Listen to Your Favorite Song</h2>
                         </div>
 
                         <div className="space-y-2">
@@ -71,7 +71,7 @@ export default function page() {
             </section>
 
             {/* Popular Podcast Channels */}
-            <section className="bg-black grid place-items-center min-h-[50vh] py-10 space-y-10">
+            <section className="bg-black grid place-items-center min-h-[50vh] px-10 lg:px-0 py-10 space-y-10">
                 <div className="grid place-items-center space-y-2 text-center text-white">
                     <div className="space-y-2 grid place-items-center">
                         <MdVideoLibrary className="text-xl" />
@@ -111,7 +111,7 @@ export default function page() {
 
             {/* Streaming Application */}
             <section className='w-full min-h-[70vh] about-section-bg grid place-items-center'>
-                <div className='w-2/3 lg:w-1/2 text-center space-y-5 text-white grid place-items-center'>
+                <div className='w-[90%] lg:w-1/2 text-center space-y-5 text-white grid place-items-center'>
                     <div className="space-y-1 grid place-items-center">
                         <ImPodcast className='text-3xl' />
                         <div className='flex items-center gap-2'>

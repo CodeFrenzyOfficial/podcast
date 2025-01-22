@@ -40,16 +40,16 @@ export default function HomeCarousel() {
     }, [emblaApi]);
 
     return (
-        <>
+        <div className="overflow-hidden">
             <Carousel plugins={[
                 Autoplay({
                     delay: 2000,
                 }),
             ]} className="w-full" setApi={setEmblaApi}>
 
-                <CarouselContent className="ml-[3px] !space-x-8 !m-0">
+                <CarouselContent className="!ml-3 md:ml-[3px] !space-x-8">
                     {carouselData?.map((episode, index) => (
-                        <CarouselItem className="md:shadow-xl p-0 basis-full md:basis-1/2 xl:basis-1/3 rounded-3xl !mt-5 !mb-10" key={index}>
+                        <CarouselItem className="md:shadow-xl p-0 basis-[90%] md:basis-1/2 xl:basis-1/3 rounded-3xl !mt-0 md:mt-5 !mb-0 md:!mb-10 grid place-items-center" key={index}>
                             <CarouselCard {...episode} />
                         </CarouselItem>
                     ))}
@@ -58,6 +58,6 @@ export default function HomeCarousel() {
                 <CarouselPrevious variant={"default"} className="hidden lg:inline-flex bg-white disabled:bg-white/20" />
                 <CarouselNext variant={"default"} className="hidden lg:inline-flex bg-white disabled:bg-white/20" />
             </Carousel>
-        </>
+        </div>
     );
 }
