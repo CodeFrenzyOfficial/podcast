@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import UploadPodcast from "@/components/@dashboard/admin/upload-podcast/UploadPodcast";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,8 +34,29 @@ export default function Page() {
     },
   });
 
-  const onSubmit = (formData: UploadFormType) => {
-    console.log("Form Data Submitted:", formData);
+  const onSubmit = async (formData: UploadFormType) => {
+    try {
+      const form_data = new FormData()
+      form_data.append('title', formData.title);
+      form_data.append('desc', formData.description);
+      form_data.append('image', formData.thumbnail);
+      
+      const response = await fetch("http://localhost:8000/blog/", {
+        method: "POST",
+        body: form_data,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        console.log("Blog created successfully:", result);
+        window.location.href = "/dashboard/user";
+      } else {
+        console.error("Error during registration:", result);
+      }
+    } catch (error) {
+      console.error("Error during API request:", error);
+    }
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,15 +75,16 @@ export default function Page() {
           Upload your blogs effortlessly!
         </p>
       </div>
-      <div
-        className="max-w-screen-lg mx-auto min-h-[50vh] rounded-2xl shadow-lg shadow-neutral-400/30 bg-gradient-to-tl from-neutral-400/70 to-neutral-100/10 p-5"
-      >
+      <div className="max-w-screen-lg mx-auto min-h-[50vh] rounded-2xl shadow-lg shadow-neutral-400/30 bg-gradient-to-tl from-neutral-400/70 to-neutral-100/10 p-5">
         <UploadPodcast />
         <div className="flex flex-col-reverse lg:flex-row justify-around items-center gap-3">
           <div className="w-full lg:w-2/3 space-y-2 mt-5">
             <div className="grid place-items-start">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="lg:w-2/3 space-y-3">
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="lg:w-2/3 space-y-3"
+                >
                   <FormField
                     control={form.control}
                     name="thumbnail"
@@ -83,7 +105,6 @@ export default function Page() {
                       </FormItem>
                     )}
                   />
-
 
                   <FormField
                     control={form.control}
@@ -119,7 +140,6 @@ export default function Page() {
                 </form>
               </Form>
             </div>
-
           </div>
 
           {thumbnailPreview ? (

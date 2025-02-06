@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { useForm } from "react-hook-form"
-import { yupResolver } from '@hookform/resolvers/yup'
-import { loginSchema } from "@/schemas/login/schema"
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "@/schemas/login/schema";
 
 import {
   Form,
@@ -11,28 +11,30 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
-import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton"
-import Logo from "@/components/svgs/Logo"
-import Link from "next/link"
-import { BiPodcast } from "react-icons/bi"
-
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton";
+import Logo from "@/components/svgs/Logo";
+import Link from "next/link";
+import { BiPodcast } from "react-icons/bi";
+import { useRouter } from "next/router";
 
 interface FormDataType {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
 export default function Login() {
+  const router = useRouter();
+
   const form = useForm({
     resolver: yupResolver(loginSchema),
     defaultValues: {
       email: "",
-      password: ""
-    }
-  })
+      password: "",
+    },
+  });
 
   const onSubmit = async (formData: FormDataType) => {
     try {
@@ -44,26 +46,28 @@ export default function Login() {
         body: JSON.stringify(formData),
       });
 
-      const result = await response.json(); 
+      const result = await response.json();
 
       if (response.ok) {
         console.log("User login successfully:", result);
-        window.location.href = '/';
+        router.push("/dashboard/user");
       } else {
         console.error("Error during registration:", result);
       }
     } catch (error) {
       console.error("Error during API request:", error);
     }
-  }
+  };
 
   return (
     <section className="flex flex-col md:flex-row justify-center md:justify-normal items-center md:items-start h-screen overflow-hidden relative">
       <div className="hidden md:grid md:w-1/2 login-bg h-screen place-items-center relative">
         <div className="w-[90%] grid place-items-center space-y-1 px-10 text-white text-center">
-          <BiPodcast className='text-4xl' />
+          <BiPodcast className="text-4xl" />
           <h2 className="text-4xl font-bold ">Explore Unlimited Podcasts</h2>
-          <p className="text-2xl">From trending topics to niche discussions, we have it all.</p>
+          <p className="text-2xl">
+            From trending topics to niche discussions, we have it all.
+          </p>
         </div>
 
         <div className="absolute top-5 left-10">
@@ -75,7 +79,9 @@ export default function Login() {
         <div className="w-full xl:w-2/3 mx-auto px-4 py-8 border border-px border-solid border-neutral-200 rounded-2xl space-y-10 md:space-y-4 bg-white shadow-xl shadow-black/30">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-              <h2 className="w-full text-center text-3xl font-semibold">Login to your Account</h2>
+              <h2 className="w-full text-center text-3xl font-semibold">
+                Login to your Account
+              </h2>
               {/* Email */}
               <FormField
                 control={form.control}
@@ -84,7 +90,11 @@ export default function Login() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Your e-mail" className="" {...field} />
+                      <Input
+                        placeholder="Your e-mail"
+                        className=""
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -99,7 +109,12 @@ export default function Login() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Your password" type="password" className="" {...field} />
+                      <Input
+                        placeholder="Your password"
+                        type="password"
+                        className=""
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -107,10 +122,15 @@ export default function Login() {
               />
 
               <div className="flex justify-end">
-                <Link href={'/forgot-password'} className="underline text-sm">Forgot Password ?</Link>
+                <Link href={"/forgot-password"} className="underline text-sm">
+                  Forgot Password ?
+                </Link>
               </div>
 
-              <button type="submit" className='w-full text-center py-2 px-8 flex justify-center items-center gap-2 rounded-full bg-blue-700 text-white relative overflow-hidden group/card-btn'>
+              <button
+                type="submit"
+                className="w-full text-center py-2 px-8 flex justify-center items-center gap-2 rounded-full bg-blue-700 text-white relative overflow-hidden group/card-btn"
+              >
                 <h2 className={cn("z-10")}>{"Login"}</h2>
 
                 {/* before container on hover */}
@@ -128,12 +148,21 @@ export default function Login() {
               </div>
             </div>
 
-            <EpisodeButton link='/signup' content="Signup" className="w-full bg-black hover:opacity-70" />
+            <EpisodeButton
+              link="/signup"
+              content="Signup"
+              className="w-full bg-black hover:opacity-70"
+            />
           </div>
           <div className="grid place-items-center">
             <p className="w-2/3 text-center text-sm">
-              By clicking continue, you agree to our <span className="underline cursor-pointer"> Terms of Service</span> and <span className="underline cursor-pointer">
-                Privacy Policy</span>
+              By clicking continue, you agree to our{" "}
+              <span className="underline cursor-pointer">
+                {" "}
+                Terms of Service
+              </span>{" "}
+              and{" "}
+              <span className="underline cursor-pointer">Privacy Policy</span>
             </p>
           </div>
         </div>
@@ -141,10 +170,14 @@ export default function Login() {
 
       {/* Mobile Image */}
       <div className="md:hidden absolute top-0 left-0 w-full h-full z-0 bg-black/10">
-        <img src="/assets/hero-sections-bg/login-1.jpg" className="object-cover" alt="" />
+        <img
+          src="/assets/hero-sections-bg/login-1.jpg"
+          className="object-cover"
+          alt=""
+        />
       </div>
       {/* overlay */}
       <div className="md:hidden absolute top-0 left-0 w-full h-full z-10 bg-black/40" />
     </section>
-  )
+  );
 }

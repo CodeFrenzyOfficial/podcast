@@ -5,7 +5,7 @@ import PodcastEditSheet from "../../podcast-edit-sheet/PodcastEditSheet";
 import DeleteDialog from "../../dialog-box/delete-dialog/DeleteDialog";
 import { Button } from "@/components/ui/button";
 
-export default function PodcastCard({ title, desc, imgSrc, upload_date }: PodcastDataType) {
+export default function PodcastCard({ id, title, desc, imgSrc, upload_date }: PodcastDataType) {
     return (
         <div className="w-full lg:max-h-[26rem] h-full rounded-lg bg-neutral-100 shadow-xl space-y-4">
             {/* podcast thumbnail */}
@@ -22,17 +22,17 @@ export default function PodcastCard({ title, desc, imgSrc, upload_date }: Podcas
                     {/* Date Posted */}
                     <div className="flex items-center gap-1">
                         <MdOutlineAccessTimeFilled />
-                        <p className="text-sm text-neutral-500">{upload_date}</p>
+                        <p className="text-sm text-neutral-500">{new Date(upload_date).toISOString().split("T")[0]}</p>
                     </div>
 
                     {/* Edit & delete Button */}
                     <div className="flex items-center gap-8">
-                        <DeleteDialog>
+                        <DeleteDialog id={id}>
                             <div className="bg-red-500 text-white px-2 py-1 rounded-md text-sm transition-all duration-200 hover:bg-red-600 cursor-pointer">Delete</div>
                         </DeleteDialog>
 
                         {/* button */}
-                        <PodcastEditSheet>
+                        <PodcastEditSheet id={id}>
                             <div className="flex items-center">
                                 <div className="flex items-center relative transition-all duration-300 group">
                                     <p className="transition-all duration-300 z-20 relative left-0 group-hover:-left-5">
