@@ -18,7 +18,9 @@ import EpisodeButton from "@/components/buttons/social-icons/episode-cards-butto
 import Logo from "@/components/svgs/Logo";
 import Link from "next/link";
 import { BiPodcast } from "react-icons/bi";
-import { useRouter } from "next/router";
+import useAuthStore from "@/store/store";
+import { useRouter } from "next/navigation"; 
+import { FaSpinner } from "react-icons/fa6";
 
 interface FormDataType {
   email: string;
@@ -27,6 +29,7 @@ interface FormDataType {
 
 export default function Login() {
   const router = useRouter();
+  const { login, loading } = useAuthStore();
 
   const form = useForm({
     resolver: yupResolver(loginSchema),
@@ -37,26 +40,7 @@ export default function Login() {
   });
 
   const onSubmit = async (formData: FormDataType) => {
-    try {
-      const response = await fetch("http://localhost:8000/auth/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("User login successfully:", result);
-        router.push("/dashboard/user");
-      } else {
-        console.error("Error during registration:", result);
-      }
-    } catch (error) {
-      console.error("Error during API request:", error);
-    }
+    login(formData, router)
   };
 
   return (
@@ -131,7 +115,7 @@ export default function Login() {
                 type="submit"
                 className="w-full text-center py-2 px-8 flex justify-center items-center gap-2 rounded-full bg-blue-700 text-white relative overflow-hidden group/card-btn"
               >
-                <h2 className={cn("z-10")}>{"Login"}</h2>
+                <h2 className={cn("z-10")}>{ !loading ? "Login" : <FaSpinner className="animate-spin"/>}</h2>
 
                 {/* before container on hover */}
                 <div className="absolute top-0 left-0 w-full h-0 bg-black group-hover/card-btn:h-full transition-all duration-300 z-0" />

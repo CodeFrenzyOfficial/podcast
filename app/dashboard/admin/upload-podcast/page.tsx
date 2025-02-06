@@ -14,6 +14,9 @@ import { uploadPodcastSchema } from "@/schemas/dashboard/admin/upload/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import useAuthStore from "@/store/store";
+import usePodcastStore from "@/store/podcast";
+import { useRouter } from "next/navigation";
 
 interface UploadFormType {
   title: string;
@@ -23,6 +26,10 @@ interface UploadFormType {
 }
 
 export default function Page() {
+  const router = useRouter();
+  const { user } = useAuthStore();
+  const { create_podcast } = usePodcastStore();
+
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
 
   const form = useForm<UploadFormType>({
@@ -36,30 +43,7 @@ export default function Page() {
   });
 
   const onSubmit = async (formData: UploadFormType) => {
-    console.log("Form Data Submitted:", formData);
-    try {
-      const form_data = new FormData();
-      form_data.append("title", formData.title);
-      form_data.append("desc", formData.description);
-      form_data.append("image", formData.thumbnail);
-      form_data.append("video", formData.file);
-
-      const response = await fetch("http://localhost:8000/podcast/", {
-        method: "POST",
-        body: form_data,
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("Podcast created successfully:", result);
-        window.location.href = "/dashboard/admin";
-      } else {
-        console.error("Error during registration:", result);
-      }
-    } catch (error) {
-      console.error("Error during API request:", error);
-    }
+    create_podcast(formData, router, user?.uid);
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {

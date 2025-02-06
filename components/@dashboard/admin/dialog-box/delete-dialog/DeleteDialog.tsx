@@ -10,6 +10,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import usePodcastStore from "@/store/podcast";
+import useAuthStore from "@/store/store";
 
 export default function DeleteDialog({
   children,
@@ -18,25 +20,14 @@ export default function DeleteDialog({
   children: React.ReactNode;
   id: string;
 }) {
-  const delete_podcast = async (id: any) => {
-    try {
-      const response = await fetch(`http://localhost:8000/podcast/${id}/`, {
-        method: "DELETE",
-      });
 
-      const result = await response.json();
+  const { user } = useAuthStore()
+  const { delete_podcast, fetch_podcasts } = usePodcastStore();
 
-      if (response.ok) {
-        console.log("Podcast deleted successfully:", result);
-        window.location.href = "/dashboard/admin";
-      } else {
-        console.error("Error during registration:", result);
-      }
-    } catch (error) {
-      console.error("Error during API request:", error);
-    } finally {
-    }
-  };
+  const remove_podcast = async() => {
+    await delete_podcast(user.uid, id)
+    fetch_podcasts(user.uid);
+  }
   return (
     <Dialog>
       <DialogTrigger>{children}</DialogTrigger>
@@ -47,7 +38,7 @@ export default function DeleteDialog({
             This action cannot be undone. This will permanently delete your
             selected podcast and remove your data from our servers.
           </DialogDescription>
-          <Button className="bg-red-500 text-white" onClick={() => delete_podcast(id)}>Delete</Button>
+          <Button className="bg-red-500 text-white" onClick={() => remove_podcast()}>Delete</Button>
         </DialogHeader>
       </DialogContent>
     </Dialog>

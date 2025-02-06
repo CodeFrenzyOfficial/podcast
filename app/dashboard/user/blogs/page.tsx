@@ -15,6 +15,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { uploadBlogSchema } from "@/schemas/dashboard/user/upload/schema";
+import useBlogStore from "@/store/blog";
+import { useRouter } from "next/navigation";
 
 interface UploadFormType {
   title: string;
@@ -23,7 +25,10 @@ interface UploadFormType {
 }
 
 export default function Page() {
+  const router = useRouter();
+
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+  const { create_blog } = useBlogStore()
 
   const form = useForm<UploadFormType>({
     resolver: yupResolver(uploadBlogSchema),
@@ -35,28 +40,7 @@ export default function Page() {
   });
 
   const onSubmit = async (formData: UploadFormType) => {
-    try {
-      const form_data = new FormData()
-      form_data.append('title', formData.title);
-      form_data.append('desc', formData.description);
-      form_data.append('image', formData.thumbnail);
-      
-      const response = await fetch("http://localhost:8000/blog/", {
-        method: "POST",
-        body: form_data,
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("Blog created successfully:", result);
-        window.location.href = "/dashboard/user";
-      } else {
-        console.error("Error during registration:", result);
-      }
-    } catch (error) {
-      console.error("Error during API request:", error);
-    }
+    create_blog(formData, router)
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {

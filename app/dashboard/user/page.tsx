@@ -3,34 +3,16 @@
 import PodcastCard from "@/components/@dashboard/admin/cards/podcast-card/PodcastCard";
 import UserDashBlogCard from "@/components/@dashboard/user/cards/blog-card/BlogCard";
 import { podcastData, PodcastDataType } from "@/data/podcasts/data";
+import useBlogStore from "@/store/blog";
 import { useEffect, useState } from "react";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
 export default function Page() {
+  const { fetch_blogs } = useBlogStore();
   const [blogs, _blogs] = useState<PodcastDataType[]>([]);
 
-  const get_blogs = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/blog/", {
-        method: "GET",
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("Blogs fetched successfully:", result);
-        _blogs(result);
-      } else {
-        console.error("Error during registration:", result);
-      }
-    } catch (error) {
-      console.error("Error during API request:", error);
-    } finally {
-    }
-  };
-
   useEffect(() => {
-    get_blogs();
+    fetch_blogs();
   }, []);
 
   return (

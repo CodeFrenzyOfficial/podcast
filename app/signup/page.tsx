@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signupSchema } from "@/schemas/signup/schema";
-
+import { useRouter } from "next/navigation"; 
 import {
   Form,
   FormControl,
@@ -26,8 +26,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-// import { useRouter } from 'next/router';
+import useAuthStore from "@/store/store";
+import { FaSpinner } from "react-icons/fa6";
 
 interface FormDataType {
   f_name: string;
@@ -39,8 +39,10 @@ interface FormDataType {
   passwordConfirmation: string;
 }
 
-export default function Signup() {
-  // const router = useRouter();
+export const Signup = () => {
+  const router = useRouter();
+  const { register, loading } = useAuthStore();
+
   const form = useForm({
     resolver: yupResolver(signupSchema),
     defaultValues: {
@@ -55,26 +57,7 @@ export default function Signup() {
   });
 
   const onSubmit = async (formData: FormDataType) => {
-    try {
-      const response = await fetch("http://localhost:8000/auth/register/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json(); 
-
-      if (response.ok) {
-        console.log("User registered successfully:", result);
-        window.location.href = '/login';
-      } else {
-        console.error("Error during registration:", result);
-      }
-    } catch (error) {
-      console.error("Error during API request:", error);
-    }
+    register(formData, router)
   };
 
   return (
@@ -235,9 +218,10 @@ export default function Signup() {
 
             <button
               type="submit"
+              disabled={loading}
               className="w-full text-center py-2 px-8 flex justify-center items-center gap-2 rounded-full bg-blue-700 text-white relative overflow-hidden group/card-btn"
             >
-              <h2 className={cn("z-10")}>{"Signup"}</h2>
+              <h2 className={cn("z-10")}>{ !loading ? "Signup" : <FaSpinner className="animate-spin"/>}</h2>
 
               {/* before container on hover */}
               <div className="absolute top-0 left-0 w-full h-0 bg-black group-hover/card-btn:h-full transition-all duration-300 z-0" />
@@ -275,3 +259,6 @@ export default function Signup() {
     </section>
   );
 }
+
+
+export default Signup;

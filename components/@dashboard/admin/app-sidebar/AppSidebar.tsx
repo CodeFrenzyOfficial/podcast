@@ -14,8 +14,9 @@ import {
 import Logo from "../../../svgs/Logo"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import EpisodeButton from "../../../buttons/social-icons/episode-cards-button/EpisodeButton"
+import useAuthStore from "@/store/store"
 
 // Menu items.
 const items = [
@@ -37,7 +38,11 @@ const items = [
 ]
 
 export function AdminSidebar() {
+    const router = useRouter();
     const pathname = usePathname()
+    
+    const { logout } = useAuthStore();
+
     return (
         <Sidebar className="rounded-r-3xl shadow-lg">
             <SidebarContent>
@@ -62,7 +67,7 @@ export function AdminSidebar() {
                             ))}
                         </SidebarMenu>
                     </SidebarGroupContent>
-                    <div className="absolute bottom-10 left-3 w-full h-px bg-gradient-to-tr from-white via-white/50 to-transparent">
+                    <div onClick={() => logout(router)} className="absolute bottom-10 left-3 w-full h-px bg-gradient-to-tr from-white via-white/50 to-transparent">
                         <EpisodeButton className="w-2/3 bg-black/90 text-sm" link="/" content="Logout" />
                     </div>
                 </SidebarGroup>

@@ -2,35 +2,20 @@
 
 import PodcastCard from "@/components/@dashboard/admin/cards/podcast-card/PodcastCard";
 import { podcastData, PodcastDataType } from "@/data/podcasts/data";
+import usePodcastStore from "@/store/podcast";
 import { useEffect, useState } from "react";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
+import useAuthStore from "@/store/store";
 
 export default function page() {
-  const [podcasts, _podcasts] = useState<PodcastDataType[]>([]);
-
-  const get_podcasts = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/podcast/", {
-        method: "GET",
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("podcasts fetched successfully:", result);
-        _podcasts(result);
-      } else {
-        console.error("Error during registration:", result);
-      }
-    } catch (error) {
-      console.error("Error during API request:", error);
-    } finally {
-    }
-  };
+  const { user } = useAuthStore();
+  const { fetch_podcasts, podcasts } = usePodcastStore();
 
   useEffect(() => {
-    get_podcasts();
-  }, []);
+    if (user && user.uid) {
+      fetch_podcasts(user.uid);
+    }
+  }, [user]);
 
   return (
     <section className="px-10">
@@ -51,7 +36,7 @@ export default function page() {
 
           <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7 lg:gap-4">
             {podcasts.length > 0 ? (
-              podcasts.map((podcast, index) => (
+              podcasts.map((podcast: any, index: any) => (
                 <div key={index}>
                   <PodcastCard {...podcast} />
                 </div>

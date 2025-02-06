@@ -5,7 +5,7 @@ import PodcastEditSheet from "../../podcast-edit-sheet/PodcastEditSheet";
 import DeleteDialog from "../../dialog-box/delete-dialog/DeleteDialog";
 import { Button } from "@/components/ui/button";
 
-export default function PodcastCard({ id, title, desc, imgSrc, upload_date }: PodcastDataType) {
+export default function PodcastCard({ id, title, desc, imgSrc, videoSrc, upload_date }: PodcastDataType) {
     return (
         <div className="w-full lg:max-h-[26rem] h-full rounded-lg bg-neutral-100 shadow-xl space-y-4">
             {/* podcast thumbnail */}
@@ -32,7 +32,8 @@ export default function PodcastCard({ id, title, desc, imgSrc, upload_date }: Po
                         </DeleteDialog>
 
                         {/* button */}
-                        <PodcastEditSheet id={id}>
+                        <PodcastEditSheet podcast={
+                            { id: id, title: title, desc: desc, imgSrc: imgSrc, videoSrc: videoSrc, upload_date: upload_date }}>
                             <div className="flex items-center">
                                 <div className="flex items-center relative transition-all duration-300 group">
                                     <p className="transition-all duration-300 z-20 relative left-0 group-hover:-left-5">
@@ -47,6 +48,6 @@ export default function PodcastCard({ id, title, desc, imgSrc, upload_date }: Po
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
