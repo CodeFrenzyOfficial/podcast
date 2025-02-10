@@ -10,7 +10,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import ReactPlayer from 'react-player/lazy'
-export default function VideoPlayerDialog({ children }: { children: React.ReactNode }) {
+export default function VideoPlayerDialog({ children, videoSrc }: { children: React.ReactNode; videoSrc: any }) {
     return (
         <Dialog>
             <DialogTrigger className='w-full'>{children}</DialogTrigger>
@@ -18,8 +18,8 @@ export default function VideoPlayerDialog({ children }: { children: React.ReactN
                 <DialogHeader>
                     <DialogTitle>Episode #10</DialogTitle>
                 </DialogHeader>
-                <div className='w-full h-full lg:min-h-[70vh]'>
-                    <ReactPlayer url={'/assets/video/1.mp4'} controls={true} width={'100%'} height={'100%'} playing muted={true} />
+                <div className='w-full h-full max-h-[50vh] lg:min-h-[30vh]'>
+                    <ReactPlayer url={videoSrc} controls={true} width={'100%'} height={'100%'} playing muted={true} />
                 </div>
             </DialogContent>
         </Dialog>

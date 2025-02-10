@@ -35,7 +35,7 @@ export default function page() {
         <BlogList />
 
         {/* Pagination Controls */}
-        <div className='w-full flex justify-center items-center gap-2'>
+        {/* <div className='w-full flex justify-center items-center gap-2'>
           <div className='rounded-full w-10 h-10 grid place-items-center text-base shadow-lg shadow-black/50 cursor-pointer bg-black text-white opacity-50'>
             <FaArrowLeftLong />
           </div>
@@ -52,7 +52,7 @@ export default function page() {
             <FaArrowRightLong />
           </div>
 
-        </div>
+        </div> */}
       </section>
     </NavFooterWrapper>
   )

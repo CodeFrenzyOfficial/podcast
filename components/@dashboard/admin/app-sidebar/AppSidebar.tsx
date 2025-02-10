@@ -1,5 +1,5 @@
 'use client'
-import { Home, Inbox, Podcast } from "lucide-react"
+import { Home, Inbox, Podcast, GalleryHorizontal, Users } from "lucide-react"
 
 import {
     Sidebar,
@@ -26,9 +26,19 @@ const items = [
         icon: Home,
     },
     {
+        title: "Manage Users",
+        url: "/dashboard/admin/users",
+        icon: Users,
+    },
+    {
         title: "Podcasts",
         url: "/dashboard/admin/upload-podcast",
         icon: Podcast,
+    },
+    {
+        title: "Blogs",
+        url: "/dashboard/admin/upload-blog",
+        icon: GalleryHorizontal,
     },
     {
         title: "Inbox",

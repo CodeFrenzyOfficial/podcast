@@ -2,6 +2,7 @@ export interface CarouselDataType {
     imgSrc: string
     title: string
     episodeDetail: string
+    videoSrc: string
 }
 
 export const carouselData: CarouselDataType[] = [

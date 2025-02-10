@@ -11,7 +11,28 @@ const usePodcastStore = create(
 
                 setLoading: (loading: boolean) => set({ loading: loading }),
 
-                fetch_podcasts: async (uid: any) => {
+                fetch_podcasts: async () => {
+                    try {
+                        set({ loading: true });
+                        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/podcast/`, {
+                            method: "GET",
+                        });
+
+                        const result = await response.json();
+                        if (response.ok) {
+                            set({ podcasts: result })
+                        } else {
+                            console.error("Error :", result);
+                        }
+
+                    } catch (error) {
+                        console.log(error);
+                    } finally {
+                        set({ loading: false });
+                    }
+                },
+
+                fetch_user_podcasts: async (uid: any) => {
                     try {
                         set({ loading: true });
                         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/podcast/${uid}/`, {

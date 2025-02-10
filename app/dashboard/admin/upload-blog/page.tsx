@@ -10,7 +10,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { uploadPodcastSchema } from "@/schemas/dashboard/admin/upload/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -22,44 +21,36 @@ import useAuthStore from "@/store/store";
 interface UploadFormType {
   title: string;
   description: string;
-  thumbnail: File;
+  thumbnail: FileList;
 }
 
 export default function Page() {
-  const {user} = useAuthStore();
+  const { user } = useAuthStore();
   const router = useRouter();
 
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
-  const { create_blog } = useBlogStore()
+  const { create_admin_blog } = useBlogStore()
 
   const form = useForm<UploadFormType>({
     resolver: yupResolver(uploadBlogSchema),
     defaultValues: {
       title: "",
       description: "",
-      thumbnail: undefined as unknown as File, // Cast to File
+      thumbnail: undefined as unknown as FileList, // Cast to File
     },
   });
 
   const onSubmit = async (formData: UploadFormType) => {
-    create_blog(formData, router)
+    create_admin_blog(formData, user?.uid, router)
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setThumbnailPreview(URL.createObjectURL(file));
-      form.setValue("thumbnail", file, { shouldValidate: true });
+    const files = e.target.files;
+    if (files) {
+      setThumbnailPreview(URL.createObjectURL(files[0]));
+      form.setValue("thumbnail", files, { shouldValidate: true });
     }
   };
-
-  if(!user?.blog){
-    return (
-      <div className="w-full">
-        Request admin to allow permision to add blogs. 
-      </div>
-    )
-  }
 
   return (
     <section className="px-5 md:px-10">
@@ -91,8 +82,9 @@ export default function Page() {
                             accept="image/*"
                             onChange={(e) => {
                               handleThumbnailChange(e);
-                              field.onChange(e.target.files?.[0] || null);
+                              field.onChange(e.target.files || null);
                             }}
+                            multiple={true}
                           />
                         </FormControl>
                         <FormMessage />
@@ -107,7 +99,7 @@ export default function Page() {
                       <FormItem>
                         <FormLabel>Title</FormLabel>
                         <FormControl>
-                          <Input placeholder="Podcast Title" {...field} />
+                          <Input placeholder="Blog Title" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

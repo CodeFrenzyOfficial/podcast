@@ -9,7 +9,7 @@ export default function PodcastCard({ id, title, desc, imgSrc, videoSrc, upload_
     return (
         <div className="w-full lg:max-h-[26rem] h-full rounded-lg bg-neutral-100 shadow-xl space-y-4">
             {/* podcast thumbnail */}
-            <img src={imgSrc} className="w-full h-52 object-cover rounded-lg" alt="" />
+            <img src={imgSrc} className="w-full h-52 object-contain rounded-lg" alt="" />
 
             {/* content */}
             <div className="px-4 pb-4 space-y-4 flex flex-col justify-between">
