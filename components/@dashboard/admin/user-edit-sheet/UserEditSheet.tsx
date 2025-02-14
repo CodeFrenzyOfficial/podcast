@@ -53,7 +53,7 @@ export default function UserEditSheet({
   user: any;
 }) {
   const router = useRouter();
-  const { update_user, loading } = useUserStore();
+  const { fetch_users, update_user, loading } = useUserStore();
 
   const form = useForm<EditFormType>({
     defaultValues: {
@@ -68,8 +68,8 @@ export default function UserEditSheet({
   });
 
   const onSubmit = async (formData: EditFormType) => {
-    // await update_podcast(podcast?.id, user?.uid, formData, router);
-    // fetch_podcasts(user?.uid);
+    await update_user(formData, user?.uid, router);
+    fetch_users();
   };
 
   useEffect(() => {

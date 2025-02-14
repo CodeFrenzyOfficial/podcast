@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import useAuthStore from "@/store/store";
 import useBlogStore from "@/store/blog";
+import UserDashBlogCard from "@/components/@dashboard/user/cards/blog-card/BlogCard";
 
 export default function page() {
   const { user } = useAuthStore();
@@ -69,9 +70,9 @@ export default function page() {
           ))} */}
 
           {blogs?.length > 0 ? (
-            blogs?.map((podcast: any, index: any) => (
+            blogs?.map((blog: any, index: any) => (
               <div key={index}>
-                <PodcastCard {...podcast} />
+                <UserDashBlogCard {...blog} />
               </div>
             ))
           ) : (

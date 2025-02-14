@@ -1,19 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper';
 import { useParams } from 'next/navigation';
 import { blogData, BlogCardProps } from '@/data/blogs/data';
 import Link from 'next/link';
+import useBlogStore from '@/store/blog';
 
 export default function Page() {
     const { blog_name } = useParams();
+    const { blogs } = useBlogStore();
     const [blog, setBlog] = useState<BlogCardProps | null>(null);
 
     useEffect(() => {
         if (blog_name) {
             const decodedSlug = decodeURIComponent(blog_name.toString());
-            const foundBlog = blogData.find((blog) => blog.slug === decodedSlug) || null;
+            const foundBlog = blogs.find((blog: any) => blog.title === decodedSlug) || null;
+            console.log(foundBlog);
             setBlog(foundBlog);
         }
     }, [blog_name]);
@@ -27,14 +30,14 @@ export default function Page() {
                             <div className='w-full space-y-7'>
                                 <div className='w-full rounded-lg'>
                                     <img
-                                        src={blog.imgSrc}
+                                        src={blog.imgSrc[0]}
                                         alt={blog.title}
                                         className="lg:w-full h-96 object-cover rounded-lg shadow-xl shadow-black/30"
                                     />
                                 </div>
                                 <div className='space-y-2'>
                                     <h1 className="text-2xl font-bold">{blog.title}</h1>
-                                    <p className="text-base text-neutral-500">{blog.blogDesc}</p>
+                                    <p className="text-base text-neutral-500">{blog.desc}</p>
                                 </div>
                             </div>
                         ) : (
