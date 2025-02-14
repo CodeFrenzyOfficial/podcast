@@ -1,5 +1,5 @@
 'use client'
-import { Home, User2 } from "lucide-react"
+import { Home, Podcast, User2 } from "lucide-react"
 
 import {
     Sidebar,
@@ -32,6 +32,11 @@ const items = [
         icon: RiBloggerFill,
     },
     {
+        title: "Podcasts",
+        url: "/dashboard/user/podcast",
+        icon: Podcast,
+    },
+    {
         title: "Profile",
         url: "/dashboard/user/profile",
         icon: User2,
@@ -41,7 +46,7 @@ const items = [
 export function UserSidebar() {
     const router = useRouter();
     const pathname = usePathname()
-    
+
     const { logout } = useAuthStore();
     return (
         <Sidebar className="rounded-r-3xl shadow-lg">

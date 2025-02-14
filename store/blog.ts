@@ -57,7 +57,7 @@ const useBlogStore = create(
 
                 create_blog: async (payload: any, user_id: any, router: any) => {
                     console.log(payload, user_id);
-                    
+
                     try {
                         set({ loading: true });
 
@@ -66,7 +66,7 @@ const useBlogStore = create(
                         form_data.append('desc', payload.description);
 
                         Array.from(payload?.thumbnail)?.map((img: any, index: any) => {
-                            form_data.append(`image[${index}]`, img);
+                            form_data.append(`image`, img);
                         })
 
                         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog/${user_id}/`, {
@@ -91,8 +91,6 @@ const useBlogStore = create(
                 },
 
                 create_admin_blog: async (payload: any, user_id: any, router: any) => {
-                    console.log(payload, user_id);
-                    
                     try {
                         set({ loading: true });
 
@@ -101,7 +99,7 @@ const useBlogStore = create(
                         form_data.append('desc', payload.description);
 
                         Array.from(payload?.thumbnail)?.map((img: any, index: any) => {
-                            form_data.append(`image[${index}]`, img);
+                            form_data.append(`image`, img);
                         })
 
                         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog/${user_id}/`, {
@@ -124,6 +122,35 @@ const useBlogStore = create(
                         set({ loading: false });
                     }
                 },
+
+                update_blog: async (payload: any, user_id: any, router: any) => {
+                    try {
+                        set({ loading: true });
+
+                        const form_data = new FormData()
+                        form_data.append('title', payload.title);
+                        form_data.append('desc', payload.description);
+
+                        Array.from(payload?.thumbnail)?.map((img: any, index: any) => {
+                            form_data.append(`image`, img);
+                        })
+
+                        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog/${user_id}/`, {
+                            method: "PUT",
+                            body: form_data,
+                        });
+                    } catch (error) {
+                        console.log(error);
+                    } finally {
+                        set({ loading: false });
+                    }
+                },
+
+                delete_blog: async (user_uid: any, id: any) => {
+                    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog/${user_uid}/${id}/`, {
+                        method: "DELETE",
+                    })
+                }
             }),
             {
                 name: "useBlogStore",

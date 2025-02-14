@@ -1,0 +1,18 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "api-integration",
+    "feat/editor-add",
+    "main"
+  ],
+  "parent": {
+    "api-integration": "main",
+    "feat/editor-add": "main",
+    "main": null
+  },
+  "order": [
+    "main",
+    "api-integration",
+    "feat/editor-add"
+  ]
+}

@@ -3,6 +3,9 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import UserBlogDeleteDialog from "../../dialog-box/delete-dialog/UserBlogDeleteDialog";
 import BlogEditSheet from "../../blog-edit-sheet/BlogEditSheet";
+import useBlogStore from "@/store/blog";
+import { useRouter } from "next/navigation"
+import useAuthStore from "@/store/store";
 
 export default function UserDashBlogCard({
   id,
@@ -12,30 +15,19 @@ export default function UserDashBlogCard({
   upload_date,
   updated_at,
 }: PodcastDataType) {
-  const delete_blog = async (id: any) => {
-    try {
-      const response = await fetch(`http://localhost:8000/blog/${id}/`, {
-        method: "DELETE",
-      });
+  const router = useRouter();
+  const { user } = useAuthStore();
+  const { delete_blog, fetch_user_blogs } = useBlogStore();
 
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("Blogs deleted successfully:", result);
-        window.location.href = '/dashboard/user'
-      } else {
-        console.error("Error during registration:", result);
-      }
-    } catch (error) {
-      console.error("Error during API request:", error);
-    } finally {
-    }
-  };
+  const remove_blog = async() => {
+    await delete_blog(user.uid, id)
+    fetch_user_blogs(user.uid);
+  }
   return (
     <div className="w-full lg:max-h-[26rem] h-full rounded-lg bg-neutral-100 shadow-xl space-y-4">
       {/* podcast thumbnail */}
       <img
-        src={imgSrc}
+        src={imgSrc[0]}
         className="w-full h-52 object-cover rounded-lg"
         alt=""
       />
@@ -58,14 +50,14 @@ export default function UserDashBlogCard({
 
           {/* Edit & delete Button */}
           <div className="flex items-center gap-8">
-            <UserBlogDeleteDialog id={id} delete_function={delete_blog}>
+            <UserBlogDeleteDialog id={id} delete_function={remove_blog}>
               <div className="bg-red-500 text-white px-2 py-1 rounded-md text-sm transition-all duration-200 hover:bg-red-600 cursor-pointer">
                 Delete
               </div>
             </UserBlogDeleteDialog>
 
             {/* button */}
-            <BlogEditSheet id={id}>
+            <BlogEditSheet blog={{ id, title, desc, imgSrc, upload_date, updated_at }}>
               <div className="flex items-center">
                 <div className="flex items-center relative transition-all duration-300 group">
                   <p className="transition-all duration-300 z-20 relative left-0 group-hover:-left-5">

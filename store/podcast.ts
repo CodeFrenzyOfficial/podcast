@@ -107,12 +107,7 @@ const usePodcastStore = create(
                     }
                 },
 
-                delete_podcast: async (user_uid: any, id: any) => {
-                    console.log({
-                        user_uid,
-                        id
-                    });
-                    
+                delete_podcast: async (user_uid: any, id: any) => {                    
                     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/podcast/${user_uid}/${id}/`, {
                         method: "DELETE",
                     })

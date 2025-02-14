@@ -5,29 +5,60 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { userProfileSchema } from "@/schemas/dashboard/user/profile/schema";
+import useAuthStore from "@/store/store";
+import useUserStore from "@/store/users";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Edit } from "lucide-react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import PhoneInputWithCountrySelect from "react-phone-number-input";
 
+// interface FormDataType {
+//     f_name: string,
+//     l_name: string,
+//     phone?: string | undefined
+// }
+
 interface FormDataType {
-    f_name: string,
-    l_name: string,
-    phone?: string | undefined
+    f_name: string;
+    l_name: string;
+    email: string;
+    phone: string;
+    role: string;
+    blogs: boolean;
+    podcasts: boolean;
 }
 
 export default function UserProfileForm() {
-    const form = useForm({
-        resolver: yupResolver(userProfileSchema),
+    const { user } = useAuthStore();
+    const { update_user } = useUserStore();
+
+    const form = useForm<FormDataType>({
+        // resolver: yupResolver(FormDataType),
         defaultValues: {
             f_name: "",
             l_name: "",
-            phone: ""
+            email: "",
+            phone: "",
+            role: "",
+            blogs: false,
+            podcasts: false,
         }
     })
 
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+        update_user(formData, user.uid)
     }
+
+    useEffect(() => {
+        form.setValue("f_name", user?.f_name);
+        form.setValue("l_name", user?.l_name);
+        form.setValue("email", user?.email);
+        form.setValue("phone", user?.phone);
+        form.setValue("role", user?.role);
+        form.setValue("blogs", user?.blogs || false);
+        form.setValue("podcasts", user?.podcasts|| false);
+    }, [user])
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">

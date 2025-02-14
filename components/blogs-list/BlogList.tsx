@@ -38,10 +38,10 @@ export default function BlogList() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {blogs?.length > 0 ? (
                     blogs?.map((blog: any, index: any) => (
-                        <Link href={`/blogs/${blog.slug}`} key={index}>
+                        <Link href={`/blogs/${blog.title}`} key={index}>
                             <BlogCard
                                 blogDesc={blog.blogDesc}
-                                imgSrc={blog.imgSrc}
+                                imgSrc={blog.imgSrc[0]}
                                 title={blog.title}
                             />
                         </Link>

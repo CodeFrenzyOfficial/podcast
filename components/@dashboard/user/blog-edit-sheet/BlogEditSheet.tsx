@@ -25,6 +25,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { editPodcastSchema } from "@/schemas/dashboard/admin/edit-podcast/schema";
 import { editBlogSchema } from "@/schemas/dashboard/user/edit-blog/schema";
+import useAuthStore from "@/store/store";
+import useBlogStore from "@/store/blog";
 
 interface EditFormType {
   title: string;
@@ -34,13 +36,16 @@ interface EditFormType {
 
 export default function PodcastEditSheet({
   children,
-  id,
+  blog,
 }: {
   children: React.ReactNode;
-  id: string;
+  blog: any;
 }) {
-  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
 
+  const { user } = useAuthStore();
+  const { update_blog, fetch_user_blogs } = useBlogStore();
+
+  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const form = useForm<EditFormType>({
     resolver: yupResolver(editBlogSchema),
     defaultValues: {
@@ -51,28 +56,8 @@ export default function PodcastEditSheet({
   });
 
   const onSubmit = async (formData: EditFormType) => {
-    try {
-      const form_data = new FormData();
-      form_data.append("title", formData.title);
-      form_data.append("desc", formData.description);
-      form_data.append("image", formData.thumbnail);
-
-      const response = await fetch(`http://localhost:8000/blog/${id}/`, {
-        method: "PUT",
-        body: form_data,
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("Blog created successfully:", result);
-        window.location.href = "/dashboard/user";
-      } else {
-        console.error("Error during registration:", result);
-      }
-    } catch (error) {
-      console.error("Error during API request:", error);
-    }
+    update_blog(formData, user?.uid);
+    fetch_user_blogs(user?.uid);
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,32 +68,13 @@ export default function PodcastEditSheet({
     }
   };
 
-  const get_blog_data = async () => {
-    try {
-      const response = await fetch(`http://localhost:8000/blog/${id}/`, {
-        method: "GET",
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("Blogs fetched successfully:", result);
-        form.setValue('title', result.title);
-        form.setValue('description', result.desc);
-        setThumbnailPreview(result.imgSrc)
-
-      } else {
-        console.error("Error during registration:", result);
-      }
-    } catch (error) {
-      console.error("Error during API request:", error);
-    } finally {
-    }
-  };
-  
   useEffect(() => {
-    get_blog_data()
-  }, [])
+    if (blog) {
+      form.setValue("title", blog?.title);
+      form.setValue("description", blog?.desc);
+      setThumbnailPreview(blog?.imgSrc[0])
+    }
+  }, [blog])
 
   return (
     <Sheet>
