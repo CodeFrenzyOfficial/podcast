@@ -1,10 +1,9 @@
-'use client'
+"use client";
 
 import { cn } from "@/lib/utils";
 import { contactSchema } from "@/schemas/contact/schema";
-import { yupResolver } from "@hookform/resolvers/yup"
-import { useForm } from "react-hook-form"
-
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
 import {
   Form,
@@ -13,10 +12,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { Textarea } from "@/components/ui/textarea";
+import useContactStore from "@/store/contact";
+import useAuthStore from "@/store/store";
 
 interface ContactFormType {
   name: string;
@@ -27,6 +28,7 @@ interface ContactFormType {
 }
 
 export default function ContactForm() {
+  const { create_contact } = useContactStore();
 
   const form = useForm({
     resolver: yupResolver(contactSchema),
@@ -35,13 +37,13 @@ export default function ContactForm() {
       email: "",
       subject: "",
       phone: "",
-      message: ""
-    }
-  })
+      message: "",
+    },
+  });
 
   const onSubmit = (formData: ContactFormType) => {
-    console.log(formData)
-  }
+    create_contact(formData);
+  };
   return (
     <div className="space-y-5 px-10 py-10">
       <h2 className="text-3xl font-semibold">Contact Us</h2>
@@ -70,7 +72,6 @@ export default function ContactForm() {
               name="email"
               render={({ field }) => (
                 <FormItem className="w-full">
-
                   <FormLabel>E-mail</FormLabel>
                   <FormControl>
                     <Input placeholder="Your e-mail" className="" {...field} />
@@ -90,7 +91,7 @@ export default function ContactForm() {
                 <FormItem className="w-full">
                   <FormLabel>Number</FormLabel>
                   <FormControl>
-                    <PhoneInput placeholder='+1 (555) 123-4567' {...field} />
+                    <PhoneInput placeholder="+1 (555) 123-4567" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -103,7 +104,6 @@ export default function ContactForm() {
               name="subject"
               render={({ field }) => (
                 <FormItem className="w-full">
-
                   <FormLabel>Subject</FormLabel>
                   <FormControl>
                     <Input placeholder="Your subject" className="" {...field} />
@@ -122,14 +122,22 @@ export default function ContactForm() {
               <FormItem>
                 <FormLabel>Message</FormLabel>
                 <FormControl>
-                  <Textarea rows={8} cols={8} placeholder="Tell us a little bit about yourself" {...field} />
+                  <Textarea
+                    rows={8}
+                    cols={8}
+                    placeholder="Tell us a little bit about yourself"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <button type="submit" className='w-full text-center py-2 px-8 flex justify-center items-center gap-2 rounded-full bg-blue-700 text-white relative overflow-hidden group/card-btn'>
+          <button
+            type="submit"
+            className="w-full text-center py-2 px-8 flex justify-center items-center gap-2 rounded-full bg-blue-700 text-white relative overflow-hidden group/card-btn"
+          >
             <h2 className={cn("z-10")}>{"Submit"}</h2>
 
             {/* before container on hover */}
@@ -138,5 +146,5 @@ export default function ContactForm() {
         </form>
       </Form>
     </div>
-  )
+  );
 }

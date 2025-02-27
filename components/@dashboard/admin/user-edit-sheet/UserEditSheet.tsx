@@ -75,7 +75,7 @@ export default function UserEditSheet({
   useEffect(() => {
     if (user) {
       console.log(user);
-      
+
       form.setValue("f_name", user?.f_name);
       form.setValue("l_name", user?.l_name);
       form.setValue("email", user?.email);
@@ -84,7 +84,7 @@ export default function UserEditSheet({
       form.setValue("blogs", user?.blogs);
       form.setValue("podcasts", user?.podcasts);
     }
-  }, [user])
+  }, [user]);
 
   return (
     <Sheet>
@@ -195,8 +195,10 @@ export default function UserEditSheet({
                   <FormItem>
                     <FormLabel>Blogs</FormLabel>
                     <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      onValueChange={(value) =>
+                        field.onChange(value === "true")
+                      }
+                      value={field.value ? "true" : "false"}
                     >
                       <FormControl>
                         <SelectTrigger className="outline-none ring-0">
@@ -204,8 +206,8 @@ export default function UserEditSheet({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="outline-none ring-0">
-                        <SelectItem value={true}>Allowed</SelectItem>
-                        <SelectItem value={false}>Not Allowed</SelectItem>
+                        <SelectItem value="true">Allowed</SelectItem>
+                        <SelectItem value="false">Not Allowed</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -220,8 +222,10 @@ export default function UserEditSheet({
                   <FormItem>
                     <FormLabel>Podcasts</FormLabel>
                     <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      onValueChange={(value) =>
+                        field.onChange(value === "true")
+                      }
+                      value={field.value ? "true" : "false"}
                     >
                       <FormControl>
                         <SelectTrigger className="outline-none ring-0">
@@ -229,8 +233,8 @@ export default function UserEditSheet({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="outline-none ring-0">
-                        <SelectItem value={true}>Allowed</SelectItem>
-                        <SelectItem value={false}>Not Allowed</SelectItem>
+                        <SelectItem value="true">Allowed</SelectItem>
+                        <SelectItem value="false">Not Allowed</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -238,9 +242,9 @@ export default function UserEditSheet({
                 )}
               />
 
-
-
-              <Button disabled={loading}>{loading ? <FaSpinner /> : 'Save'}</Button>
+              <Button disabled={loading}>
+                {loading ? <FaSpinner /> : "Save"}
+              </Button>
             </form>
           </Form>
         </SheetHeader>

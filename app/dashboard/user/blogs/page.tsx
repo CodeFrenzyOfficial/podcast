@@ -53,7 +53,7 @@ export default function Page() {
     }
   };
 
-  if(!user?.blog){
+  if(!user?.blogs){
     return (
       <div className="w-full">
         Request admin to allow permision to add blogs. 

@@ -11,11 +11,11 @@ import {
 } from "@/components/ui/dialog"
 
 
-function InboxDialog({ children, fullName, email, number, subject, message }: {
+function InboxDialog({ children, name, email, phone, subject, message }: {
     children: React.ReactNode,
-    fullName: string,
+    name: string,
     email: string,
-    number: string,
+    phone: string,
     subject: string,
     message: string
 }) {
@@ -28,7 +28,7 @@ function InboxDialog({ children, fullName, email, number, subject, message }: {
                     <DialogDescription className='text-black !mt-5'>
                         <div className='flex justify-between items-center space-y-2'>
                             <h2 className='text-lg font-medium'>Name:</h2>
-                            <h2 className='text-lg'>{fullName}</h2>
+                            <h2 className='text-lg'>{name}</h2>
                         </div>
                         <div className='flex justify-between items-center space-y-2'>
                             <h2 className='text-lg font-medium'>Email:</h2>
@@ -36,7 +36,7 @@ function InboxDialog({ children, fullName, email, number, subject, message }: {
                         </div>
                         <div className='flex justify-between items-center space-y-2'>
                             <h2 className='text-lg font-medium'>Number:</h2>
-                            <h2 className='text-lg'>{number}</h2>
+                            <h2 className='text-lg'>{phone}</h2>
                         </div>
                         <div className='flex justify-between items-center space-y-2'>
                             <h2 className='text-lg font-medium'>Subject:</h2>

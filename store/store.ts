@@ -108,6 +108,23 @@ const useAuthStore = create(
                     } finally {
                         set({ loading: false });
                     }
+                },
+
+                currentUser: async () => {
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/current/${get().user?.uid}/`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    });
+
+                    if(response.ok){
+                        const res = await response.json();
+                        set({
+                            user: {...res.user}
+                        })
+                        
+                    }
                 }
             }),
             {

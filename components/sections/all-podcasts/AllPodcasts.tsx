@@ -8,7 +8,7 @@ export default function AllPodcasts({ podcasts }: any) {
         <section className='max-w-screen-xl mx-auto space-y-10 py-10 min-h-screen px-10'>
             <div className='px-5 lg:px-0 grid place-items-center space-y-2 text-center'>
                 <p className='text-neutral-500'>List of episodes</p>
-                <h2 className='text-3xl lg:text-4xl font-semibold'>Watch Feature episodes</h2>
+                <h2 className='text-3xl lg:text-4xl font-semibold'>Watch our latest episode</h2>
             </div>
 
             {/* Episode Data mapping */}

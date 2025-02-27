@@ -33,7 +33,7 @@ export default function page() {
       <section className="space-y-5 py-10">
         <div className='grid place-items-center space-y-2 text-center px-5 lg:px-0'>
           <p className='text-neutral-500'>List of episodes</p>
-          <h2 className='text-3xl lg:text-4xl font-semibold'>Watch Feature episodes</h2>
+          <h2 className='text-3xl lg:text-4xl font-semibold'>Browse All Episodes</h2>
         </div>
         <HomeCarousel podcasts={podcasts} />
       </section>

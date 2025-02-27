@@ -1,5 +1,10 @@
 import { AiFillInstagram } from "react-icons/ai";
-import { FaArrowRight, FaFacebook, FaLocationDot, FaSquareXTwitter } from "react-icons/fa6";
+import {
+  FaArrowRight,
+  FaFacebook,
+  FaLocationDot,
+  FaSquareXTwitter,
+} from "react-icons/fa6";
 import Logo from "../svgs/Logo";
 import { IoIosTime, IoMdMail } from "react-icons/io";
 import { MdLocalPhone } from "react-icons/md";
@@ -12,18 +17,30 @@ export default function Footer() {
         {/* card 1 */}
         <div className="space-y-5">
           <Logo width={100} height={100} />
-          <p className="text-white text-sm">Our pick of the best podcasts on Spotify, Apple Podcasts and more covering all trends.</p>
+          <p className="text-white text-sm">
+            Our pick of the best podcasts on Spotify, Apple Podcasts and more
+            covering all trends.
+          </p>
           {/* social icons */}
           <div className="flex items-center gap-4">
-            <div className="bg-white p-3 rounded-full">
+            <Link
+              href="https://www.facebook.com/gowinout.podcast/"
+              className="bg-white p-3 rounded-full"
+            >
               <FaFacebook className="text-xl" />
-            </div>
-            <div className="bg-white p-3 rounded-full">
+            </Link>
+            <Link
+              href="https://www.instagram.com/thegowinoutpodcast?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              className="bg-white p-3 rounded-full"
+            >
               <AiFillInstagram className="text-xl" />
-            </div>
-            <div className="bg-white p-3 rounded-full">
+            </Link>
+            <Link
+              href="https://x.com/_djtycoon"
+              className="bg-white p-3 rounded-full"
+            >
               <FaSquareXTwitter className="text-xl" />
-            </div>
+            </Link>
           </div>
         </div>
 
@@ -37,27 +54,19 @@ export default function Footer() {
           <div className="text-white space-y-3">
             <div className="flex items-center gap-2">
               <FaArrowRight />
-              <Link href={'/about'}>
-                About
-              </Link>
+              <Link href={"/about"}>About</Link>
             </div>
             <div className="flex items-center gap-2">
               <FaArrowRight />
-              <Link href={'/podcasts'}>
-                All Podcasts
-              </Link>
+              <Link href={"/podcasts"}>All Podcasts</Link>
             </div>
             <div className="flex items-center gap-2">
               <FaArrowRight />
-              <Link href={'/blogs'}>
-                Blogs
-              </Link>
+              <Link href={"/blogs"}>Blogs</Link>
             </div>
             <div className="flex items-center gap-2">
               <FaArrowRight />
-              <Link href={'/contact'}>
-                Contact Us
-              </Link>
+              <Link href={"/contact"}>Contact Us</Link>
             </div>
           </div>
         </div>
@@ -70,33 +79,27 @@ export default function Footer() {
           </div>
 
           <div className="text-white space-y-3">
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <FaLocationDot />
               <h2>
                 2563 Broklyn Golden Street, New York United States of America
               </h2>
-            </div>
+            </div> */}
             <div className="flex items-center gap-2">
               <MdLocalPhone />
-              <h2>
-                +44012345678
-              </h2>
+              <h2>+1 973 856 4404</h2>
             </div>
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <IoIosTime />
-              <h2>
-                Mon - Sun: 8AM - 8PM
-              </h2>
-            </div>
+              <h2>Mon - Sun: 8AM - 8PM</h2>
+            </div> */}
             <div className="flex items-center gap-2">
               <IoMdMail />
-              <h2>
-                info@example.com
-              </h2>
+              <h2> info@gowinout.com</h2>
             </div>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
