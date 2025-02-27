@@ -123,7 +123,7 @@ const useBlogStore = create(
                     }
                 },
 
-                update_blog: async (payload: any, user_id: any, router: any) => {
+                update_blog: async (payload: any, user_id: any, blog_id: any, router: any) => {
                     try {
                         set({ loading: true });
 
@@ -135,7 +135,7 @@ const useBlogStore = create(
                             form_data.append(`image`, img);
                         })
 
-                        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog/${user_id}/`, {
+                        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog/${user_id}/${blog_id}/`, {
                             method: "PUT",
                             body: form_data,
                         });

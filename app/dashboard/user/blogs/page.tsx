@@ -91,8 +91,9 @@ export default function Page() {
                             accept="image/*"
                             onChange={(e) => {
                               handleThumbnailChange(e);
-                              field.onChange(e.target.files?.[0] || null);
+                              field.onChange(e.target.files || null);
                             }}
+                            multiple={true}
                           />
                         </FormControl>
                         <FormMessage />

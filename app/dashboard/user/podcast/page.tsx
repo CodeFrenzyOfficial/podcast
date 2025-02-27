@@ -43,7 +43,7 @@ export default function Page() {
   });
 
   const onSubmit = async (formData: UploadFormType) => {
-    create_podcast(formData, router, user?.uid);
+    create_podcast(formData, router, user);
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -53,7 +53,7 @@ const usePodcastStore = create(
                     }
                 },
 
-                create_podcast: async (payload: any, router: any, uid: any) => {
+                create_podcast: async (payload: any, router: any, user: any) => {
                     try {
                         set({ loading: true });
 
@@ -63,7 +63,7 @@ const usePodcastStore = create(
                         form_data.append("image", payload.thumbnail);
                         form_data.append("video", payload.file);
 
-                        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/podcast/${uid}/`, {
+                        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/podcast/${user?.uid}/`, {
                             method: "POST",
                             body: form_data,
                         });
@@ -72,7 +72,11 @@ const usePodcastStore = create(
 
                         if (response.ok) {
                             console.log("Podcast created successfully:", result);
-                            router.push("/dashboard/admin");
+                            if(user.role == "admin"){
+                                router.push("/dashboard/admin");
+                            }else{
+                                router.push("/dashboard/user");
+                            }
                         } else {
                             console.error("Error during registration:", result);
                         }

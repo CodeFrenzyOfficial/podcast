@@ -45,7 +45,7 @@ export default function PodcastEditSheet({
 }) {
   const router = useRouter();
   const { user } = useAuthStore();
-  const { fetch_podcasts, update_podcast, loading } = usePodcastStore();
+  const { fetch_user_podcasts, update_podcast, loading } = usePodcastStore();
 
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const [video_preview, __video_preview] = useState<string | null>(null);
@@ -62,7 +62,7 @@ export default function PodcastEditSheet({
 
   const onSubmit = async (formData: EditFormType) => {
     await update_podcast(podcast?.id, user?.uid, formData, router);
-    fetch_podcasts(user?.uid);
+    fetch_user_podcasts(user?.uid);
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {

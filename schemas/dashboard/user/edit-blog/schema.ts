@@ -19,7 +19,7 @@ export const editBlogSchema = yup.object().shape({
     thumbnail: yup
         .mixed()
         .required("Thumbnail is required")
-        .test("fileType", "Invalid file format for thumbnail", (value: File | undefined) => {
-            return value && ACCEPTED_IMAGE_FORMATS.includes(value.type);
-        }),
+        // .test("fileType", "Invalid file format for thumbnail", (value: File | undefined) => {
+        //     return value && ACCEPTED_IMAGE_FORMATS.includes(value.type);
+        // }),
 });

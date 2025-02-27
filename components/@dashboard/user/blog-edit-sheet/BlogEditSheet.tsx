@@ -56,7 +56,7 @@ export default function PodcastEditSheet({
   });
 
   const onSubmit = async (formData: EditFormType) => {
-    update_blog(formData, user?.uid);
+    update_blog(formData, user?.uid, blog.id);
     fetch_user_blogs(user?.uid);
   };
 
@@ -69,6 +69,8 @@ export default function PodcastEditSheet({
   };
 
   useEffect(() => {
+    console.log(blog);
+    
     if (blog) {
       form.setValue("title", blog?.title);
       form.setValue("description", blog?.desc);
@@ -100,8 +102,9 @@ export default function PodcastEditSheet({
                         accept="image/*"
                         onChange={(e) => {
                           handleThumbnailChange(e);
-                          field.onChange(e.target.files?.[0] || null);
+                          field.onChange(e.target.files || null);
                         }}
+                        multiple={true}
                       />
                     </FormControl>
                     <FormMessage />
