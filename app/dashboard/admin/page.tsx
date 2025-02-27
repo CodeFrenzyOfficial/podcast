@@ -11,13 +11,13 @@ import UserDashBlogCard from "@/components/@dashboard/user/cards/blog-card/BlogC
 
 export default function page() {
   const { user } = useAuthStore();
-  const { fetch_podcasts, podcasts } = usePodcastStore();
-  const { fetch_blogs, blogs } = useBlogStore();
+  const { fetch_user_podcasts, podcasts } = usePodcastStore();
+  const { fetch_user_blogs, blogs } = useBlogStore();
 
   useEffect(() => {
     if (user && user.uid) {
-      fetch_podcasts(user.uid);
-      fetch_blogs(user.uid);
+      fetch_user_podcasts(user.uid);
+      fetch_user_blogs(user.uid);
     }
   }, [user]);
 

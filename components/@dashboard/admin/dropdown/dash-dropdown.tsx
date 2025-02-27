@@ -9,8 +9,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useAuthStore from "@/store/store";
 
 export default function DashDropdown({ children }: { children: React.ReactNode }) {
+    const { logout } = useAuthStore();
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="outline-none ring-0">{children}</DropdownMenuTrigger>
@@ -19,7 +21,7 @@ export default function DashDropdown({ children }: { children: React.ReactNode }
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Inbox</DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
-                    <Link href={'/dashboard/admin/inbox'}>
+                    <Link onClick={() => logout()} href={''}>
                         Log out
                     </Link>
                 </DropdownMenuItem>
