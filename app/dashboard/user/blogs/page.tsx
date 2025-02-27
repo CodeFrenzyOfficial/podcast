@@ -42,7 +42,7 @@ export default function Page() {
   });
 
   const onSubmit = async (formData: UploadFormType) => {
-    create_blog(formData, router)
+    create_blog(formData, user?.uid, router)
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
