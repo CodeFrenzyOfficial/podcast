@@ -6,9 +6,10 @@ import { inboxData } from "@/data/inbox/data";
 import useContactStore from "@/store/contact";
 import { useEffect } from "react";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
+import { useStore } from "zustand";
 
 export default function Page() {
-  const { contacts, fetch_contacts } = useContactStore();
+  const { fetch_contacts, contacts } = useStore(useContactStore);
 
   useEffect(() => {
     fetch_contacts();

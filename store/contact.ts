@@ -1,7 +1,23 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
-const useContactStore = create(
+interface Contact {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+}
+
+interface ContactStoreType {
+  loading: boolean;
+  contacts: Contact[];
+  token: string;
+  setLoading: (loading: boolean) => void;
+  fetch_contacts: () => Promise<void>;
+  create_contact: (payload: Omit<Contact, "id">) => Promise<void>;
+}
+
+const useContactStore = create<ContactStoreType>()(
   devtools(
     persist(
       (set, get) => ({
@@ -9,7 +25,7 @@ const useContactStore = create(
         contacts: [],
         token: "",
 
-        setLoading: (loading: boolean) => set({ loading: loading }),
+        setLoading: (loading: boolean) => set({ loading }),
 
         fetch_contacts: async () => {
           try {
@@ -25,50 +41,47 @@ const useContactStore = create(
               }
             );
 
-            if (response.ok) {
-              const result = await response.json();
-              console.log(result);
+            if (!response.ok) throw new Error("Failed to fetch contacts");
 
-              set({
-                contacts: result,
-              });
-            }
+            const result: Contact[] = await response.json();
+
+            set({ contacts: result });
           } catch (error) {
-            console.log(error);
+            console.error(error);
           } finally {
             set({ loading: false });
           }
         },
 
-        create_contact: async (payload: any) => {
-
+        create_contact: async (payload) => {
           try {
             set({ loading: true });
+
             const response = await fetch(
               `${process.env.NEXT_PUBLIC_API_URL}/contacts/`,
               {
                 method: "POST",
                 headers: {
-                  "Content-Type": "application/json", // ✅ Ensure JSON format
+                  "Content-Type": "application/json",
                 },
                 body: JSON.stringify(payload),
               }
             );
 
-            if (response.ok) {
-              const res = await response.json();
-              alert(res?.message)
-              
-            }
+            if (!response.ok) throw new Error("Failed to create contact");
+
+            const res: { message: string } = await response.json();
+            alert(res.message);
           } catch (error) {
-            console.log(error);
+            console.error(error);
           } finally {
             set({ loading: false });
           }
         },
       }),
       {
-        name: "useContactStore",
+        name: "contactStore",
+        partialize: (state) => ({ token: state.token }), // Persist only token
       }
     )
   )

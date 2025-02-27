@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import Link from "next/link";
 
@@ -10,9 +11,10 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useAuthStore from "@/store/store";
+import { useStore } from "zustand";
 
 export default function DashDropdown({ children }: { children: React.ReactNode }) {
-    const { logout } = useAuthStore();
+    const { logout } = useStore(useAuthStore);
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="outline-none ring-0">{children}</DropdownMenuTrigger>
