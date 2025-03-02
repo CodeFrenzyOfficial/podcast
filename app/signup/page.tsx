@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/select";
 import useAuthStore from "@/store/store";
 import { FaSpinner } from "react-icons/fa6";
+import { useStore } from "zustand";
 
 interface FormDataType {
   f_name: string;
@@ -41,7 +42,7 @@ interface FormDataType {
 
 export const Signup = () => {
   const router = useRouter();
-  const { register, loading } = useAuthStore();
+  const { register, loading } = useStore(useAuthStore);
 
   const form = useForm({
     resolver: yupResolver(signupSchema),

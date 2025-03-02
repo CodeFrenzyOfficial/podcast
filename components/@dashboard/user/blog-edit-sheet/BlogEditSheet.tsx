@@ -27,6 +27,8 @@ import { editPodcastSchema } from "@/schemas/dashboard/admin/edit-podcast/schema
 import { editBlogSchema } from "@/schemas/dashboard/user/edit-blog/schema";
 import useAuthStore from "@/store/store";
 import useBlogStore from "@/store/blog";
+import { useStore } from "zustand";
+import { useRouter } from "next/navigation";
 
 interface EditFormType {
   title: string;
@@ -42,8 +44,9 @@ export default function PodcastEditSheet({
   blog: any;
 }) {
 
-  const { user } = useAuthStore();
-  const { update_blog, fetch_user_blogs } = useBlogStore();
+  const router = useRouter();
+  const { user } = useStore(useAuthStore);
+  const { update_blog, fetch_user_blogs } = useStore(useBlogStore);
 
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const form = useForm<EditFormType>({
@@ -56,7 +59,7 @@ export default function PodcastEditSheet({
   });
 
   const onSubmit = async (formData: EditFormType) => {
-    update_blog(formData, user?.uid, blog.id);
+    update_blog(formData, user?.uid, blog.id, router);
     fetch_user_blogs(user?.uid);
   };
 

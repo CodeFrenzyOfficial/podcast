@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import useAuthStore from "@/store/store";
 import { useStore } from "zustand";
+import { useRouter } from "next/navigation";
 
 export default function DashDropdown({ children }: { children: React.ReactNode }) {
+    const router = useRouter();
     const { logout } = useStore(useAuthStore);
     return (
         <DropdownMenu>
@@ -23,7 +25,7 @@ export default function DashDropdown({ children }: { children: React.ReactNode }
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Inbox</DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
-                    <Link onClick={() => logout()} href={''}>
+                    <Link onClick={() => logout(router)} href={''}>
                         Log out
                     </Link>
                 </DropdownMenuItem>

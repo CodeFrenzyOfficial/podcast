@@ -2,17 +2,18 @@
 
 import PodcastCard from "@/components/@dashboard/admin/cards/podcast-card/PodcastCard";
 import UserDashBlogCard from "@/components/@dashboard/user/cards/blog-card/BlogCard";
-import { podcastData, PodcastDataType } from "@/data/podcasts/data";
+// import { podcastData, PodcastDataType } from "@/data/podcasts/data";
 import useBlogStore from "@/store/blog";
 import usePodcastStore from "@/store/podcast";
 import useAuthStore from "@/store/store";
 import { useEffect, useState } from "react";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
+import { useStore } from "zustand";
 
 export default function Page() {
-  const { user } = useAuthStore();
-  const { blogs, fetch_user_blogs } = useBlogStore();
-  const { podcasts, fetch_user_podcasts } = usePodcastStore();
+  const { user } = useStore(useAuthStore);
+  const { blogs, fetch_user_blogs } = useStore(useBlogStore);
+  const { podcasts, fetch_user_podcasts } = useStore(usePodcastStore);
 
   useEffect(() => {
     fetch_user_blogs(user?.uid);

@@ -6,9 +6,10 @@ import BlogCard from "../cards/blog-card/BlogCard";
 import { blogData } from "@/data/blogs/data";
 import Link from "next/link";
 import useBlogStore from "@/store/blog";
+import { useStore } from "zustand";
 
 export default function BlogList() {
-    const { blogs, fetch_blogs } = useBlogStore();
+    const { blogs, fetch_blogs } = useStore(useBlogStore);
     const [search, setSearch] = useState('');
 
     const filteredBlogs = useMemo(() => {

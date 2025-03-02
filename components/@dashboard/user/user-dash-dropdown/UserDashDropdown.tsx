@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 
@@ -10,13 +12,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useAuthStore from "@/store/store";
+import { useStore } from "zustand";
+import { useRouter } from "next/navigation";
 
 export default function UserDashDropdown({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { logout } = useAuthStore();
+  const router = useRouter();
+  const { logout } = useStore(useAuthStore);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none ring-0">
@@ -26,7 +31,7 @@ export default function UserDashDropdown({
         <DropdownMenuLabel>Settings</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">
-          <Link onClick={() => logout()} href={""}>
+          <Link onClick={() => logout(router)} href={""}>
             Log out
           </Link>
         </DropdownMenuItem>

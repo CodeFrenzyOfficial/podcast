@@ -17,6 +17,7 @@ import { uploadBlogSchema } from "@/schemas/dashboard/user/upload/schema";
 import useBlogStore from "@/store/blog";
 import { useRouter } from "next/navigation";
 import useAuthStore from "@/store/store";
+import { useStore } from "zustand";
 
 interface UploadFormType {
   title: string;
@@ -25,11 +26,11 @@ interface UploadFormType {
 }
 
 export default function Page() {
-  const { user } = useAuthStore();
-  const router = useRouter();
+  const { user } = useStore(useAuthStore);
+  const { create_admin_blog } = useStore(useBlogStore);
 
+  const router = useRouter();
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
-  const { create_admin_blog } = useBlogStore()
 
   const form = useForm<UploadFormType>({
     resolver: yupResolver(uploadBlogSchema),
@@ -41,7 +42,7 @@ export default function Page() {
   });
 
   const onSubmit = async (formData: UploadFormType) => {
-    create_admin_blog(formData, user?.uid, router)
+    create_admin_blog(formData, user?.uid, router);
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,7 +114,7 @@ export default function Page() {
                       <FormItem>
                         <FormLabel>Description</FormLabel>
                         <FormControl>
-                          <Input placeholder="Podcast Description" {...field} />
+                          <Input maxLength={1000} placeholder="Podcast Description" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

@@ -1,137 +1,164 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
-const useAuthStore = create(
-    devtools(
-        persist(
-            (set, get) => ({
-                loading: false,
-                user: {},
-                token: '',
+interface AuthStore {
+  loading: boolean;
+  user: any;
+  token: any;
+  
+  setLoading: (loading: boolean) => void;
+  register: (payload: any, router:any) => Promise<void>;
 
-                setLoading: (loading: boolean) => set({ loading: loading }),
+  login: (payload: any, router:any) => Promise<void>;
+  logout: (router:any) => Promise<void>;
+  
+  currentUser: () => Promise<void>;
+}
 
-                register: async (payload: any, router: any) => {
-                    try {
-                        set({ loading: true });
+const useAuthStore = create<AuthStore>()(
+  devtools(
+    persist(
+      (set, get) => ({
+        loading: false,
+        user: {},
+        token: "",
 
-                        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register/`, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(payload),
-                        });
+        setLoading: (loading: boolean) => set({ loading: loading }),
 
-                        if (response.ok) {
-                            const res = await response.json();
+        register: async (payload: any, router: any) => {
+          try {
+            set({ loading: true });
 
-                            set({
-                                token: res?.token,
-                                user: res?.user,
-                            })
-
-                            if (res?.user?.role === 'admin') {
-                                router.push('/dashboard/admin')
-                            } else {
-                                router.push('/dashboard/user')
-                            }
-                        }
-                    } catch (error) {
-                        console.log(error);
-                    } finally {
-                        set({ loading: false });
-                    }
+            const response = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/auth/register/`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
                 },
+                body: JSON.stringify(payload),
+              }
+            );
 
-                login: async (payload: any, router: any) => {
-                    try {
-                        set({ loading: true });
+            if (response.ok) {
+              const res = await response.json();
 
-                        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login/`, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(payload),
-                        });
+              set({
+                token: res?.token,
+                user: res?.user,
+              });
 
-                        if (response.ok) {
-                            const res = await response.json();
-
-                            set({
-                                token: res?.token,
-                                user: res?.user,
-                            })
-
-                            if (res?.user?.role === 'admin') {
-                                router.push('/dashboard/admin')
-                            } else {
-                                router.push('/dashboard/user')
-                            }
-                        }
-                    } catch (error) {
-                        console.log(error);
-                    } finally {
-                        set({ loading: false });
-                    }
-                },
-
-                logout: async (router: any) => {
-                    try {
-                        const payload = {
-                            user_id: get().user?.uid,
-                        }
-                        set({ loading: true });
-
-                        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout/`, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(payload),
-                        });
-
-                        if (response.ok) {
-                            const res = await response.json();
-
-                            set({
-                                token: '',
-                                user: {},
-                            })
-
-                            localStorage.clear();
-                            router.push('/')
-                        }
-                    } catch (error) {
-                        console.log(error);
-                    } finally {
-                        set({ loading: false });
-                    }
-                },
-
-                currentUser: async () => {
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/current/${get().user?.uid}/`, {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    });
-
-                    if(response.ok){
-                        const res = await response.json();
-                        set({
-                            user: {...res.user}
-                        })
-                        
-                    }
-                }
-            }),
-            {
-                name: "useAuthStore",
+              if (res?.user?.role === "admin") {
+                router.push("/dashboard/admin");
+              } else {
+                router.push("/dashboard/user");
+              }
             }
-        )
+          } catch (error) {
+            console.log(error);
+          } finally {
+            set({ loading: false });
+          }
+        },
+
+        login: async (payload: any, router: any) => {
+          try {
+            set({ loading: true });
+
+            const response = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/auth/login/`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+              }
+            );
+
+            if (response.ok) {
+              const res = await response.json();
+
+              set({
+                token: res?.token,
+                user: res?.user,
+              });
+
+              if (res?.user?.role === "admin") {
+                router.push("/dashboard/admin");
+              } else {
+                router.push("/");
+              }
+            }
+          } catch (error) {
+            console.log(error);
+          } finally {
+            set({ loading: false });
+          }
+        },
+
+        logout: async (router: any) => {
+          try {
+            const payload = {
+              user_id: get().user?.uid,
+            };
+            set({ loading: true });
+
+            const response = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/auth/logout/`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+              }
+            );
+
+            if (response.ok) {
+              const res = await response.json();
+
+              set({
+                token: "",
+                user: {},
+              });
+
+              localStorage.clear();
+              router.push("/");
+            }
+          } catch (error) {
+            console.log(error);
+          } finally {
+            set({ loading: false });
+          }
+        },
+
+        currentUser: async () => {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/current/${
+              get().user?.uid
+            }/`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (response.ok) {
+            const res = await response.json();
+            set({
+              user: { ...res.user },
+            });
+          }
+        },
+      }),
+      {
+        name: "useAuthStore",
+      }
     )
+  )
 );
 
 export default useAuthStore;

@@ -8,7 +8,7 @@ export const uploadBlogSchema = yup.object().shape({
         .string()
         .required("Title is required")
         .min(5, "Title must be at least 5 characters")
-        .max(100, "Title must not exceed 100 characters"),
+        .max(500, "Title must not exceed 100 characters"),
 
     description: yup
         .string()

@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils"
 import { usePathname, useRouter } from "next/navigation"
 import EpisodeButton from "../../../buttons/social-icons/episode-cards-button/EpisodeButton"
 import useAuthStore from "@/store/store"
+import { useStore } from "zustand"
 
 // Menu items.
 const items = [
@@ -51,7 +52,7 @@ export function AdminSidebar() {
     const router = useRouter();
     const pathname = usePathname()
     
-    const { logout } = useAuthStore();
+    const { logout } = useStore(useAuthStore);
 
     return (
         <Sidebar className="rounded-r-3xl shadow-lg">

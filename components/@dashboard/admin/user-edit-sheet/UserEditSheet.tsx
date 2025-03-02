@@ -34,6 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useStore } from "zustand";
 
 interface EditFormType {
   f_name: string;
@@ -53,7 +54,7 @@ export default function UserEditSheet({
   user: any;
 }) {
   const router = useRouter();
-  const { fetch_users, update_user, loading } = useUserStore();
+  const { fetch_users, update_user, loading } = useStore(useUserStore);
 
   const form = useForm<EditFormType>({
     defaultValues: {
@@ -68,7 +69,7 @@ export default function UserEditSheet({
   });
 
   const onSubmit = async (formData: EditFormType) => {
-    await update_user(formData, user?.uid, router);
+    await update_user(formData, user?.uid);
     fetch_users();
   };
 

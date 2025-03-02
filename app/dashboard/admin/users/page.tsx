@@ -4,9 +4,10 @@ import UserEditSheet from "@/components/@dashboard/admin/user-edit-sheet/UserEdi
 import useUserStore from "@/store/users"
 import { useEffect } from "react";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { useStore } from "zustand";
 
 export default function Page() {
-    const { users, fetch_users } = useUserStore();
+    const { users, fetch_users } = useStore(useUserStore);
     useEffect(() => {
         fetch_users();
     }, [])
@@ -40,9 +41,9 @@ export default function Page() {
                             </thead>
                             <tbody>
                                 {
-                                    users?.map((user: any) => {
+                                    users?.map((user: any, index: any) => {
                                         return (
-                                            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
+                                            <tr key={index}  className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
                                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     {user.f_name}
                                                 </th>

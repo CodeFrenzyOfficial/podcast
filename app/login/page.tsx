@@ -21,6 +21,7 @@ import { BiPodcast } from "react-icons/bi";
 import useAuthStore from "@/store/store";
 import { useRouter } from "next/navigation"; 
 import { FaSpinner } from "react-icons/fa6";
+import { useStore } from "zustand";
 
 interface FormDataType {
   email: string;
@@ -29,7 +30,7 @@ interface FormDataType {
 
 export default function Login() {
   const router = useRouter();
-  const { login, loading } = useAuthStore();
+  const { login, loading } = useStore(useAuthStore);
 
   const form = useForm({
     resolver: yupResolver(loginSchema),

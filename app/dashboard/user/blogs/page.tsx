@@ -18,6 +18,7 @@ import { uploadBlogSchema } from "@/schemas/dashboard/user/upload/schema";
 import useBlogStore from "@/store/blog";
 import { useRouter } from "next/navigation";
 import useAuthStore from "@/store/store";
+import { useStore } from "zustand";
 
 interface UploadFormType {
   title: string;
@@ -26,11 +27,11 @@ interface UploadFormType {
 }
 
 export default function Page() {
-  const {user} = useAuthStore();
-  const router = useRouter();
+  const { user } = useStore(useAuthStore);
+  const { create_blog } = useStore(useBlogStore);
 
+  const router = useRouter();
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
-  const { create_blog } = useBlogStore()
 
   const form = useForm<UploadFormType>({
     resolver: yupResolver(uploadBlogSchema),
@@ -42,7 +43,7 @@ export default function Page() {
   });
 
   const onSubmit = async (formData: UploadFormType) => {
-    create_blog(formData, user?.uid, router)
+    create_blog(formData, user?.uid, router);
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,12 +54,12 @@ export default function Page() {
     }
   };
 
-  if(!user?.blogs){
+  if (!user?.blogs) {
     return (
       <div className="w-full">
-        Request admin to allow permision to add blogs. 
+        Request admin to allow permision to add blogs.
       </div>
-    )
+    );
   }
 
   return (

@@ -6,9 +6,10 @@ import usePodcastStore from "@/store/podcast";
 import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
 import Link from "next/link";
 import { useEffect } from "react";
+import { useStore } from "zustand";
 
 export default function page() {
-  const { podcasts, fetch_podcasts } = usePodcastStore();
+  const { podcasts, fetch_podcasts } = useStore(usePodcastStore);
   useEffect(() => {
     fetch_podcasts();
   }, [])

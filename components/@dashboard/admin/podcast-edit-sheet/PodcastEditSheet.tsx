@@ -28,6 +28,7 @@ import usePodcastStore from "@/store/podcast";
 import { FaSpinner } from "react-icons/fa6";
 import useAuthStore from "@/store/store";
 import { useRouter } from "next/navigation";
+import { useStore } from "zustand";
 
 interface EditFormType {
   title: string;
@@ -44,8 +45,8 @@ export default function PodcastEditSheet({
   podcast: any;
 }) {
   const router = useRouter();
-  const { user } = useAuthStore();
-  const { fetch_user_podcasts, update_podcast, loading } = usePodcastStore();
+  const { user } = useStore(useAuthStore);
+  const { fetch_user_podcasts, update_podcast, loading } = useStore(usePodcastStore);
 
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const [video_preview, __video_preview] = useState<string | null>(null);

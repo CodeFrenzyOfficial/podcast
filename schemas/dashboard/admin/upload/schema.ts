@@ -8,7 +8,7 @@ export const uploadPodcastSchema = yup.object().shape({
     .string()
     .required("Title is required")
     .min(5, "Title must be at least 5 characters")
-    .max(100, "Title must not exceed 100 characters"),
+    .max(500, "Title must not exceed 100 characters"),
 
   description: yup
     .string()
@@ -19,22 +19,17 @@ export const uploadPodcastSchema = yup.object().shape({
   thumbnail: yup
     .mixed()
     .required("Thumbnail is required")
-    .test(
-      "fileType",
-      "Invalid file format for thumbnail",
-      (value: File | undefined) => {
-        return value && ACCEPTED_IMAGE_FORMATS.includes(value.type);
-      }
-    ),
+    // 
+    ,
 
   file: yup
     .mixed()
     .required("Podcast file is required")
-    .test(
-      "fileType",
-      "Invalid file format for podcast",
-      (value: File | undefined) => {
-        return value instanceof File && ACCEPTED_FILE_FORMATS.includes(value.type);
-      }
-    ),
+    // .test(
+    //   "fileType",
+    //   "Invalid file format for podcast",
+    //   (value: File | undefined) => {
+    //     return value instanceof File && ACCEPTED_FILE_FORMATS.includes(value.type);
+    //   }
+    // ),
 });

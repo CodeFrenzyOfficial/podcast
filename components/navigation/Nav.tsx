@@ -9,10 +9,10 @@ import Link from "next/link";
 import HomeSidebar from "../home-sidebar/HomeSidebar";
 import EpisodeButton from "../buttons/social-icons/episode-cards-button/EpisodeButton";
 import useAuthStore from "@/store/store";
+import { useStore } from "zustand";
 
 export default function Nav() {
-  const { user } = useAuthStore();
-  console.log(user);
+  const { user } = useStore(useAuthStore);
   return (
     <>
       {/* Topbar */}

@@ -357,7 +357,7 @@ export default function page() {
           {/* Card 1 */}
           {blogs.map((blog: any, index: any) =>
             index % 2 === 0 ? (
-              <div className="flex flex-col lg:flex-row rounded-2xl overflow-hidden lg:max-h-[50vh] border border-px border-neutral-300">
+              <div key={blog.title} className="flex flex-col lg:flex-row rounded-2xl overflow-hidden lg:max-h-[50vh] border border-px border-neutral-300">
                 <div className="lg:w-1/2">
                   <img src={blog.imgSrc[0]} className="object-cover" alt="" />
                 </div>

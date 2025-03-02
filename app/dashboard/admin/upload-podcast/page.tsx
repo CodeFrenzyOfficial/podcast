@@ -17,6 +17,7 @@ import { useState } from "react";
 import useAuthStore from "@/store/store";
 import usePodcastStore from "@/store/podcast";
 import { useRouter } from "next/navigation";
+import { useStore } from "zustand";
 
 interface UploadFormType {
   title: string;
@@ -27,10 +28,10 @@ interface UploadFormType {
 
 export default function Page() {
   const router = useRouter();
-  const { user } = useAuthStore();
-  const { create_podcast } = usePodcastStore();
-
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+
+  const { user } = useStore(useAuthStore);
+  const { create_podcast } = useStore(usePodcastStore);
 
   const form = useForm<UploadFormType>({
     resolver: yupResolver(uploadPodcastSchema),
@@ -114,7 +115,7 @@ export default function Page() {
                       <FormItem>
                         <FormLabel>Description</FormLabel>
                         <FormControl>
-                          <Input placeholder="Podcast Description" {...field} />
+                          <Input maxLength={1000} placeholder="Podcast Description" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
