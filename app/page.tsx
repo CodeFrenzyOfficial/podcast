@@ -31,14 +31,14 @@ export default function page() {
   return (
     <NavFooterWrapper>
       {/* Hero section */}
-      <section className="w-full min-h-[80vh] md:min-h-screen main-hero-section flex flex-col-reverse md:flex-row items-center justify-center gap-8 px-7 md:py-0 lg:px-10 xl:pl-40 xl:pr-20 overflow-hidden">
-        <div className="w-full md:w-full text-center md:!text-left space-y-4 text-white rounded-2xl backdrop-blur-lg p-4 shadow-xl">
-          <p className="tracking-widest text-2xl lg:pt-10">
+      <section className="w-full min-h-screen md:min-h-screen main-hero-section flex flex-col-reverse md:flex-row items-center justify-center gap-2 md:gap-8 px-7 md:py-0 lg:px-10 xl:pl-40 xl:pr-20 overflow-hidden">
+        <div className="w-full md:w-1/2 text-center md:!text-left space-y-4 text-white rounded-2xl backdrop-blur-lg p-4 shadow-xl">
+          <p className="tracking-tight text-base lg:pt-10">
             Welcome to the GoWinOut Podcast: Where the Nightlife Industry
             Connects
           </p>
 
-          <h2 className="w-full text-4xl md:text-5xl lg:text-6xl font-bold">
+          <h2 className="w-full text-2xl md:text-4xl font-bold">
             Taking you behind the scenes on the work, lifestyle and lessons
             learned on working and doing business in the nightlife industry
           </h2>

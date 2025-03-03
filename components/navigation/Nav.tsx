@@ -67,7 +67,7 @@ export default function Nav() {
           {user?.uid ? (
             <Link
               href={
-                user?.role === "admin" ? "/dashboard/admin" : "/dashboard/user"
+                user?.role === "admin" ? "/dashboard/admin" : ""
               }
             >
               <div className="flex items-center gap-2">
