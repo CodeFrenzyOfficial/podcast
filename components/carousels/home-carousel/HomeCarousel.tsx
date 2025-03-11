@@ -12,12 +12,16 @@ import {
 import Autoplay from "embla-carousel-autoplay"
 
 import CarouselCard from "@/components/cards/carousel-card/CarouselCard";
-import { carouselData } from "@/data/carousel/data";
 import usePodcastStore from "@/store/podcast";
+import { useStore } from "zustand";
 
-export default function HomeCarousel({ podcasts }: any) {
+export default function HomeCarousel() {
     // const [activeIndex, setActiveIndex] = useState<number>(0);
     const [emblaApi, setEmblaApi] = useState<CarouselApi | null>(null);
+    const { podcasts, fetch_podcasts } = useStore(usePodcastStore);
+    useEffect(() => {
+        fetch_podcasts();
+    }, [])
     // const numSlides: number = 3;
 
     // const handleDotClick = (index: number) => {

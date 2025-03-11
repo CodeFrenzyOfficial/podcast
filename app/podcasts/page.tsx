@@ -1,18 +1,10 @@
-'use client'
 
 import HomeCarousel from "@/components/carousels/home-carousel/HomeCarousel";
 import AllPodcasts from "@/components/sections/all-podcasts/AllPodcasts";
-import usePodcastStore from "@/store/podcast";
 import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useStore } from "zustand";
 
 export default function page() {
-  const { podcasts, fetch_podcasts } = useStore(usePodcastStore);
-  useEffect(() => {
-    fetch_podcasts();
-  }, [])
   return (
     <NavFooterWrapper>
       <section className="podcast-hero-bg">
@@ -36,11 +28,11 @@ export default function page() {
           <p className='text-neutral-500'>List of episodes</p>
           <h2 className='text-3xl lg:text-4xl font-semibold'>Browse All Episodes</h2>
         </div>
-        <HomeCarousel podcasts={podcasts} />
+        <HomeCarousel  />
       </section>
 
       {/* Podcasts List */}
-      <AllPodcasts podcasts={podcasts} />
+      <AllPodcasts />
     </NavFooterWrapper>
   )
 }

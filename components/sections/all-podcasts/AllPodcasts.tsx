@@ -1,14 +1,21 @@
+'use client'
 import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton";
 import VideoPlayerDialog from "@/components/video-player/VideoPlayer";
-import { episodesData } from "@/data/episodes/data";
+import usePodcastStore from "@/store/podcast";
+import { useEffect } from "react";
 import { FaPlay } from "react-icons/fa6";
 
-export default function AllPodcasts({ podcasts }: any) {
+export default function AllPodcasts({ heading, subHeading }: { heading?: string | undefined, subHeading?: string | undefined }) {
+    const { fetch_podcasts, podcasts } = usePodcastStore();
+
+    useEffect(() => {
+        fetch_podcasts();
+    }, []);
     return (
-        <section className='max-w-screen-xl mx-auto space-y-10 py-10 min-h-screen px-10'>
+        <section className='max-w-screen-xl mx-auto space-y-10 py-10 min-h-screen px-10' id="all-episodes">
             <div className='px-5 lg:px-0 grid place-items-center space-y-2 text-center'>
-                <p className='text-neutral-500'>List of episodes</p>
-                <h2 className='text-3xl lg:text-4xl font-semibold'>Watch our latest episode</h2>
+                <p className='text-neutral-500'>{subHeading && subHeading}</p>
+                <h2 className='text-3xl lg:text-4xl font-semibold'>{heading && heading}</h2>
             </div>
 
             {/* Episode Data mapping */}
@@ -49,7 +56,7 @@ export default function AllPodcasts({ podcasts }: any) {
 
                                     {/* Hover image */}
                                     <div className="hidden lg:block absolute right-40 -bottom-10 opacity-0 transition-all duration-200 group-hover/episode-card:opacity-100 pointer-events-none z-20">
-                                        <img src={podcast.imgSrc} className="-rotate-6 rounded-2xl" alt="" />
+                                        <img src={podcast.imgSrc} className="w-60 h-40 aspect-square object-cover -rotate-6 rounded-2xl" alt="" />
                                     </div>
                                 </div>
                             </VideoPlayerDialog>

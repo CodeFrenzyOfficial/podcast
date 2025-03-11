@@ -3,17 +3,13 @@ import AllPodcasts from "@/components/sections/all-podcasts/AllPodcasts";
 import Newsletter from "@/components/sections/newsletter/Newsletter";
 import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
 import Link from "next/link";
-import { BsFillRssFill } from "react-icons/bs";
 import { FaMicrophoneAlt } from "react-icons/fa";
-import { FaPlay } from "react-icons/fa6";
 import { GrSpotify } from "react-icons/gr";
 import { ImPodcast } from "react-icons/im";
 import { MdVideoLibrary } from "react-icons/md";
 import {
   PiAmazonLogo,
   PiApplePodcastsLogoFill,
-  PiGooglePodcastsLogoFill,
-  PiSoundcloudLogoFill,
   PiYoutubeLogo,
 } from "react-icons/pi";
 
@@ -82,14 +78,7 @@ export default function page() {
             </div>
 
             <div className="flex items-center gap-5">
-              <EpisodeButton link="/" content="View All Episodes" />
-              <div className="flex items-center gap-2">
-                <div className="rounded-full bg-blue-600 text-white p-3">
-                  <FaPlay className="text-2xl" />
-                </div>
-
-                <h2 className="text-neutral-500">How it Works</h2>
-              </div>
+              <EpisodeButton link="#all-episodes" content="View All Episodes" />
             </div>
           </div>
         </div>
@@ -108,35 +97,31 @@ export default function page() {
         </div>
 
         {/* Channels Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-10 text-white place-items-center">
-          {/* <div className="lg:col-span-2 grid place-items-center text-center">
-                        <PiSoundcloudLogoFill className="text-4xl" />
-                        <h2 className="">Souncloud</h2>
-                    </div> */}
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-10 text-white place-items-center">
           <Link
             href="https://open.spotify.com/show/6AkJ5yEZyminFi7hwh36Kv?si=5faa8dfaf077425d"
-            className="lg:col-span-2 grid place-items-center text-center"
+            className="grid place-items-center text-center transition-all duration-200 hover:scale-[1.05]"
           >
             <GrSpotify className="text-4xl" />
             <h2 className="">Spotify</h2>
           </Link>
           <Link
             href=" https://music.amazon.com/podcasts/534987da-100a-4c9c-b2e9-d40230fae66f/gowinout-podcast"
-            className="lg:col-span-2 grid place-items-center text-center"
+            className="grid place-items-center text-center transition-all duration-200 hover:scale-[1.05]"
           >
             <PiYoutubeLogo className="text-4xl" />
             <h2 className="">Youtube</h2>
           </Link>
           <Link
             href=" https://music.amazon.com/podcasts/534987da-100a-4c9c-b2e9-d40230fae66f/gowinout-podcast"
-            className="lg:col-span-3 grid place-items-center text-center"
+            className=" grid place-items-center text-center transition-all duration-200 hover:scale-[1.05]"
           >
             <PiAmazonLogo className="text-4xl" />
             <h2 className="">Amazon Podcast</h2>
           </Link>
           <Link
             href="https://podcasts.apple.com/us/podcast/gowinout-podcast/id1767919675"
-            className="col-span-2 lg:col-span-3 grid place-items-center text-center"
+            className="grid place-items-center text-center transition-all duration-200 hover:scale-[1.05]"
           >
             <PiApplePodcastsLogoFill className="text-4xl" />
             <h2 className="">Apple Podcast</h2>
@@ -154,15 +139,14 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-3xl font-semibold">
-            Support and stand by listening to our most recent show on apple
-            Podcast
+            Support our podcast by listening and commenting on your favorite episodes
           </h2>
           <EpisodeButton link="/" content="View All Episodes" />
         </div>
       </section>
 
       {/* All Episodes */}
-      <AllPodcasts />
+      <AllPodcasts heading="Browse All Episodes"  />
 
       {/* Newsletter */}
       <Newsletter />

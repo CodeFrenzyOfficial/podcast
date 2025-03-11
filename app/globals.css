@@ -5,6 +5,7 @@
 *,
 body {
   font-family: "Poppins", serif;
+  scroll-behavior: smooth;
 }
 
 @layer base {
@@ -186,6 +187,13 @@ body {
   background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../public/assets/hero-sections-bg/contact-bg.jpg');
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
+}
+/* Blogs Page */
+.blogs-hero-bg {
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../public/assets/hero-sections-bg/blogs-hero-bg.jpg');
+  background-size: cover;
+  background-position: top;
   background-attachment: fixed;
 }
 

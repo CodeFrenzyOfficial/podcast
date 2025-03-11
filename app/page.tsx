@@ -1,5 +1,3 @@
-"use client";
-
 import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
 
 import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton";
@@ -9,36 +7,25 @@ import HostCarousel from "@/components/carousels/hosts-carousel/HostCarousel";
 import AllPodcasts from "@/components/sections/all-podcasts/AllPodcasts";
 import Newsletter from "@/components/sections/newsletter/Newsletter";
 
-import { FaComments, FaPlay, FaUser, FaYoutube } from "react-icons/fa6";
+import { FaPlay, FaYoutube } from "react-icons/fa6";
 import { GiMoebiusStar } from "react-icons/gi";
-import { FaApple, FaSoundcloud, FaSpotify } from "react-icons/fa";
+import { FaApple, FaSpotify } from "react-icons/fa";
 import { ImPodcast } from "react-icons/im";
 import { IoLogoAmazon } from "react-icons/io5";
-import usePodcastStore from "@/store/podcast";
-import { useEffect } from "react";
-import useBlogStore from "@/store/blog";
+import HomeBlogs from "@/components/sections/home-blogs/HomeBlogs";
 
 export default function page() {
-  const { fetch_podcasts, podcasts } = usePodcastStore();
-  const { fetch_blogs, blogs } = useBlogStore();
-
-  useEffect(() => {
-    fetch_podcasts();
-    fetch_blogs();
-
-    console.log({ blogs });
-  }, []);
   return (
     <NavFooterWrapper>
       {/* Hero section */}
-      <section className="w-full min-h-[80vh] md:min-h-screen main-hero-section flex flex-col-reverse md:flex-row items-center justify-center gap-8 px-7 md:py-0 lg:px-10 xl:pl-40 xl:pr-20 overflow-hidden">
-        <div className="w-full md:w-full text-center md:!text-left space-y-4 text-white rounded-2xl backdrop-blur-lg p-4 shadow-xl">
-          <p className="tracking-widest text-2xl lg:pt-10">
+      <section className="w-full min-h-screen md:min-h-screen main-hero-section flex flex-col-reverse md:flex-row items-center justify-center gap-2 md:gap-8 px-7 md:py-0 lg:px-10 xl:pl-40 xl:pr-20 overflow-hidden">
+        <div className="w-full md:w-1/2 text-center md:!text-left space-y-4 text-white rounded-2xl backdrop-blur-lg p-4 shadow-xl">
+          <p className="tracking-tight text-base lg:pt-10">
             Welcome to the GoWinOut Podcast: Where the Nightlife Industry
             Connects
           </p>
 
-          <h2 className="w-full text-4xl md:text-5xl lg:text-6xl font-bold">
+          <h2 className="w-full text-2xl md:text-4xl font-bold">
             Taking you behind the scenes on the work, lifestyle and lessons
             learned on working and doing business in the nightlife industry
           </h2>
@@ -172,7 +159,7 @@ export default function page() {
 
             {/* Button */}
             <div className="grid place-items-center pt-5">
-              <EpisodeButton link="/" content="View All Episodes" />
+              <EpisodeButton link="#all-episodes" content="View All Episodes" />
             </div>
           </div>
 
@@ -244,19 +231,22 @@ export default function page() {
               </div>
             </div>
             <div className="grid place-items-center pt-5">
-              <EpisodeButton link="/" content="View All Episodes" />
+              <EpisodeButton link="#all-episodes" content="View All Episodes" />
             </div>
           </div>
         </div>
       </section>
 
+      {/* View all episodes Section */}
+      <AllPodcasts heading="Watch our Latest episode" />
+
       {/* Slider Section */}
       <section className="slider-section-bg lg:min-h-[90vh] w-full overflow-x-hidden  py-10">
-        <div className="w-full grid place-items-center space-y-2 mb-10">
+        {/* <div className="w-full grid place-items-center space-y-2 mb-10">
           <h2 className="text-4xl font-semibold">Enjoy New Podcasts</h2>
           <p className="text-neutral-500">Explore All Podcasts</p>
-        </div>
-        <HomeCarousel podcasts={podcasts} />
+        </div> */}
+        <HomeCarousel />
       </section>
 
       <section className="w-full min-h-[70vh] streaming-section-bg grid place-items-center ">
@@ -269,12 +259,9 @@ export default function page() {
             Support our podcast by listening and commenting on your favorite
             episodes
           </h2>
-          <EpisodeButton link="/" content="View All Episodes" />
+          <EpisodeButton link="#all-episodes" content="View All Episodes" />
         </div>
       </section>
-
-      {/* View all episodes Section */}
-      <AllPodcasts podcasts={podcasts} />
 
       {/* overlapping "learn" section */}
       <section className="overflow-hidden py-10">
@@ -355,79 +342,7 @@ export default function page() {
 
         <div className="max-w-screen-lg mx-auto flex flex-col gap-5">
           {/* Card 1 */}
-          {blogs.map((blog: any, index: any) =>
-            index % 2 === 0 ? (
-              <div key={blog.title} className="flex flex-col lg:flex-row rounded-2xl overflow-hidden lg:max-h-[50vh] border border-px border-neutral-300">
-                <div className="lg:w-1/2">
-                  <img src={blog.imgSrc[0]} className="object-cover" alt="" />
-                </div>
-
-                <div className="lg:w-1/2 px-5 py-5 lg:py-0 gap-6  flex flex-col items-start justify-center lg:gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1">
-                      <FaUser />
-                      <p className="text-neutral-500 text-xs">Jhon Doe</p>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <FaComments />
-                      <p className="text-neutral-500 text-xs">3 comments</p>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <FaComments />
-                      <p className="text-neutral-500 text-xs">
-                        {new Date(blog.upload_date).toISOString().split("T")[0]}
-                      </p>
-                    </div>
-                  </div>
-
-                  <h2 className="text-2xl lg:text-3xl font-semibold">
-                    {blog.title}
-                  </h2>
-
-                  <EpisodeButton
-                    content="Check Episode"
-                    link="/"
-                    contentClassName="text-sm"
-                  />
-                </div>
-              </div>
-            ) : (
-              <div className="flex flex-col lg:flex-row rounded-2xl overflow-hidden lg:max-h-[50vh] border border-px border-neutral-300">
-                <div className="lg:w-1/2 px-5 py-5 lg:py-0 gap-6  flex flex-col items-start justify-center lg:gap-">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1">
-                      <FaUser />
-                      <p className="text-neutral-500 text-xs">Jhon Doe</p>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <FaComments />
-                      <p className="text-neutral-500 text-xs">3 comments</p>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <FaComments />
-                      <p className="text-neutral-500 text-xs">
-                        {new Date(blog.upload_date).toISOString().split("T")[0]}
-                      </p>
-                    </div>
-                  </div>
-
-                  <h2 className="text-2xl lg:text-3xl font-semibold">
-                    {blog.title}
-                  </h2>
-
-                  <EpisodeButton
-                    content="Check Episode"
-                    link="/"
-                    contentClassName="text-sm"
-                  />
-                </div>
-
-                <div className="lg:w-1/2">
-                  <img src={blog.imgSrc[0]} className="object-cover" alt="" />
-                </div>
-              </div>
-            )
-          )}
+          <HomeBlogs />
         </div>
       </section>
 

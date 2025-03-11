@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Input } from "../ui/input";
 import BlogCard from "../cards/blog-card/BlogCard";
-import { blogData } from "@/data/blogs/data";
 import Link from "next/link";
 import useBlogStore from "@/store/blog";
 import { useStore } from "zustand";
@@ -12,16 +11,16 @@ export default function BlogList() {
     const { blogs, fetch_blogs } = useStore(useBlogStore);
     const [search, setSearch] = useState('');
 
-    const filteredBlogs = useMemo(() => {
-        if (!search) return blogData;
-        return blogData.filter((blog) =>
-            blog.title.toLowerCase().includes(search.toLowerCase())
-        );
-    }, [search]);
-
     useEffect(() => {
         fetch_blogs();
-    }, [])
+    }, []);
+
+    const filteredBlogs = useMemo(() => {
+        if (!search) return blogs || [];
+        return (blogs || []).filter((blog: any) =>
+            blog.title.toLowerCase().includes(search.toLowerCase())
+        );
+    }, [search, blogs]);
 
     return (
         <div className="max-w-screen-xl mx-auto space-y-8">
@@ -37,8 +36,8 @@ export default function BlogList() {
 
             {/* Blogs Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {blogs?.length > 0 ? (
-                    blogs?.map((blog: any, index: any) => (
+                {filteredBlogs.length > 0 ? (
+                    filteredBlogs.map((blog: any, index: number) => (
                         <Link href={`/blogs/${blog.title}`} key={index}>
                             <BlogCard
                                 blogDesc={blog.blogDesc}
