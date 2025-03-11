@@ -1,15 +1,17 @@
 "use client";
 
 import { AiFillInstagram } from "react-icons/ai";
-import { FaClock, FaFacebook, FaSquareXTwitter } from "react-icons/fa6";
+import { FaFacebook, FaSquareXTwitter } from "react-icons/fa6";
 import { IoMdMailOpen } from "react-icons/io";
 import Logo from "../svgs/Logo";
-import { CiMenuFries, CiSearch } from "react-icons/ci";
+import { CiMenuFries } from "react-icons/ci";
 import Link from "next/link";
 import HomeSidebar from "../home-sidebar/HomeSidebar";
 import EpisodeButton from "../buttons/social-icons/episode-cards-button/EpisodeButton";
 import useAuthStore from "@/store/store";
 import { useStore } from "zustand";
+import AdminHomeDropdown from "../dropdown/admin/AdminHomeDropdown";
+import UserHomeDropdown from "../dropdown/user/UserHomeDropdown";
 
 export default function Nav() {
   const { user } = useStore(useAuthStore);
@@ -62,7 +64,7 @@ export default function Nav() {
           <Link href="/contact">Contact</Link>
         </ul>
 
-        {/* Search icons etc */}
+        {/* Profile Settings after login */}
         <div className="flex items-center gap-4">
           {user?.uid ? (
             <Link
@@ -70,20 +72,42 @@ export default function Nav() {
                 user?.role === "admin" ? "/dashboard/admin" : ""
               }
             >
-              <div className="flex items-center gap-2">
-                <span>{`${user.f_name} ${user.l_name}`}</span>
-                <span className="text-base p-2 w-10 h-10 rounded-full grid place-items-center bg-blue-700 text-white font-semibold">{`${
-                  String(user.f_name).charAt(0).toUpperCase() +
-                  String(user.l_name).charAt(0).toUpperCase()
-                }`}</span>
-              </div>
+              {
+                user?.role === 'admin' ? (
+                  // admin profile
+                  <AdminHomeDropdown>
+                    <div className="flex items-center gap-2">
+                      <span>{`${user.f_name}`}</span>
+                      <span className="text-base p-2 w-10 h-10 rounded-full grid place-items-center bg-blue-700 text-white font-semibold">
+                        {`
+                          ${String(user.f_name).charAt(0).toUpperCase() +
+                          String(user.l_name).charAt(0).toUpperCase()}
+                            `}
+                      </span>
+                    </div>
+                  </AdminHomeDropdown>
+                )
+                  // user profile
+                  :
+                  <UserHomeDropdown>
+                    <div className="flex items-center gap-2">
+                      <span>{`${user.f_name}`}</span>
+                      <span className="text-base p-2 w-10 h-10 rounded-full grid place-items-center bg-blue-700 text-white font-semibold">
+                        {`
+                       ${String(user.f_name).charAt(0).toUpperCase() +
+                          String(user.l_name).charAt(0).toUpperCase()}
+                      `}
+                      </span>
+                    </div>
+                  </UserHomeDropdown>
+              }
             </Link>
           ) : (
             <EpisodeButton content="Login" link="/login" />
           )}
 
           <div className="md:hidden">
-            <HomeSidebar>
+            <HomeSidebar user={user}>
               <div className="cursor-pointer p-2 transition-all duration-200 hover:bg-black hover:text-white rounded-full">
                 <CiMenuFries className="text-2xl md:text-2xl" />
               </div>

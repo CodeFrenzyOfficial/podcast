@@ -24,10 +24,11 @@ export default function Page() {
 
       {/* Form with Map */}
       <section className='w-full min-h-screen flex flex-col md:flex-row'>
-        <div className='md:w-1/2'>
-          <Location />
+        <div className='w-1/2 hidden lg:block'>
+          {/* <Location /> */}
+          <img src="/assets/hero-sections-bg/contact-us.jpg" className='w-full h-full object-cover opacity-80 object-right' alt="" />
         </div>
-        <div className='md:w-1/2 border-l border-px border-solid border-neutral-300'>
+        <div className='w-full lg:w-1/2 border-l border-px border-solid border-neutral-300'>
           <ContactForm />
         </div>
       </section>

@@ -17,7 +17,7 @@ import { BiSolidVideos } from 'react-icons/bi';
 import { FaWpforms } from 'react-icons/fa6';
 import { IoIosChatboxes } from 'react-icons/io';
 
-export default function HomeSidebar({ children }: { children: React.ReactNode }) {
+export default function HomeSidebar({ children, user }: { children: React.ReactNode, user: any }) {
     const pathname = usePathname()
 
     const menuLinks = [
@@ -76,10 +76,12 @@ export default function HomeSidebar({ children }: { children: React.ReactNode })
                         </div>
 
                         {/* Login Signup Button */}
-                        <div className='w-full flex items-center justify-between'>
-                            <EpisodeButton content="Login" link="/login" />
-                            <EpisodeButton content="Signup" link="/signup" />
-                        </div>
+                        {
+                            user === null && <div className='w-full flex items-center justify-between'>
+                                <EpisodeButton content="Login" link="/login" />
+                                <EpisodeButton content="Signup" link="/signup" />
+                            </div>
+                        }
                     </div>
 
                 </SheetHeader>
