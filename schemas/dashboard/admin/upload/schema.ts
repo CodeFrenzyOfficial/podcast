@@ -14,7 +14,7 @@ export const uploadPodcastSchema = yup.object().shape({
     .string()
     .required("Description is required")
     .min(20, "Description must be at least 20 characters")
-    .max(1000, "Description must not exceed 1000 characters"),
+    .max(5000, "Description must not exceed 5000 characters"),
 
   thumbnail: yup
     .mixed()
