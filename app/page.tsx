@@ -3,9 +3,8 @@ import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
 import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton";
 import SocialIcon from "@/components/buttons/social-icons/SocialIcon";
 import HomeCarousel from "@/components/carousels/home-carousel/HomeCarousel";
-import HostCarousel from "@/components/carousels/hosts-carousel/HostCarousel";
+// import HostCarousel from "@/components/carousels/hosts-carousel/HostCarousel";
 import AllPodcasts from "@/components/sections/all-podcasts/AllPodcasts";
-import Newsletter from "@/components/sections/newsletter/Newsletter";
 
 import { FaPlay, FaYoutube } from "react-icons/fa6";
 import { GiMoebiusStar } from "react-icons/gi";
@@ -13,6 +12,7 @@ import { FaApple, FaSpotify } from "react-icons/fa";
 import { ImPodcast } from "react-icons/im";
 import { IoLogoAmazon } from "react-icons/io5";
 import HomeBlogs from "@/components/sections/home-blogs/HomeBlogs";
+import HostCard from "@/components/cards/host-card/HostCard";
 
 export default function page() {
   return (
@@ -325,11 +325,12 @@ export default function page() {
         <div className="grid place-items-center space-y-2 text-center">
           <p className="text-neutral-500">Expert People</p>
           <h2 className="text-3xl lg:text-4xl font-semibold">
-            Meet our Podcast Hosts
+            Meet our Podcast Host
           </h2>
         </div>
-        <div className="max-w-screen-lg mx-auto">
-          <HostCarousel />
+        <div className="w-full grid place-items-center mx-auto px-10 lg:px-0">
+          {/* <HostCarousel /> */}
+          <HostCard name="Stephon Tynes" position="Host & Founder" imgSrc="/assets/hosts/4.jpeg" />
         </div>
       </section>
 
@@ -346,8 +347,6 @@ export default function page() {
         </div>
       </section>
 
-      {/* NewsLetter Section */}
-      <Newsletter />
     </NavFooterWrapper>
   );
 }

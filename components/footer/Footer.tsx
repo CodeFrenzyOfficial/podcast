@@ -19,8 +19,7 @@ export default function Footer() {
           <div className="space-y-5">
             <Logo width={100} height={100} />
             <p className="text-white text-sm">
-              Our pick of the best podcasts on Spotify, Apple Podcasts and more
-              covering all trends.
+              To follow news and events in nightlife local to your area follow our social media accounts
             </p>
             {/* social icons */}
             <div className="flex items-center gap-4">
