@@ -15,9 +15,9 @@ export default function HomeBlogs() {
     return (
         blogs.map((blog: any, index: any) =>
             index % 2 === 0 ? (
-                <Link href={`/blogs/${blog.title}`} key={blog.title} className="flex flex-col lg:flex-row rounded-2xl overflow-hidden h-[50vh] border border-px border-neutral-300">
+                <Link href={`/blogs/${blog.title}`} key={blog.title} className="flex flex-col lg:flex-row rounded-2xl overflow-hidden border border-px border-neutral-300">
                     <div className="lg:w-1/2">
-                        <img src={blog.imgSrc[0]} className="w-full h-full object-cover" alt="" />
+                        <img src={blog.imgSrc[0]} className="w-full h-[35vh] lg:h-[50vh] object-cover" alt="" />
                     </div>
 
                     <div className="lg:w-1/2 px-5 py-5 lg:py-0 gap-6  flex flex-col items-start justify-center lg:gap-3">
@@ -50,7 +50,7 @@ export default function HomeBlogs() {
                     </div>
                 </Link>
             ) : (
-                <Link href={`/blogs/${blog.title}`} key={blog.title} className="flex flex-col lg:flex-row rounded-2xl overflow-hidden lg:max-h-[50vh] border border-px border-neutral-300">
+                <Link href={`/blogs/${blog.title}`} key={blog.title} className="flex flex-col lg:flex-row rounded-2xl overflow-hidden border border-px border-neutral-300">
                     <div className="lg:w-1/2 px-5 py-5 lg:py-0 gap-6  flex flex-col items-start justify-center lg:gap-">
                         <div className="flex items-center gap-3">
                             <div className="flex items-center gap-1">
@@ -81,7 +81,7 @@ export default function HomeBlogs() {
                     </div>
 
                     <div className="lg:w-1/2">
-                        <img src={blog.imgSrc[0]} className="object-cover" alt="" />
+                            <img src={blog.imgSrc[0]} className="w-full h-[35vh] lg:h-[50vh] object-cover" alt="" />
                     </div>
                 </Link>
             )

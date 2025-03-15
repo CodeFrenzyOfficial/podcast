@@ -1,6 +1,5 @@
 import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton";
 import AllPodcasts from "@/components/sections/all-podcasts/AllPodcasts";
-import Newsletter from "@/components/sections/newsletter/Newsletter";
 import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
 import Link from "next/link";
 import { FaMicrophoneAlt } from "react-icons/fa";
@@ -148,8 +147,6 @@ export default function page() {
       {/* All Episodes */}
       <AllPodcasts heading="Browse All Episodes"  />
 
-      {/* Newsletter */}
-      <Newsletter />
     </NavFooterWrapper>
   );
 }
