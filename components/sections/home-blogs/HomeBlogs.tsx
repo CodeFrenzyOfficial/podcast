@@ -15,7 +15,7 @@ export default function HomeBlogs() {
     return (
         blogs.map((blog: any, index: any) =>
             index % 2 === 0 ? (
-                <Link href={`/blogs/${blog.title}`} key={blog.title} className="flex flex-col lg:flex-row rounded-2xl overflow-hidden border border-px border-neutral-300">
+                <Link href={`/blogs/${blog.title}`} key={index} className="flex flex-col lg:flex-row rounded-2xl overflow-hidden border border-px border-neutral-300">
                     <div className="lg:w-1/2">
                         <img src={blog.imgSrc[0]} className="w-full h-[35vh] lg:h-[50vh] object-cover" alt="" />
                     </div>

@@ -18,10 +18,18 @@ import useAuthStore from "@/store/store";
 import usePodcastStore from "@/store/podcast";
 import { useRouter } from "next/navigation";
 import { useStore } from "zustand";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface UploadFormType {
   title: string;
   description: string;
+  category: string;
   thumbnail: File;
   file: File;
 }
@@ -38,13 +46,14 @@ export default function Page() {
     defaultValues: {
       title: "",
       description: "",
+      category: "",
       thumbnail: undefined as unknown as File, // Cast to File
       file: undefined as unknown as File, // Cast to File
     },
   });
 
   const onSubmit = async (formData: UploadFormType) => {
-    create_podcast(formData, router, user?.uid);
+    create_podcast(formData, router, user);
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,12 +119,52 @@ export default function Page() {
 
                   <FormField
                     control={form.control}
+                    name="category"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Category</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="outline-none ring-0">
+                              <SelectValue placeholder="Select one option" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="outline-none ring-0">
+                            <SelectItem value="dj">DJ</SelectItem>
+                            <SelectItem value="prmoter/host">
+                              Promoter/Host
+                            </SelectItem>
+                            <SelectItem value="service worker">
+                              Service Worker
+                            </SelectItem>
+                            <SelectItem value="venue owner">
+                              Venue Owner
+                            </SelectItem>
+                            <SelectItem value="regular patron">
+                              Regular Patron (Party Goer)
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
                     name="description"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Description</FormLabel>
                         <FormControl>
-                          <Input maxLength={1000} placeholder="Podcast Description" {...field} />
+                          <Input
+                            maxLength={1000}
+                            placeholder="Podcast Description"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

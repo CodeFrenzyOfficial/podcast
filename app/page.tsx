@@ -1,3 +1,5 @@
+"use client";
+
 import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
 
 import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton";
@@ -13,8 +15,47 @@ import { ImPodcast } from "react-icons/im";
 import { IoLogoAmazon } from "react-icons/io5";
 import HomeBlogs from "@/components/sections/home-blogs/HomeBlogs";
 import HostCard from "@/components/cards/host-card/HostCard";
+import { useStore } from "zustand";
+import usePodcastStore from "@/store/podcast";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function page() {
+  const [dj_order, __dj_order] = useState("");
+  const [dj_page, __dj_page] = useState(1);
+
+  const [other_order, __other_order] = useState("");
+  const [other_page, __other_page] = useState(1);
+
+  const {
+    fetch_user_podcasts_by_category,
+    dj_podcasts,
+    other_podcasts,
+    dj_loading,
+    other_loading,
+  } = useStore(usePodcastStore);
+
+  useEffect(() => {
+    fetch_user_podcasts_by_category("dj", dj_order, dj_page);
+    fetch_user_podcasts_by_category("other", other_order, other_page);
+  }, []);
+
+  useEffect(() => {
+    fetch_user_podcasts_by_category("dj", dj_order, 1);
+  }, [dj_order]);
+
+  useEffect(() => {
+    fetch_user_podcasts_by_category("dj", "", dj_page);
+  }, [dj_page]);
+
+  useEffect(() => {
+    fetch_user_podcasts_by_category("other", other_order, 1);
+  }, [other_order]);
+
+  useEffect(() => {
+    fetch_user_podcasts_by_category("other", "", other_page);
+  }, [other_page]);
+
   return (
     <NavFooterWrapper>
       {/* Hero section */}
@@ -101,65 +142,104 @@ export default function page() {
             </div>
 
             <div className="md:w-[90%] space-y-4">
-              <h2 className="capitalize text-lg leading-tight lg:text-2xl font-medium">
+              <h2 className="capitalize text-lg leading-tight lg:text-2xl font-medium mb-4">
                 Explore the world of Djing in nigthclubs and other venues:
               </h2>
 
-              {/* episodes details #1 */}
-              <div className="flex items-start gap-3">
-                {/* play icon */}
-                <div className="rounded-full bg-blue-600 text-white p-3">
-                  <FaPlay className="text-2xl" />
-                </div>
+              <div className="flex justify-end ml-auto bg-gray-100 p-1 rounded-md mb-4 w-fit text-sm mb-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+                  />
+                </svg>
 
-                <div className="">
-                  <p className="text-sm md:text-base text-neutral-500">
-                    Episode #8 - Classic
-                  </p>
-                  <h2 className="text-base md:text-xl font-semibold">
-                    The most remarkable style plans for you
-                  </h2>
-                </div>
+                <select
+                  onChange={(e: any) => __dj_order(e.target.value)}
+                  name="filter"
+                  className="outline-none cursor-pointer bg-transparent"
+                >
+                  <option value="" selected></option>
+                  <option value="asc">Newest</option>
+                  <option value="desc">Oldest</option>
+                </select>
               </div>
 
-              {/* episodes details #2 */}
-              <div className="flex items-start gap-3">
-                {/* play icon */}
-                <div className="rounded-full bg-blue-600 text-white p-3">
-                  <FaPlay className="text-2xl" />
-                </div>
+              {!dj_loading
+                ? dj_podcasts?.results?.podcasts?.map(
+                    (podcast: any, index: any) => (
+                      <Link key={index} href={podcast.videoSrc}>
+                        <div className="flex items-start gap-3 mb-3 p-2 rounded-md hover:bg-gray-100">
+                          <div className="rounded-full bg-blue-600 text-white p-3">
+                            <FaPlay className="text-2xl" />
+                          </div>
 
-                <div className="">
-                  <p className="text-sm md:text-base text-neutral-500">
-                    Episode #8 - Classic
-                  </p>
-                  <h2 className="text-base md:text-xl font-semibold">
-                    The most remarkable style plans for you
-                  </h2>
-                </div>
-              </div>
+                          <div className="">
+                            <p className="text-sm md:text-base text-neutral-500">
+                              Episode #{index + 1} - Classic
+                            </p>
+                            <h2 className="text-base md:text-xl font-semibold">
+                              {podcast.title}
+                            </h2>
+                          </div>
+                        </div>
+                      </Link>
+                    )
+                  )
+                : [1, 2, 3].map((index: any) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 animate-pulse"
+                    >
+                      <div className="rounded-full bg-blue-600 text-white p-3">
+                        <FaPlay className="text-2xl" />
+                      </div>
 
-              {/* episodes details #3 */}
-              <div className="flex items-start gap-3">
-                {/* play icon */}
-                <div className="rounded-full bg-blue-600 text-white p-3">
-                  <FaPlay className="text-2xl" />
-                </div>
-
-                <div className="">
-                  <p className="text-sm md:text-base text-neutral-500">
-                    Episode #8 - Classic
-                  </p>
-                  <h2 className="text-base md:text-xl font-semibold">
-                    The most remarkable style plans for you
-                  </h2>
-                </div>
-              </div>
+                      <div className="grid gap-2">
+                        <p className="h-4 rounded-full w-24 bg-gray-200"></p>
+                        <h2 className="h-4 rounded-full w-60 bg-gray-200"></h2>
+                      </div>
+                    </div>
+                  ))}
             </div>
 
             {/* Button */}
-            <div className="grid place-items-center pt-5">
+            <div
+              className={`flex items-center pt-2 ${
+                dj_podcasts?.count > 3 ? "justify-between" : "justify-center"
+              }`}
+            >
+              {dj_podcasts?.count > 3 && (
+                <>
+                  <button
+                    disabled={dj_page == 1}
+                    onClick={() => __dj_page((prev) => prev - 1)}
+                    className="disabled:text-gray-200 diabled:cursor-not-allowed"
+                  >
+                    Prev
+                  </button>
+                </>
+              )}
               <EpisodeButton link="#all-episodes" content="View All Episodes" />
+              {dj_podcasts?.count > 3 && (
+                <>
+                  <button
+                    disabled={!dj_podcasts?.next}
+                    onClick={() => __dj_page((prev) => prev + 1)}
+                    className="disabled:text-gray-200 diabled:cursor-not-allowed"
+                  >
+                    Next
+                  </button>
+                </>
+              )}
             </div>
           </div>
 
@@ -174,64 +254,103 @@ export default function page() {
             </div>
 
             <div className="w-[90%] space-y-4">
-              <h2 className="capitalize text-lg leading-tight lg:text-2xl font-medium">
+              <h2 className="capitalize text-lg leading-tight lg:text-2xl font-medium mb-4">
                 Explore the world of Djing in nigthclubs and other venues:
               </h2>
 
-              {/* episodes details #1 */}
-              <div className="flex items-start gap-3">
-                {/* play icon */}
-                <div className="rounded-full bg-blue-600 text-white p-3">
-                  <FaPlay className="text-2xl" />
-                </div>
+              <div className="flex justify-end ml-auto bg-gray-100 p-1 rounded-md mb-4 w-fit text-sm mb-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+                  />
+                </svg>
 
-                <div className="">
-                  <p className="text-sm md:text-base text-neutral-500">
-                    Episode #8 - Classic
-                  </p>
-                  <h2 className="text-base md:text-xl font-semibold">
-                    The most remarkable style plans for you
-                  </h2>
-                </div>
+                <select
+                  onChange={(e: any) => __other_order(e.target.value)}
+                  name="filter"
+                  className="outline-none cursor-pointer bg-transparent"
+                >
+                  <option value="" selected></option>
+                  <option value="asc">Newest</option>
+                  <option value="desc">Oldest</option>
+                </select>
               </div>
 
-              {/* episodes details #2 */}
-              <div className="flex items-start gap-3">
-                {/* play icon */}
-                <div className="rounded-full bg-blue-600 text-white p-3">
-                  <FaPlay className="text-2xl" />
-                </div>
+              {!other_loading
+                ? other_podcasts?.results?.podcasts?.map(
+                    (podcast: any, index: any) => (
+                      <Link key={index} href={podcast.videoSrc}>
+                        <div className="flex items-start gap-3 mb-3 p-2 rounded-md hover:bg-gray-100">
+                          <div className="rounded-full bg-blue-600 text-white p-3">
+                            <FaPlay className="text-2xl" />
+                          </div>
 
-                <div className="">
-                  <p className="text-sm md:text-base text-neutral-500">
-                    Episode #8 - Classic
-                  </p>
-                  <h2 className="text-base md:text-xl font-semibold">
-                    The most remarkable style plans for you
-                  </h2>
-                </div>
-              </div>
+                          <div className="">
+                            <p className="text-sm md:text-base text-neutral-500">
+                              Episode #{index + 1} - Classic
+                            </p>
+                            <h2 className="text-base md:text-xl font-semibold">
+                              {podcast.title}
+                            </h2>
+                          </div>
+                        </div>
+                      </Link>
+                    )
+                  )
+                : [1, 2, 3].map((index: any) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 animate-pulse"
+                    >
+                      <div className="rounded-full bg-blue-600 text-white p-3">
+                        <FaPlay className="text-2xl" />
+                      </div>
 
-              {/* episodes details #3 */}
-
-              <div className="flex items-start gap-3">
-                {/* play icon */}
-                <div className="rounded-full bg-blue-600 text-white p-3">
-                  <FaPlay className="text-2xl" />
-                </div>
-
-                <div className="">
-                  <p className="text-sm md:text-base text-neutral-500">
-                    Episode #8 - Classic
-                  </p>
-                  <h2 className="text-base md:text-xl font-semibold">
-                    The most remarkable style plans for you
-                  </h2>
-                </div>
-              </div>
+                      <div className="grid gap-2">
+                        <p className="h-4 rounded-full w-24 bg-gray-200"></p>
+                        <h2 className="h-4 rounded-full w-60 bg-gray-200"></h2>
+                      </div>
+                    </div>
+                  ))}
             </div>
-            <div className="grid place-items-center pt-5">
+
+            <div
+              className={`flex items-center pt-2 ${
+                other_podcasts?.count > 3 ? "justify-between" : "justify-center"
+              }`}
+            >
+              {other_podcasts?.count > 3 && (
+                <>
+                  <button
+                    disabled={other_page == 1}
+                    onClick={() => __other_page((prev) => prev - 1)}
+                    className="disabled:text-gray-200 diabled:cursor-not-allowed"
+                  >
+                    Prev
+                  </button>
+                </>
+              )}
               <EpisodeButton link="#all-episodes" content="View All Episodes" />
+              {other_podcasts?.count > 3 && (
+                <>
+                  <button
+                    onClick={() => __other_page((prev) => prev + 1)}
+                    disabled={!other_podcasts?.next}
+                    className="disabled:text-gray-200 diabled:cursor-not-allowed"
+                  >
+                    Next
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -330,7 +449,11 @@ export default function page() {
         </div>
         <div className="w-full grid place-items-center mx-auto px-10 lg:px-0">
           {/* <HostCarousel /> */}
-          <HostCard name="Stephon Tynes" position="Host & Founder" imgSrc="/assets/hosts/4.jpeg" />
+          <HostCard
+            name="Stephon Tynes"
+            position="Host & Founder"
+            imgSrc="/assets/hosts/4.jpeg"
+          />
         </div>
       </section>
 
@@ -346,7 +469,6 @@ export default function page() {
           <HomeBlogs />
         </div>
       </section>
-
     </NavFooterWrapper>
   );
 }
