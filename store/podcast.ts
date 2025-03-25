@@ -18,7 +18,7 @@ interface PodcastStore {
     order: any,
     page: any
   ) => Promise<void>;
-  create_podcast: (payload: any, user_id: any, router: any) => Promise<void>;
+  create_podcast: (payload: any, user_id: any, router: any, toast: any) => Promise<void>;
   update_podcast: (
     payload: any,
     user_id: any,
@@ -129,10 +129,14 @@ const usePodcastStore = create<PodcastStore>()(
           }
         },
 
-        create_podcast: async (payload: any, router: any, user: any) => {
+        create_podcast: async (payload: any, router: any, user: any, toast: any) => {
           try {
             set({ loading: true });
-
+            toast({
+              title: "Uploading thumbnail",
+              description: "Please wait, your thumbnail is being uploaded.",
+              duration: 5000
+            })
             const form_data = new FormData();
             form_data.append("title", payload.title);
             form_data.append("desc", payload.description);

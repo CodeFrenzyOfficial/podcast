@@ -25,6 +25,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { FaCircleNotch } from "react-icons/fa6";
 
 interface UploadFormType {
   title: string;
@@ -36,10 +38,12 @@ interface UploadFormType {
 
 export default function Page() {
   const router = useRouter();
+  const { toast } = useToast();
+
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
 
   const { user } = useStore(useAuthStore);
-  const { create_podcast } = useStore(usePodcastStore);
+  const { loading, create_podcast } = useStore(usePodcastStore);
 
   const form = useForm<UploadFormType>({
     resolver: yupResolver(uploadPodcastSchema),
@@ -53,12 +57,13 @@ export default function Page() {
   });
 
   const onSubmit = async (formData: UploadFormType) => {
-    create_podcast(formData, router, user);
+    create_podcast(formData, router, user, toast);
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+
       setThumbnailPreview(URL.createObjectURL(file));
       form.setValue("thumbnail", file, { shouldValidate: true });
     }
@@ -196,9 +201,12 @@ export default function Page() {
                     )}
                   />
 
-                  <Button size="lg" type="submit">
-                    Upload
-                  </Button>
+                  <button disabled={loading} type="submit" className="flex items-center gap-2 px-6 py-3 bg-black text-white text-lg rounded-md transition-all duration-200 hover:opacity-80">
+                    <h2>
+                      Upload
+                    </h2>
+                    {loading && <FaCircleNotch className="animate-spin text-white" />}
+                  </button>
                 </form>
               </Form>
             </div>
