@@ -19,12 +19,13 @@ export default function page() {
     if (user && user.uid) {
       fetch_user_podcasts(user.uid);
       fetch_user_blogs(user.uid);
+      console.log(podcasts)
     }
   }, [user]);
 
   return (
     <section className="px-10">
-      <div className="max-w-screen-xl mx-auto min-h-[50vh] rounded-2xl shadow-lg shadow-neutral-400/30 bg-gradient-to-tl from-neutral-300/70 to-neutral-100/10 grid place-items-center py-5 lg:py-10 px-2 md:px-5">
+      <div className="max-w-screen-xl mx-auto rounded-2xl shadow-lg shadow-neutral-400/30 bg-gradient-to-tl from-neutral-300/70 to-neutral-100/10 grid place-items-center py-5 lg:py-10 px-2 md:px-5">
         <div className="grid place-items-center text-center pb-5 space-y-1">
           <h2 className="text-2xl md:text-3xl">Manage Your Podcast Library</h2>
           <p className="text-neutral-500 text-sm">

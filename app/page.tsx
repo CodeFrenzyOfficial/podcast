@@ -255,7 +255,7 @@ export default function page() {
 
             <div className="w-[90%] space-y-4">
               <h2 className="capitalize text-lg leading-tight lg:text-2xl font-medium mb-4">
-                Explore the world of Djing in nigthclubs and other venues:
+                Hear from different members working in the industry from all types of roles, from bartending to venue ownership:
               </h2>
 
               <div className="flex justify-end ml-auto bg-gray-100 p-1 rounded-md mb-4 w-fit text-sm mb-2">

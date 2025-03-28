@@ -94,7 +94,7 @@ export default function PodcastEditSheet({
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-3"
+              className="w-full space-y-3 overflow-auto"
             >
               <FormField
                 control={form.control}

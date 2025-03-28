@@ -26,7 +26,7 @@ export default function Nav() {
           </div> */}
           <div className="flex gap-2 items-center">
             <IoMdMailOpen className="text-lg" />
-            <p className="text-xs">info@gowinout.com</p>
+            <a href="mailto:info@gowinout.com" className="cursor-pointer text-xs">info@gowinout.com</a>
           </div>
         </div>
 
