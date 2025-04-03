@@ -1,6 +1,5 @@
 "use client";
-import UploadPodcast from "@/components/@dashboard/admin/upload-podcast/UploadPodcast";
-import { Button } from "@/components/ui/button";
+
 import {
   Form,
   FormControl,
@@ -10,21 +9,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { uploadPodcastSchema } from "@/schemas/dashboard/admin/upload/schema";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { uploadPodcastSchema } from "@/schemas/dashboard/admin/upload/schema";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import useAuthStore from "@/store/store";
 import usePodcastStore from "@/store/podcast";
-import { useRouter } from "next/navigation";
 import { useStore } from "zustand";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { FaCircleNotch } from "react-icons/fa6";
 
@@ -36,14 +30,16 @@ interface UploadFormType {
   file: File;
 }
 
-export default function Page() {
+export default function UploadPodcastPage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { user } = useStore(useAuthStore);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [retryData, setRetryData] = useState<UploadFormType | null>(null);
+
+  const { loading, uploadProgress, setUploadProgress, setLoading, create_podcast } = useStore(usePodcastStore);
 
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
-
-  const { user } = useStore(useAuthStore);
-  const { loading, create_podcast } = useStore(usePodcastStore);
 
   const form = useForm<UploadFormType>({
     resolver: yupResolver(uploadPodcastSchema),
@@ -51,19 +47,42 @@ export default function Page() {
       title: "",
       description: "",
       category: "",
-      thumbnail: undefined as unknown as File, // Cast to File
-      file: undefined as unknown as File, // Cast to File
+      thumbnail: undefined as unknown as File,
+      file: undefined as unknown as File,
     },
   });
 
   const onSubmit = async (formData: UploadFormType) => {
-    create_podcast(formData, router, user, toast);
+    if (!user?.uid) {
+      toast({
+        title: "Authentication Error",
+        description: "Please log in to upload podcasts",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const payload = {
+      ...formData,
+      user_id: user.uid,
+    };
+
+    setUploadError(null);
+    setRetryData(payload); // Save for retry
+
+    try {
+      await create_podcast(payload, router, user, toast);
+      form.reset();
+      setThumbnailPreview(null);
+      setRetryData(null);
+    } catch (error: any) {
+      setUploadError("Upload failed. Please try again.");
+    }
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-
       setThumbnailPreview(URL.createObjectURL(file));
       form.setValue("thumbnail", file, { shouldValidate: true });
     }
@@ -77,141 +96,173 @@ export default function Page() {
           Upload your latest podcast episodes effortlessly!
         </p>
       </div>
+
       <div className="max-w-screen-lg mx-auto min-h-[50vh] rounded-2xl shadow-lg shadow-neutral-400/30 bg-gradient-to-tl from-neutral-400/70 to-neutral-100/10 p-5">
-        <UploadPodcast />
         <div className="flex flex-col-reverse lg:flex-row justify-around items-center gap-3">
           <div className="w-full lg:w-2/3 space-y-2 mt-5">
-            <div className="grid place-items-start">
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="lg:w-2/3 space-y-3"
-                >
-                  <FormField
-                    control={form.control}
-                    name="thumbnail"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Thumbnail</FormLabel>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="lg:w-2/3 space-y-3"
+              >
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Title</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter podcast title" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter description" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="category"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Category</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <Input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => {
-                              handleThumbnailChange(e);
-                              field.onChange(e.target.files?.[0] || null);
-                            }}
-                          />
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select category" />
+                          </SelectTrigger>
                         </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                        <SelectContent>
+                          <SelectItem value="dj">DJ</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                  <FormField
-                    control={form.control}
-                    name="title"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Title</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Podcast Title" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                <FormField
+                  control={form.control}
+                  name="thumbnail"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Thumbnail</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            handleThumbnailChange(e);
+                            field.onChange(e.target.files?.[0] || null);
+                          }}
+                        />
+                      </FormControl>
+                      {thumbnailPreview && (
+                        <img
+                          src={thumbnailPreview}
+                          alt="Thumbnail Preview"
+                          className="w-32 h-32 object-cover rounded-lg mt-2"
+                        />
+                      )}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                  <FormField
-                    control={form.control}
-                    name="category"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Category</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger className="outline-none ring-0">
-                              <SelectValue placeholder="Select one option" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className="outline-none ring-0">
-                            <SelectItem value="dj">DJ</SelectItem>
-                            <SelectItem value="prmoter/host">
-                              Promoter/Host
-                            </SelectItem>
-                            <SelectItem value="service worker">
-                              Service Worker
-                            </SelectItem>
-                            <SelectItem value="venue owner">
-                              Venue Owner
-                            </SelectItem>
-                            <SelectItem value="regular patron">
-                              Regular Patron (Party Goer)
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                <FormField
+                  control={form.control}
+                  name="file"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Podcast File</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="file"
+                          accept="video/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              field.onChange(file);
+                            }
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                  <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Description</FormLabel>
-                        <FormControl>
-                          <Input
-                            maxLength={1000}
-                            placeholder="Podcast Description"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
+                {/* Submit or Retry Button */}
+                {!uploadError ? (
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading ? (
+                      <div className="flex items-center gap-2">
+                        <FaCircleNotch className="animate-spin" />
+                        <span>Uploading...</span>
+                      </div>
+                    ) : (
+                      "Upload Podcast"
                     )}
-                  />
+                  </Button>
+                ) : (
+                  <div className="w-full space-y-2">
+                    <p className="text-red-500 text-sm text-center">{uploadError}</p>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full"
+                      onClick={async () => {
+                        if (retryData && user?.uid) {
+                          try {
+                            await create_podcast(retryData, router, user, toast);
+                            form.reset();
+                            setThumbnailPreview(null);
+                            setUploadError(null);
+                            setRetryData(null);
+                          } catch (error) {
+                            setUploadError("Retry failed. Please try again.");
+                          }
+                        }
+                      }}
+                    >
+                      Retry Upload
+                    </Button>
+                  </div>
+                )}
 
-                  <FormField
-                    control={form.control}
-                    name="file"
-                    render={({ field: { onChange, value, ...field } }) => (
-                      <FormItem>
-                        <FormLabel>Podcast File</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="file"
-                            accept="audio/*,video/*"
-                            placeholder="Select Podcast File"
-                            onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) {
-                                onChange(file);
-                              }
-                            }}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <button disabled={loading} type="submit" className="flex items-center gap-2 px-6 py-3 bg-black text-white text-lg rounded-md transition-all duration-200 hover:opacity-80">
-                    <h2>
-                      Upload
-                    </h2>
-                    {loading && <FaCircleNotch className="animate-spin text-white" />}
-                  </button>
-                </form>
-              </Form>
-            </div>
+                {/* Progress Bar */}
+                {loading && (
+                  <div className="mt-4 w-full">
+                    <div className="w-full bg-neutral-200 rounded-full h-3 overflow-hidden">
+                      <div
+                        className="bg-blue-600 h-full transition-all duration-300"
+                        style={{ width: `${Math.round(uploadProgress)}%` }}
+                      ></div>
+                    </div>
+                    <p className="text-sm text-neutral-600 mt-1 text-right">
+                      Uploading: {Math.round(uploadProgress)}%
+                    </p>
+                  </div>
+                )}
+              </form>
+            </Form>
           </div>
 
+          {/* Thumbnail Preview Side */}
           {thumbnailPreview ? (
             <div className="w-full lg:w-1/3 mt-3 h-full grid place-items-center p-5 bg-white">
               <img
@@ -221,10 +272,9 @@ export default function Page() {
               />
             </div>
           ) : (
-            // Skeleton
             <div className="w-full h-full lg:w-1/2 mt-3 grid place-items-center p-5">
-              <div className="w-72 h-72 bg-gradient-to-tl from-neutral-400/70 to-neutral-100/10 rounded-lg animate-pulse upload-podcast-skeleton relative overflow-hidden z-0 grid place-items-center">
-                <h2 className="text-xl">Thumnail Preview</h2>
+              <div className="w-72 h-72 bg-gradient-to-tl from-neutral-400/70 to-neutral-100/10 rounded-lg animate-pulse relative overflow-hidden grid place-items-center">
+                <h2 className="text-xl">Thumbnail Preview</h2>
               </div>
             </div>
           )}
