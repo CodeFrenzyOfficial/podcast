@@ -12,14 +12,14 @@ import { useStore } from "zustand";
 
 export default function page() {
   const { user } = useStore(useAuthStore);
-  const { fetch_user_podcasts, podcasts } = useStore(usePodcastStore);
-  const { fetch_user_blogs, blogs } = useStore(useBlogStore);
+  const { fetch_podcasts, podcasts } = useStore(usePodcastStore);
+  const { fetch_user_blogs, blogs,fetch_blogs } = useStore(useBlogStore);
 
   useEffect(() => {
     if (user && user.uid) {
-      fetch_user_podcasts(user.uid);
+      fetch_podcasts();
       fetch_user_blogs(user.uid);
-      console.log(podcasts)
+      fetch_blogs()
     }
   }, [user]);
 

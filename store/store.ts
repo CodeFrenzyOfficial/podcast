@@ -55,7 +55,7 @@ const useAuthStore = create<AuthStore>()(
               }
             }
           } catch (error) {
-            console.log(error);
+            // console.log(error);
           } finally {
             set({ loading: false });
           }
@@ -91,7 +91,7 @@ const useAuthStore = create<AuthStore>()(
               }
             }
           } catch (error) {
-            console.log(error);
+            // console.log(error);
           } finally {
             set({ loading: false });
           }
@@ -127,7 +127,7 @@ const useAuthStore = create<AuthStore>()(
               router.push("/");
             }
           } catch (error) {
-            console.log(error);
+            // console.log(error);
           } finally {
             set({ loading: false });
           }

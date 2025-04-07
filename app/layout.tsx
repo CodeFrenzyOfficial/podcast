@@ -19,8 +19,6 @@ export default function RootLayout({
   const { currentUser, user } = useAuthStore();
   useEffect(() => {
     currentUser();
-    console.log(user);
-    
   }, []);
 
   return (

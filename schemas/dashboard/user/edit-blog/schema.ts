@@ -6,19 +6,22 @@ const ACCEPTED_IMAGE_FORMATS = ["image/jpeg", "image/png"];
 export const editBlogSchema = yup.object().shape({
     title: yup
         .string()
-        .required("Title is required")
+        .optional()
+
         .min(5, "Title must be at least 5 characters")
         .max(100, "Title must not exceed 100 characters"),
 
     description: yup
         .string()
-        .required("Description is required")
+        .optional()
+
         .min(20, "Description must be at least 20 characters")
         .max(1000, "Description must not exceed 1000 characters"),
 
     thumbnail: yup
         .mixed()
-        .required("Thumbnail is required")
+        .optional()
+
         // .test("fileType", "Invalid file format for thumbnail", (value: File | undefined) => {
         //     return value && ACCEPTED_IMAGE_FORMATS.includes(value.type);
         // }),

@@ -35,7 +35,7 @@ export default function ForgotPassword() {
   })
 
   const onSubmit = (formData: FormDataType) => {
-    console.log(formData)
+    // console.log(formData)
   }
 
   return (

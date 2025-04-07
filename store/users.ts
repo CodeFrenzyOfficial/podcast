@@ -37,21 +37,21 @@ const useUserStore = create<UserStore>()(
 
             if (response.ok) {
               const result = await response.json();
-              console.log(result);
+              // console.log(result);
 
               set({
                 users: result,
               });
             }
           } catch (error) {
-            console.log(error);
+            // console.log(error);
           } finally {
             set({ loading: false });
           }
         },
 
         update_user: async (payload: any, user_id: any) => {
-          console.log(payload);
+          // console.log(payload);
 
           try {
             set({ loading: true });
@@ -70,7 +70,7 @@ const useUserStore = create<UserStore>()(
               await response.json();
             }
           } catch (error) {
-            console.log(error);
+            // console.log(error);
           } finally {
             set({ loading: false });
           }

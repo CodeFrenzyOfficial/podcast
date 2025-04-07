@@ -75,7 +75,7 @@ export default function UserEditSheet({
 
   useEffect(() => {
     if (user) {
-      console.log(user);
+      // console.log(user);
 
       form.setValue("f_name", user?.f_name);
       form.setValue("l_name", user?.l_name);

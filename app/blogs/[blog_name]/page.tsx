@@ -18,7 +18,6 @@ export default function Page() {
       const decodedSlug = decodeURIComponent(blog_name.toString());
       const foundBlog =
         blogs.find((blog: any) => blog.title === decodedSlug) || null;
-      console.log(foundBlog);
       setBlog(foundBlog);
     }
   }, [blog_name]);

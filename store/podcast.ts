@@ -65,7 +65,7 @@ const usePodcastStore = create<PodcastStore>()(
             console.error("Error :", result);
           }
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         } finally {
           set({ loading: false });
         }
@@ -82,13 +82,14 @@ const usePodcastStore = create<PodcastStore>()(
           );
 
           const result = await response.json();
+          console.log(result)
           if (response.ok) {
             set({ podcasts: result });
           } else {
             console.error("Error :", result);
           }
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         } finally {
           set({ loading: false });
         }
@@ -123,7 +124,7 @@ const usePodcastStore = create<PodcastStore>()(
             console.error("Error :", result);
           }
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         } finally {
           set({
             dj_loading: false,
@@ -166,7 +167,7 @@ const usePodcastStore = create<PodcastStore>()(
                 set({ uploadProgress: 0 });
               }, 1000);
 
-              router.push("/dashboard/admin/podcasts");
+              router.push("/dashboard/admin");
             } else {
               const response = JSON.parse(xhr.responseText);
               toast({
@@ -232,7 +233,7 @@ const usePodcastStore = create<PodcastStore>()(
             }
           );
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         } finally {
           set({ loading: false });
         }
@@ -248,7 +249,7 @@ const usePodcastStore = create<PodcastStore>()(
             }
           );
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         } finally {
           set({ loading: false });
         }

@@ -26,7 +26,7 @@ export default function DeleteDialog({
 
   const remove_podcast = async () => {
     await delete_podcast(user.uid, id);
-    fetch_podcasts(user.uid);
+    fetch_podcasts();
     setOpen(false); // Close the dialog after deleting
   };
 

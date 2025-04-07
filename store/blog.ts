@@ -40,7 +40,7 @@ const useBlogStore = create<BlogStore>()(
             );
 
             const result = await response.json();
-            console.log(result);
+            // console.log(result);
 
             if (response.ok) {
               set({ blogs: result });
@@ -48,7 +48,7 @@ const useBlogStore = create<BlogStore>()(
               console.error("Error :", result);
             }
           } catch (error) {
-            console.log(error);
+            // console.log(error);
           } finally {
             set({ loading: false });
           }
@@ -78,7 +78,7 @@ const useBlogStore = create<BlogStore>()(
         },
 
         create_blog: async (payload: any, user_id: any, router: any) => {
-          console.log(payload, user_id);
+          // console.log(payload, user_id);
 
           try {
             set({ loading: true });
@@ -102,13 +102,13 @@ const useBlogStore = create<BlogStore>()(
             const result = await response.json();
 
             if (response.ok) {
-              console.log("Blog created successfully:", result);
+              // console.log("Blog created successfully:", result);
               router.push("/dashboard/user");
             } else {
               console.error("Error during registration:", result);
             }
           } catch (error) {
-            console.log(error);
+            // console.log(error);
           } finally {
             set({ loading: false });
           }
@@ -137,13 +137,13 @@ const useBlogStore = create<BlogStore>()(
             const result = await response.json();
 
             if (response.ok) {
-              console.log("Blog created successfully:", result);
+              // console.log("Blog created successfully:", result);
               router.push("/dashboard/admin");
             } else {
               console.error("Error during registration:", result);
             }
           } catch (error) {
-            console.log(error);
+            // console.log(error);
           } finally {
             set({ loading: false });
           }
@@ -174,7 +174,7 @@ const useBlogStore = create<BlogStore>()(
               }
             );
           } catch (error) {
-            console.log(error);
+            // console.log(error);
           } finally {
             set({ loading: false });
           }

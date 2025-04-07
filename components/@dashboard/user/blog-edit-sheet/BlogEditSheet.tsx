@@ -46,7 +46,7 @@ export default function PodcastEditSheet({
 
   const router = useRouter();
   const { user } = useStore(useAuthStore);
-  const { update_blog, fetch_user_blogs } = useStore(useBlogStore);
+  const { update_blog, fetch_blogs, fetch_user_blogs } = useStore(useBlogStore);
 
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const form = useForm<EditFormType>({
@@ -60,7 +60,8 @@ export default function PodcastEditSheet({
 
   const onSubmit = async (formData: EditFormType) => {
     update_blog(formData, user?.uid, blog.id, router);
-    fetch_user_blogs(user?.uid);
+    fetch_blogs();
+    fetch_user_blogs(user?.uid)
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +73,7 @@ export default function PodcastEditSheet({
   };
 
   useEffect(() => {
-    console.log(blog);
+    // console.log(blog);
     
     if (blog) {
       form.setValue("title", blog?.title);
