@@ -9,19 +9,21 @@ import useAuthStore from "@/store/store";
 import useBlogStore from "@/store/blog";
 import UserDashBlogCard from "@/components/@dashboard/user/cards/blog-card/BlogCard";
 import { useStore } from "zustand";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function page() {
   const { user } = useStore(useAuthStore);
-  const { fetch_podcasts, podcasts } = useStore(usePodcastStore);
-  const { fetch_user_blogs, blogs,fetch_blogs } = useStore(useBlogStore);
+  const { fetch_podcasts, podcasts, } = useStore(usePodcastStore);
+  const { fetch_user_blogs, blogs, fetch_blogs, mutate, loading } = useStore(useBlogStore);
 
   useEffect(() => {
     if (user && user.uid) {
       fetch_podcasts();
       fetch_user_blogs(user.uid);
-      fetch_blogs()
+      fetch_blogs();
     }
-  }, [user]);
+  }, [user, mutate]);
 
   return (
     <section className="px-10">
@@ -71,19 +73,24 @@ export default function page() {
             </div>
           ))} */}
 
-          {blogs?.length > 0 ? (
-            blogs?.map((blog: any, index: any) => (
-              <div key={index}>
-                <UserDashBlogCard {...blog} />
+          {
+            blogs?.length > 0 ? (
+              blogs?.map((blog: any, index: any) => (
+                <div key={index}>
+                  <UserDashBlogCard {...blog} />
+                </div>
+              ))
+            ) : (
+              <div className="grid place-items-start">
+                <div className="w-40 h-40 bg-gradient-to-tl from-neutral-400/70 to-neutral-100/10 rounded-lg animate-pulse upload-podcast-skeleton relative overflow-hidden z-0 grid place-items-center">
+                  <h2 className="text-sm">{loading ? "Loading Blogs" : "No Blogs to show."}</h2>
+                  {!loading && <Link href={'/dashboard/admin/upload-blog'}>
+                    <Button className="bg-blue-600 text-white mt-2">Upload Blog</Button>
+                  </Link>}
+                </div>
               </div>
-            ))
-          ) : (
-            <div className="grid place-items-start">
-              <div className="w-40 h-40 bg-gradient-to-tl from-neutral-400/70 to-neutral-100/10 rounded-lg animate-pulse upload-podcast-skeleton relative overflow-hidden z-0 grid place-items-center">
-                <h2 className="text-sm">Loading Blogs</h2>
-              </div>
-            </div>
-          )}
+            )
+          }
         </div>
 
         {/* Pagination Controls */}

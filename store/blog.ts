@@ -6,6 +6,7 @@ import useAuthStore from "./store";
 interface BlogStore {
   loading: boolean;
   blogs: BlogCardProps[];
+  mutate: number;
   setLoading: (loading: boolean) => void;
   fetch_blogs: () => Promise<void>;
   fetch_user_blogs: (payload: any) => Promise<void>;
@@ -24,8 +25,9 @@ const useBlogStore = create<BlogStore>()(
   devtools(
     persist(
       (set, get) => ({
-        loading: false,
+        loading: true,
         blogs: [],
+        mutate: 0,
 
         setLoading: (loading: boolean) => set({ loading: loading }),
 
@@ -173,8 +175,9 @@ const useBlogStore = create<BlogStore>()(
                 body: form_data,
               }
             );
+            set({ mutate: get().mutate + 1 });
           } catch (error) {
-            // console.log(error);
+            console.log(error);
           } finally {
             set({ loading: false });
           }

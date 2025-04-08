@@ -61,7 +61,7 @@ export default function PodcastEditSheet({
   const onSubmit = async (formData: EditFormType) => {
     update_blog(formData, user?.uid, blog.id, router);
     fetch_blogs();
-    fetch_user_blogs(user?.uid)
+    fetch_user_blogs(user?.uid);
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -4,7 +4,7 @@ import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import UserBlogDeleteDialog from "../../dialog-box/delete-dialog/UserBlogDeleteDialog";
 import BlogEditSheet from "../../blog-edit-sheet/BlogEditSheet";
 import useBlogStore from "@/store/blog";
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 import useAuthStore from "@/store/store";
 
 export default function UserDashBlogCard({
@@ -15,14 +15,15 @@ export default function UserDashBlogCard({
   upload_date,
   updated_at,
 }: PodcastDataType) {
-  const router = useRouter();
+  // const router = useRouter();
   const { user } = useAuthStore();
-  const { delete_blog, fetch_user_blogs } = useBlogStore();
-
-  const remove_blog = async() => {
-    await delete_blog(user.uid, id)
+  const { delete_blog, fetch_user_blogs, fetch_blogs } = useBlogStore();
+  const remove_blog = async () => {
+    await delete_blog(user.uid, id);
     fetch_user_blogs(user.uid);
+    fetch_blogs();
   }
+
   return (
     <div className="w-full lg:max-h-[26rem] h-full rounded-lg bg-neutral-100 shadow-xl space-y-4">
       {/* podcast thumbnail */}

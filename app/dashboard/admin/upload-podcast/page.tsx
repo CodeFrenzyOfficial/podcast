@@ -147,7 +147,16 @@ export default function UploadPodcastPage() {
                         </FormControl>
                         <SelectContent>
                           <SelectItem value="dj">DJ</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
+                          <SelectItem value="prmoter/host">
+                            Promoter/Host
+                          </SelectItem>
+                          <SelectItem value="service worker">
+                            Service Worker
+                          </SelectItem>
+                          <SelectItem value="venue owner">Venue Owner</SelectItem>
+                          <SelectItem value="regular patron">
+                            Regular Patron (Party Goer)
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />

@@ -1,5 +1,4 @@
 "use client";
-import UploadPodcast from "@/components/@dashboard/admin/upload-podcast/UploadPodcast";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -18,6 +17,7 @@ import useBlogStore from "@/store/blog";
 import { useRouter } from "next/navigation";
 import useAuthStore from "@/store/store";
 import { useStore } from "zustand";
+import { FaCircleNotch } from "react-icons/fa6";
 
 interface UploadFormType {
   title: string;
@@ -27,7 +27,7 @@ interface UploadFormType {
 
 export default function Page() {
   const { user } = useStore(useAuthStore);
-  const { create_admin_blog } = useStore(useBlogStore);
+  const { create_admin_blog, loading } = useStore(useBlogStore);
 
   const router = useRouter();
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
@@ -62,7 +62,6 @@ export default function Page() {
         </p>
       </div>
       <div className="max-w-screen-lg mx-auto min-h-[50vh] rounded-2xl shadow-lg shadow-neutral-400/30 bg-gradient-to-tl from-neutral-400/70 to-neutral-100/10 p-5">
-        <UploadPodcast />
         <div className="flex flex-col-reverse lg:flex-row justify-around items-center gap-3">
           <div className="w-full lg:w-2/3 space-y-2 mt-5">
             <div className="grid place-items-start">
@@ -121,8 +120,15 @@ export default function Page() {
                     )}
                   />
 
-                  <Button size="lg" type="submit">
-                    Upload
+                  <Button size="lg" type="submit" disabled={loading}>
+                    {loading ? (
+                      <div className="flex items-center gap-2">
+                        <FaCircleNotch className="animate-spin" />
+                        <span>Uploading...</span>
+                      </div>
+                    ) : (
+                      "Upload Blog"
+                    )}
                   </Button>
                 </form>
               </Form>
