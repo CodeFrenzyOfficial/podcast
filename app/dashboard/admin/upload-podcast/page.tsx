@@ -21,6 +21,7 @@ import usePodcastStore from "@/store/podcast";
 import { useStore } from "zustand";
 import { useToast } from "@/hooks/use-toast";
 import { FaCircleNotch } from "react-icons/fa6";
+import { getAuth } from "firebase/auth";
 
 interface UploadFormType {
   title: string;
@@ -37,10 +38,11 @@ export default function UploadPodcastPage() {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [retryData, setRetryData] = useState<UploadFormType | null>(null);
 
-  const { loading, uploadProgress, setUploadProgress, setLoading, create_podcast } = useStore(usePodcastStore);
+  const { loading, uploadProgress, create_podcast } = useStore(usePodcastStore);
 
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
 
+  const firebaseUid = getAuth().currentUser?.uid;
   const form = useForm<UploadFormType>({
     resolver: yupResolver(uploadPodcastSchema),
     defaultValues: {
@@ -52,8 +54,37 @@ export default function UploadPodcastPage() {
     },
   });
 
+  // const onSubmit = async (formData: UploadFormType) => {
+  //   if (!user?.uid) {
+  //     toast({
+  //       title: "Authentication Error",
+  //       description: "Please log in to upload podcasts",
+  //       variant: "destructive",
+  //     });
+  //     return;
+  //   }
+
+  //   const payload = {
+  //     ...formData,
+  //     user_id: user.uid,
+  //   };
+
+  //   setUploadError(null);
+  //   setRetryData(payload); // Save for retry
+
+  //   try {
+  //     await create_podcast(payload, router, user, toast);
+  //     form.reset();
+  //     setThumbnailPreview(null);
+  //     setRetryData(null);
+  //   } catch (error: any) {
+  //     setUploadError("Upload failed. Please try again.");
+  //   }
+  // };
+
+
   const onSubmit = async (formData: UploadFormType) => {
-    if (!user?.uid) {
+    if (!firebaseUid) {
       toast({
         title: "Authentication Error",
         description: "Please log in to upload podcasts",
@@ -68,17 +99,18 @@ export default function UploadPodcastPage() {
     };
 
     setUploadError(null);
-    setRetryData(payload); // Save for retry
+    setRetryData(payload);
 
     try {
-      await create_podcast(payload, router, user, toast);
+      await create_podcast(payload, router, user, toast, firebaseUid);
       form.reset();
       setThumbnailPreview(null);
       setRetryData(null);
-    } catch (error: any) {
+    } catch (error) {
       setUploadError("Upload failed. Please try again.");
     }
   };
+
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

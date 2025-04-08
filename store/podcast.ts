@@ -1,4 +1,5 @@
 import { PodcastDataType } from "@/data/podcasts/data";
+import { uploadFile } from "@/lib/uploadFile";
 import { error } from "console";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
@@ -21,7 +22,7 @@ interface PodcastStore {
     order: any,
     page: any
   ) => Promise<void>;
-  create_podcast: (payload: any, user_id: any, router: any, toast: any) => Promise<void>;
+  create_podcast: (payload: any, user_id: any, firebase_uid: any, router: any, toast: any) => Promise<void>;
   update_podcast: (
     payload: any,
     user_id: any,
@@ -136,74 +137,59 @@ const usePodcastStore = create<PodcastStore>()(
         }
       },
 
-      create_podcast: async (payload, router, user, toast) => {
+      create_podcast: async (payload, router, user, toast, firebase_uid) => {
         try {
           set({ loading: true, uploadProgress: 0 });
 
-          const form_data = new FormData();
-          form_data.append("title", payload.title);
-          form_data.append("desc", payload.description);
-          form_data.append("category", payload.category);
-          form_data.append("image", payload.thumbnail);
-          form_data.append("video", payload.file);
+          // Upload thumbnail
+          const thumbPath = `podcasts/${firebase_uid}/thumbnails/${Date.now()}-${payload.thumbnail.name}`;
+          const imageURL = await uploadFile(payload.thumbnail, thumbPath);
 
-          const xhr = new XMLHttpRequest();
+          // Upload video with progress
+          const videoPath = `podcasts/${firebase_uid}/videos/${Date.now()}-${payload.file.name}`;
+          const videoURL = await uploadFile(payload.file, videoPath, (progress) => {
+            set({ uploadProgress: progress });
+          });
 
-          xhr.upload.onprogress = function (event) {
-            if (event.lengthComputable) {
-              const progress = (event.loaded / event.total) * 100;
-              set({ uploadProgress: progress });
-            }
-          };
+          // Send metadata to backend
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/podcast/${payload.user_id}/`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title: payload.title,
+              desc: payload.description,
+              category: payload.category,
+              imgSrc: imageURL,
+              videoSrc: videoURL,
+            }),
+          });
 
-          xhr.onload = function () {
-            if (xhr.status >= 200 && xhr.status < 300) {
-              toast({
-                title: "Success",
-                description: "Podcast uploaded successfully!",
-              });
+          const result = await response.json();
 
-              setTimeout(() => {
-                set({ uploadProgress: 0 });
-              }, 1000);
+          if (!response.ok) {
+            throw new Error(result.error || "Failed to save podcast metadata.");
+          }
 
-              router.push("/dashboard/admin");
-            } else {
-              const response = JSON.parse(xhr.responseText);
-              toast({
-                title: "Upload Failed",
-                description: response.error || "Something went wrong.",
-                variant: "destructive",
-              });
-              set({ uploadProgress: 0 });
-            }
-            set({ loading: false });
-          };
+          toast({
+            title: "Success",
+            description: "Podcast uploaded successfully!",
+          });
 
-          xhr.onerror = function () {
-            toast({
-              title: "Upload Failed",
-              description: "A network error occurred.",
-              variant: "destructive",
-            });
-            set({ loading: false, uploadProgress: 0 });
-          };
-
-          const url = `${process.env.NEXT_PUBLIC_API_URL}/podcast/${payload.user_id}/`;
-          xhr.open("POST", url);
-          xhr.send(form_data);
+          setTimeout(() => set({ uploadProgress: 0 }), 1000);
+          router.push("/dashboard/admin");
         } catch (error: any) {
           console.error("Upload error:", error);
           toast({
             title: "Upload Failed",
-            description: error.message || "Something went wrong",
+            description: error.message || "Something went wrong.",
             variant: "destructive",
           });
-          set({ loading: false, uploadProgress: 0 });
+        } finally {
+          set({ loading: false });
         }
       },
-
-
 
       update_podcast: async (
         uid: any,
