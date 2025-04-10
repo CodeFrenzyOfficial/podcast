@@ -5,6 +5,7 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 interface PodcastStore {
+  podcastMutate: number,
   loading: boolean;
   dj_loading: boolean;
   other_loading: boolean;
@@ -27,9 +28,10 @@ interface PodcastStore {
     payload: any,
     user_id: any,
     blog_id: any,
-    router: any
+    router: any,
+    toast: any
   ) => Promise<void>;
-  delete_podcast: (user_id: any, id: any) => Promise<void>;
+  delete_podcast: (user_id: any, id: any, toast: any) => Promise<void>;
 }
 
 const CHUNK_SIZE = 10 * 1024 * 1024; // 10MB chunks
@@ -37,6 +39,7 @@ const CHUNK_SIZE = 10 * 1024 * 1024; // 10MB chunks
 const usePodcastStore = create<PodcastStore>()(
   devtools(
     (set, get) => ({
+      podcastMutate: 0,
       loading: false,
       dj_loading: false,
       other_loading: false,
@@ -195,7 +198,8 @@ const usePodcastStore = create<PodcastStore>()(
         uid: any,
         user_uid: any,
         payload: any,
-        router: any
+        router: any,
+        toast: any
       ) => {
         try {
           set({ loading: true });
@@ -218,14 +222,22 @@ const usePodcastStore = create<PodcastStore>()(
               body: form_data,
             }
           );
+          set({ podcastMutate: get().podcastMutate + 1 });
+
+          toast({
+            title: "Podcast updated successfully",
+          })
         } catch (error) {
-          // console.log(error);
+          console.log(error);
+          toast({
+            title: "Something went wrong",
+          })
         } finally {
           set({ loading: false });
         }
       },
 
-      delete_podcast: async (user_id: any, id: any) => {
+      delete_podcast: async (user_id: any, id: any, toast: any) => {
         try {
           set({ loading: true });
           await fetch(
@@ -234,8 +246,14 @@ const usePodcastStore = create<PodcastStore>()(
               method: "DELETE",
             }
           );
+          toast({
+            title: "Podcast deleted successfully",
+          })
         } catch (error) {
-          // console.log(error);
+          console.log(error);
+          toast({
+            title: "Something went wrong",
+          })
         } finally {
           set({ loading: false });
         }

@@ -29,6 +29,9 @@ import useAuthStore from "@/store/store";
 import useBlogStore from "@/store/blog";
 import { useStore } from "zustand";
 import { useRouter } from "next/navigation";
+import { Textarea } from "@/components/ui/textarea";
+import { FaCircleNotch } from "react-icons/fa";
+import { useToast } from "@/hooks/use-toast";
 
 interface EditFormType {
   title: string;
@@ -43,10 +46,10 @@ export default function PodcastEditSheet({
   children: React.ReactNode;
   blog: any;
 }) {
-
+  const { toast } = useToast()
   const router = useRouter();
   const { user } = useStore(useAuthStore);
-  const { update_blog, fetch_blogs, fetch_user_blogs } = useStore(useBlogStore);
+  const { update_blog, fetch_blogs, fetch_user_blogs, loading } = useStore(useBlogStore);
 
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const form = useForm<EditFormType>({
@@ -59,7 +62,7 @@ export default function PodcastEditSheet({
   });
 
   const onSubmit = async (formData: EditFormType) => {
-    update_blog(formData, user?.uid, blog.id, router);
+    update_blog(formData, user?.uid, blog.id, router, toast);
     fetch_blogs();
     fetch_user_blogs(user?.uid);
   };
@@ -74,7 +77,7 @@ export default function PodcastEditSheet({
 
   useEffect(() => {
     // console.log(blog);
-    
+
     if (blog) {
       form.setValue("title", blog?.title);
       form.setValue("description", blog?.desc);
@@ -92,7 +95,7 @@ export default function PodcastEditSheet({
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-3"
+              className="w-full space-y-3 overflow-auto"
             >
               <FormField
                 control={form.control}
@@ -137,7 +140,14 @@ export default function PodcastEditSheet({
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input placeholder="Podcast Description" {...field} />
+                      {/* <Input placeholder="Podcast Description" {...field} /> */}
+                      <Textarea
+                        maxLength={5000}
+                        rows={8}
+                        cols={8}
+                        placeholder="Description of the blog"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -159,7 +169,7 @@ export default function PodcastEditSheet({
                 </div>
               )}
 
-              <Button>Save</Button>
+              <Button>{loading ? <FaCircleNotch className="animate-spin" /> : "Save"}</Button>
             </form>
           </Form>
         </SheetHeader>

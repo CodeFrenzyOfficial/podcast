@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import usePodcastStore from "@/store/podcast";
 import useAuthStore from "@/store/store";
+import { useToast } from "@/hooks/use-toast";
 
 export default function DeleteDialog({
   children,
@@ -20,12 +21,13 @@ export default function DeleteDialog({
   children: React.ReactNode;
   id: string;
 }) {
+  const { toast } = useToast()
   const { user } = useAuthStore();
   const { delete_podcast, fetch_podcasts } = usePodcastStore();
   const [open, setOpen] = React.useState(false);
 
   const remove_podcast = async () => {
-    await delete_podcast(user.uid, id);
+    await delete_podcast(user.uid, id, toast);
     fetch_podcasts();
     setOpen(false); // Close the dialog after deleting
   };

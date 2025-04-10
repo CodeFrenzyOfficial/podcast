@@ -23,7 +23,11 @@ export default function DashDropdown({ children }: { children: React.ReactNode }
             <DropdownMenuContent className="mr-4">
                 <DropdownMenuLabel>Admin Settings</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Inbox</DropdownMenuItem>
+                <DropdownMenuItem>
+                    <Link href={'/dashboard/admin/inbox'}>
+                        Inbox
+                    </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
                     <Link onClick={() => logout(router)} href={''}>
                         Log out

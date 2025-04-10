@@ -6,6 +6,7 @@ import BlogEditSheet from "../../blog-edit-sheet/BlogEditSheet";
 import useBlogStore from "@/store/blog";
 // import { useRouter } from "next/navigation"
 import useAuthStore from "@/store/store";
+import { useToast } from "@/hooks/use-toast";
 
 export default function UserDashBlogCard({
   id,
@@ -16,16 +17,17 @@ export default function UserDashBlogCard({
   updated_at,
 }: PodcastDataType) {
   // const router = useRouter();
+  const { toast } = useToast()
   const { user } = useAuthStore();
   const { delete_blog, fetch_user_blogs, fetch_blogs } = useBlogStore();
   const remove_blog = async () => {
-    await delete_blog(user.uid, id);
+    await delete_blog(user.uid, id, toast);
     fetch_user_blogs(user.uid);
     fetch_blogs();
   }
 
   return (
-    <div className="w-full lg:max-h-[26rem] h-full rounded-lg bg-neutral-100 shadow-xl space-y-4">
+    <div className="w-full lg:max-h-[26rem] h-fit rounded-lg bg-neutral-100 shadow-xl space-y-4">
       {/* podcast thumbnail */}
       <img
         src={imgSrc[0]}
@@ -37,7 +39,7 @@ export default function UserDashBlogCard({
       <div className="px-4 pb-4 space-y-4 flex flex-col justify-between">
         <div className="text-center grid place-items-center space-y-2">
           <h2 className="text-xl font-medium">{title}</h2>
-          <p className="text-neutral-500 text-sm">{desc}</p>
+          <p className="text-neutral-500 text-sm line-clamp-5">{desc}</p>
         </div>
 
         <div className="w-full flex items-center justify-between">

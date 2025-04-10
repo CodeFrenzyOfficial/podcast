@@ -51,7 +51,7 @@ const items = [
 export function AdminSidebar() {
     const router = useRouter();
     const pathname = usePathname()
-    
+
     const { logout } = useStore(useAuthStore);
 
     return (
@@ -78,8 +78,13 @@ export function AdminSidebar() {
                             ))}
                         </SidebarMenu>
                     </SidebarGroupContent>
-                    <div onClick={() => logout(router)} className="absolute bottom-10 left-3 w-full h-px bg-gradient-to-tr from-white via-white/50 to-transparent">
-                        <EpisodeButton className="w-2/3 bg-black/90 text-sm" link="/" content="Logout" />
+                    <div className="absolute bottom-0 left-3 w-full bg-gradient-to-tr from-white via-white/50 to-transparent space-y-2">
+                        <div>
+                            <EpisodeButton className="w-2/3 bg-blue-600 transition-all hover:opacity-80 text-sm" link="/" content="Home" />
+                        </div>
+                        <div onClick={() => logout(router)}>
+                            <EpisodeButton className="w-2/3 bg-black/90 text-sm" link="/" content="Logout" />
+                        </div>
                     </div>
                 </SidebarGroup>
             </SidebarContent>

@@ -16,9 +16,10 @@ interface BlogStore {
     payload: any,
     user_id: any,
     blog_id: any,
-    router: any
+    router: any,
+    toast: any
   ) => Promise<void>;
-  delete_blog: (user_id: any, id: any) => Promise<void>;
+  delete_blog: (user_id: any, id: any, toast: any) => Promise<void>;
 }
 
 const useBlogStore = create<BlogStore>()(
@@ -155,7 +156,8 @@ const useBlogStore = create<BlogStore>()(
           payload: any,
           user_id: any,
           blog_id: any,
-          router: any
+          router: any,
+          toast: any
         ) => {
           try {
             set({ loading: true });
@@ -175,6 +177,9 @@ const useBlogStore = create<BlogStore>()(
                 body: form_data,
               }
             );
+            toast({
+              title: "Blog updated successfully",
+            })
             set({ mutate: get().mutate + 1 });
           } catch (error) {
             console.log(error);
@@ -183,13 +188,23 @@ const useBlogStore = create<BlogStore>()(
           }
         },
 
-        delete_blog: async (user_uid: any, id: any) => {
-          await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/blog/${user_uid}/${id}/`,
-            {
-              method: "DELETE",
-            }
-          );
+        delete_blog: async (user_uid: any, id: any, toast: any) => {
+          try {
+            await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/blog/${user_uid}/${id}/`,
+              {
+                method: "DELETE",
+              }
+            );
+            toast({
+              title: "Blog deleted successfully",
+            })
+          } catch (error) {
+            console.log(error)
+            toast({
+              title: "Something went wrong"
+            })
+          }
         },
       }),
       {

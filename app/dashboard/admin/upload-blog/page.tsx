@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import useAuthStore from "@/store/store";
 import { useStore } from "zustand";
 import { FaCircleNotch } from "react-icons/fa6";
+import { Textarea } from "@/components/ui/textarea";
 
 interface UploadFormType {
   title: string;
@@ -113,7 +114,14 @@ export default function Page() {
                       <FormItem>
                         <FormLabel>Description</FormLabel>
                         <FormControl>
-                          <Input maxLength={1000} placeholder="Podcast Description" {...field} />
+                          {/* <Input maxLength={1000} placeholder="Podcast Description" {...field} /> */}
+                          <Textarea
+                            maxLength={5000}
+                            rows={8}
+                            cols={8}
+                            placeholder="Description of the blog"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

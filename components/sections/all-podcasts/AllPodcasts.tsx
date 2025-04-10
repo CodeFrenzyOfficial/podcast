@@ -39,8 +39,8 @@ export default function AllPodcasts({ heading, subHeading }: { heading?: string 
 
                                     <div className='w-full lg:w-auto px-4 py-2 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-20'>
                                         <div className="w-full lg:w-auto flex items-center justify-between gap-5">
-                                            <h2>{podcast.hostname}</h2>
-                                            <h2>{podcast.desc}</h2>
+                                            {/* <h2>{podcast.hostname}</h2> */}
+                                            <h2 >{podcast.desc}</h2>
                                         </div>
 
                                         {/* Static button */}

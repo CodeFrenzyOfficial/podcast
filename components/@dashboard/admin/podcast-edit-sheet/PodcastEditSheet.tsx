@@ -25,10 +25,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { editPodcastSchema } from "@/schemas/dashboard/admin/edit-podcast/schema";
 import usePodcastStore from "@/store/podcast";
-import { FaSpinner } from "react-icons/fa6";
 import useAuthStore from "@/store/store";
 import { useRouter } from "next/navigation";
 import { useStore } from "zustand";
+import { useToast } from "@/hooks/use-toast";
+import { FaCircleNotch } from "react-icons/fa";
+import useBlogStore from "@/store/blog";
 
 interface EditFormType {
   title: string;
@@ -45,9 +47,9 @@ export default function PodcastEditSheet({
   podcast: any;
 }) {
   const router = useRouter();
+  const { toast } = useToast()
   const { user } = useStore(useAuthStore);
   const { fetch_user_podcasts, update_podcast, loading } = useStore(usePodcastStore);
-
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const [video_preview, __video_preview] = useState<string | null>(null);
 
@@ -62,7 +64,7 @@ export default function PodcastEditSheet({
   });
 
   const onSubmit = async (formData: EditFormType) => {
-    await update_podcast(podcast?.id, user?.uid, formData, router);
+    await update_podcast(podcast?.id, user?.uid, formData, router, toast);
     fetch_user_podcasts(user?.uid);
   };
 
@@ -200,7 +202,7 @@ export default function PodcastEditSheet({
                 </div>
               )}
 
-              <Button disabled={loading}>{loading ? <FaSpinner /> : 'Save'}</Button>
+              <Button disabled={loading}>{loading ? <FaCircleNotch className="animate-spin" /> : 'Save'}</Button>
             </form>
           </Form>
         </SheetHeader>

@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
 import { useParams } from "next/navigation";
 import { blogData, BlogCardProps } from "@/data/blogs/data";
@@ -53,9 +53,9 @@ export default function Page() {
               Recent Blogs
             </h2>
             <div className="flex flex-col gap-5">
-              {blogData.slice(0, 3).map((blog, index) => (
+              {blogs.reverse().slice(0, 3).map((blog, index) => (
                 <Link
-                  href={`/blogs/${encodeURIComponent(blog.slug)}`}
+                  href={`/blogs/${blog.title}`}
                   key={index}
                 >
                   <div className="bg-white rounded-lg p-4 overflow-hidden shadow-lg shadow-black/20">
@@ -66,7 +66,7 @@ export default function Page() {
                     />
                     <h3 className="text-lg font-semibold">{blog.title}</h3>
                     <p className="text-gray-600 line-clamp-4">
-                      {blog.blogDesc}
+                      {blog.desc}
                     </p>
                   </div>
                 </Link>

@@ -14,7 +14,7 @@ import Link from "next/link";
 
 export default function page() {
   const { user } = useStore(useAuthStore);
-  const { fetch_podcasts, podcasts, } = useStore(usePodcastStore);
+  const { fetch_podcasts, podcasts, podcastMutate } = useStore(usePodcastStore);
   const { fetch_user_blogs, blogs, fetch_blogs, mutate, loading } = useStore(useBlogStore);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function page() {
       fetch_user_blogs(user.uid);
       fetch_blogs();
     }
-  }, [user, mutate]);
+  }, [user, mutate, podcastMutate]);
 
   return (
     <section className="px-10">
@@ -50,8 +50,11 @@ export default function page() {
             ))
           ) : (
             <div className="grid place-items-start">
-              <div className="w-40 h-40 bg-gradient-to-tl from-neutral-400/70 to-neutral-100/10 rounded-lg animate-pulse upload-podcast-skeleton relative overflow-hidden z-0 grid place-items-center">
-                <h2 className="text-sm">Loading Podcasts</h2>
+              <div className="w-40 h-40 bg-gradient-to-tl from-neutral-400/70 to-neutral-100/10 rounded-lg animate-pulse upload-podcast-skeleton relative overflow-hidden z-0 grid place-items-center px-2">
+                  <h2 className="w-full text-center text-sm">{loading ? "Loading Podcasts" : "No podcasts uploaded yet"}</h2>
+                  {!loading && <Link href={'/dashboard/admin/upload-podcast'}>
+                    <Button className="bg-blue-600 text-white mt-2">Upload <br/> Podcasts</Button>
+                  </Link>}
               </div>
             </div>
           )}
