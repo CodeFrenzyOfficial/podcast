@@ -60,7 +60,7 @@ export default function Page() {
                 >
                   <div className="bg-white rounded-lg p-4 overflow-hidden shadow-lg shadow-black/20">
                     <img
-                      src={blog.imgSrc}
+                      src={blog.imgSrc[0]}
                       className="w-full h-48 object-cover mb-2 rounded-lg"
                       alt=""
                     />

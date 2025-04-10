@@ -45,6 +45,7 @@ export default function HomeBlogs() {
                         <EpisodeButton
                             content="Explore"
                             link="/"
+                            className="pointer-events-none"
                             contentClassName="text-sm"
                         />
                     </div>
@@ -76,12 +77,14 @@ export default function HomeBlogs() {
                         <EpisodeButton
                             content="Explore"
                             link="/"
+                            className="pointer-events-none"
+
                             contentClassName="text-sm"
                         />
                     </div>
 
                     <div className="lg:w-1/2">
-                            <img src={blog.imgSrc[0]} className="w-full h-[35vh] lg:h-[50vh] object-cover" alt="" />
+                        <img src={blog.imgSrc[0]} className="w-full h-[35vh] lg:h-[50vh] object-cover" alt="" />
                     </div>
                 </Link>
             )
