@@ -1,11 +1,10 @@
-"use client";
+import type { Metadata } from "next";
 
-import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
+import NavFooterWrapper from "@/wrappers/NavFooterWrapper";
 
 import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton";
 import SocialIcon from "@/components/buttons/social-icons/SocialIcon";
 import HomeCarousel from "@/components/carousels/home-carousel/HomeCarousel";
-// import HostCarousel from "@/components/carousels/hosts-carousel/HostCarousel";
 import AllPodcasts from "@/components/sections/all-podcasts/AllPodcasts";
 
 import { FaPlay, FaYoutube } from "react-icons/fa6";
@@ -15,47 +14,55 @@ import { ImPodcast } from "react-icons/im";
 import { IoLogoAmazon } from "react-icons/io5";
 import HomeBlogs from "@/components/sections/home-blogs/HomeBlogs";
 import HostCard from "@/components/cards/host-card/HostCard";
-import { useStore } from "zustand";
-import usePodcastStore from "@/store/podcast";
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import HomePodcastCards from "@/components/sections/home-podcast-cards/index";
 
-export default function page() {
-  const [dj_order, __dj_order] = useState("");
-  const [dj_page, __dj_page] = useState(1);
+export const metadata: Metadata = {
+  title: "GoWinOut — Explore Nightlife Through Podcasts",
+  description:
+    "Dive into the vibrant world of nightlife with GoWinOut — a podcast platform featuring DJs, promoters, venue owners, and partygoers. Discover authentic stories, expert insights, and behind-the-scenes moments from nightlife insiders.",
+  keywords: [
+    "nightlife podcasts",
+    "DJ interviews",
+    "party culture",
+    "nightlife industry",
+    "GoWinOut",
+    "club culture",
+    "promoters podcast",
+    "venue owner stories",
+    "electronic music podcast",
+    "nightlife stories"
+  ],
+  authors: [{ name: "GoWinOut Team", url: "https://gowinout.com" }],
+  creator: "GoWinOut",
+  metadataBase: new URL("https://gowinout.com"),
+  openGraph: {
+    title: "GoWinOut — Explore Nightlife Through Podcasts",
+    description:
+      "Tune into stories and interviews from the heartbeat of nightlife — DJs, promoters, bartenders, and more. Listen now on GoWinOut.",
+    url: "https://gowinout.com",
+    siteName: "GoWinOut",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://gowinout.com/assets/hosts/4.jpeg", // Replace with your OG image URL
+        width: 1200,
+        height: 630,
+        alt: "GoWinOut Podcast Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GoWinOut — Explore Nightlife Through Podcasts",
+    description:
+      "Authentic voices from nightlife: DJs, promoters, bartenders, and venue owners — all on one podcast platform.",
+    images: ["https://gowinout.com/assets/hosts/4.jpeg"], // Replace with your image
+    creator: "@gowinout", // Replace with your Twitter handle if available
+  },
+};
 
-  const [other_order, __other_order] = useState("");
-  const [other_page, __other_page] = useState(1);
-
-  const {
-    fetch_user_podcasts_by_category,
-    dj_podcasts,
-    other_podcasts,
-    dj_loading,
-    other_loading,
-  } = useStore(usePodcastStore);
-
-  useEffect(() => {
-    fetch_user_podcasts_by_category("dj", dj_order, dj_page);
-    fetch_user_podcasts_by_category("other", other_order, other_page);
-  }, []);
-
-  useEffect(() => {
-    fetch_user_podcasts_by_category("dj", dj_order, 1);
-  }, [dj_order]);
-
-  useEffect(() => {
-    fetch_user_podcasts_by_category("dj", "", dj_page);
-  }, [dj_page]);
-
-  useEffect(() => {
-    fetch_user_podcasts_by_category("other", other_order, 1);
-  }, [other_order]);
-
-  useEffect(() => {
-    fetch_user_podcasts_by_category("other", "", other_page);
-  }, [other_page]);
-
+export default function Home() {
   return (
     <NavFooterWrapper>
       {/* Hero section */}
@@ -96,9 +103,7 @@ export default function page() {
                 className="bg-white text-black hover:text-white"
                 title="Apple Podcast"
                 icon={<FaApple className="text-xl" />}
-                link="https://podcasts.apple.com/us/podcast/gowinout-podcast/id1767919675
-
- "
+                link="https://podcasts.apple.com/us/podcast/gowinout-podcast/id1767919675"
               />
               <SocialIcon
                 className="bg-white text-black hover:text-white"
@@ -120,251 +125,14 @@ export default function page() {
         </div>
       </section>
 
-      {/* Episodes Card grid Section */}
-      <section className="overflow-hidden w-full py-10 px-7 md:px-16 lg:px-20 xl:px-40 min-h-screen space-y-10">
-        <div className="w-full grid place-items-center space-y-2 text-center">
-          <h2 className="text-4xl font-semibold">Browse Episodes</h2>
-          <p className="text-neutral-500">
-            View Episodes based on different roles in nightlife
-          </p>
-        </div>
-
-        {/* Grid Container */}
-        <div className="grid grid-cols-1 md:grid-cols-2 place-items-center gap-5">
-          {/* Card 1 */}
-          <div className="p-4 rounded-2xl shadow-xl space-y-4 group/card">
-            <div className="overflow-hidden rounded-2xl">
-              <img
-                src="/assets/hero-sections-bg/episodes-card-1.jpg"
-                className="group-hover/card:scale-125 group-hover/card:rotate-12 transition-all duration-300  group-hover/card:blur-md"
-                alt=""
-              />
-            </div>
-
-            <div className="md:w-[90%] space-y-4">
-              <h2 className="capitalize text-lg leading-tight lg:text-2xl font-medium mb-4">
-                Explore the world of Djing in nigthclubs and other venues:
-              </h2>
-
-              <div className="flex justify-end ml-auto bg-gray-100 p-1 rounded-md mb-4 w-fit text-sm mb-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
-                  />
-                </svg>
-
-                <select
-                  onChange={(e: any) => __dj_order(e.target.value)}
-                  name="filter"
-                  className="outline-none cursor-pointer bg-transparent"
-                >
-                  <option value="" selected></option>
-                  <option value="asc">Newest</option>
-                  <option value="desc">Oldest</option>
-                </select>
-              </div>
-
-              {!dj_loading
-                ? dj_podcasts?.results?.podcasts?.map(
-                    (podcast: any, index: any) => (
-                      <Link key={index} href={podcast.videoSrc}>
-                        <div className="flex items-start gap-3 mb-3 p-2 rounded-md hover:bg-gray-100">
-                          <div className="rounded-full bg-blue-600 text-white p-3">
-                            <FaPlay className="text-2xl" />
-                          </div>
-
-                          <div className="">
-                            <p className="text-sm md:text-base text-neutral-500">
-                              Episode #{index + 1} - Classic
-                            </p>
-                            <h2 className="text-base md:text-xl font-semibold">
-                              {podcast.title}
-                            </h2>
-                          </div>
-                        </div>
-                      </Link>
-                    )
-                  )
-                : [1, 2, 3].map((index: any) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-3 animate-pulse"
-                    >
-                      <div className="rounded-full bg-blue-600 text-white p-3">
-                        <FaPlay className="text-2xl" />
-                      </div>
-
-                      <div className="grid gap-2">
-                        <p className="h-4 rounded-full w-24 bg-gray-200"></p>
-                        <h2 className="h-4 rounded-full w-60 bg-gray-200"></h2>
-                      </div>
-                    </div>
-                  ))}
-            </div>
-
-            {/* Button */}
-            <div
-              className={`flex items-center pt-2 ${
-                dj_podcasts?.count > 3 ? "justify-between" : "justify-center"
-              }`}
-            >
-              {dj_podcasts?.count > 3 && (
-                <>
-                  <button
-                    disabled={dj_page == 1}
-                    onClick={() => __dj_page((prev) => prev - 1)}
-                    className="disabled:text-gray-200 diabled:cursor-not-allowed"
-                  >
-                    Prev
-                  </button>
-                </>
-              )}
-              <EpisodeButton link="#all-episodes" content="View All Episodes" />
-              {dj_podcasts?.count > 3 && (
-                <>
-                  <button
-                    disabled={!dj_podcasts?.next}
-                    onClick={() => __dj_page((prev) => prev + 1)}
-                    className="disabled:text-gray-200 diabled:cursor-not-allowed"
-                  >
-                    Next
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="p-4 rounded-2xl shadow-xl space-y-4 group">
-            <div className="overflow-hidden rounded-2xl">
-              <img
-                src="/assets/hero-sections-bg/episodes-card-2.jpg"
-                className="group-hover:scale-125 group-hover:rotate-12 transition-all duration-300  group-hover:blur-md"
-                alt=""
-              />
-            </div>
-
-            <div className="w-[90%] space-y-4">
-              <h2 className="capitalize text-lg leading-tight lg:text-2xl font-medium mb-4">
-                Hear from different members working in the industry from all types of roles, from bartending to venue ownership:
-              </h2>
-
-              <div className="flex justify-end ml-auto bg-gray-100 p-1 rounded-md mb-4 w-fit text-sm mb-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
-                  />
-                </svg>
-
-                <select
-                  onChange={(e: any) => __other_order(e.target.value)}
-                  name="filter"
-                  className="outline-none cursor-pointer bg-transparent"
-                >
-                  <option value="" selected></option>
-                  <option value="asc">Newest</option>
-                  <option value="desc">Oldest</option>
-                </select>
-              </div>
-
-              {!other_loading
-                ? other_podcasts?.results?.podcasts?.map(
-                    (podcast: any, index: any) => (
-                      <Link key={index} href={podcast.videoSrc}>
-                        <div className="flex items-start gap-3 mb-3 p-2 rounded-md hover:bg-gray-100">
-                          <div className="rounded-full bg-blue-600 text-white p-3">
-                            <FaPlay className="text-2xl" />
-                          </div>
-
-                          <div className="">
-                            <p className="text-sm md:text-base text-neutral-500">
-                              Episode #{index + 1} - Classic
-                            </p>
-                            <h2 className="text-base md:text-xl font-semibold">
-                              {podcast.title}
-                            </h2>
-                          </div>
-                        </div>
-                      </Link>
-                    )
-                  )
-                : [1, 2, 3].map((index: any) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-3 animate-pulse"
-                    >
-                      <div className="rounded-full bg-blue-600 text-white p-3">
-                        <FaPlay className="text-2xl" />
-                      </div>
-
-                      <div className="grid gap-2">
-                        <p className="h-4 rounded-full w-24 bg-gray-200"></p>
-                        <h2 className="h-4 rounded-full w-60 bg-gray-200"></h2>
-                      </div>
-                    </div>
-                  ))}
-            </div>
-
-            <div
-              className={`flex items-center pt-2 ${
-                other_podcasts?.count > 3 ? "justify-between" : "justify-center"
-              }`}
-            >
-              {other_podcasts?.count > 3 && (
-                <>
-                  <button
-                    disabled={other_page == 1}
-                    onClick={() => __other_page((prev) => prev - 1)}
-                    className="disabled:text-gray-200 diabled:cursor-not-allowed"
-                  >
-                    Prev
-                  </button>
-                </>
-              )}
-              <EpisodeButton link="#all-episodes" content="View All Episodes" />
-              {other_podcasts?.count > 3 && (
-                <>
-                  <button
-                    onClick={() => __other_page((prev) => prev + 1)}
-                    disabled={!other_podcasts?.next}
-                    className="disabled:text-gray-200 diabled:cursor-not-allowed"
-                  >
-                    Next
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Podcasts Episodes Card grid Section */}
+      <HomePodcastCards />
 
       {/* View all episodes Section */}
       <AllPodcasts heading="Watch our Latest episode" />
 
       {/* Slider Section */}
-      <section className="slider-section-bg lg:min-h-[90vh] w-full overflow-x-hidden  py-10">
-        {/* <div className="w-full grid place-items-center space-y-2 mb-10">
-          <h2 className="text-4xl font-semibold">Enjoy New Podcasts</h2>
-          <p className="text-neutral-500">Explore All Podcasts</p>
-        </div> */}
+      <section className="slider-section-bg lg:min-h-[90vh] w-full overflow-x-hidden py-10">
         <HomeCarousel />
       </section>
 

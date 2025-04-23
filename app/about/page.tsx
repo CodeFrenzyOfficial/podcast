@@ -1,6 +1,6 @@
 import EpisodeButton from "@/components/buttons/social-icons/episode-cards-button/EpisodeButton";
 import AllPodcasts from "@/components/sections/all-podcasts/AllPodcasts";
-import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
+import NavFooterWrapper from "@/wrappers/NavFooterWrapper";
 import Link from "next/link";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { GrSpotify } from "react-icons/gr";

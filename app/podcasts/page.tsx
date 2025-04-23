@@ -1,7 +1,7 @@
 
 import HomeCarousel from "@/components/carousels/home-carousel/HomeCarousel";
 import AllPodcasts from "@/components/sections/all-podcasts/AllPodcasts";
-import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
+import NavFooterWrapper from "@/wrappers/NavFooterWrapper";
 import Link from "next/link";
 
 export default function page() {

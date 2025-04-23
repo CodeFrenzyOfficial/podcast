@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import NavFooterWrapper from "@/wrappers/nav-footer-wrapper/NavFooterWrapper";
+import NavFooterWrapper from "@/wrappers/NavFooterWrapper";
 import { useParams } from "next/navigation";
 import { blogData, BlogCardProps } from "@/data/blogs/data";
 import Link from "next/link";

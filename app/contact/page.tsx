@@ -1,6 +1,6 @@
 import ContactForm from '@/components/forms/contact-form/contact-form'
 import Location from '@/components/location-iframe/Location'
-import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper'
+import NavFooterWrapper from '@/wrappers/NavFooterWrapper'
 import Link from 'next/link'
 
 export default function Page() {

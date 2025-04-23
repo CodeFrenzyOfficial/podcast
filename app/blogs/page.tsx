@@ -1,5 +1,5 @@
 import BlogList from '@/components/blogs-list/BlogList';
-import NavFooterWrapper from '@/wrappers/nav-footer-wrapper/NavFooterWrapper';
+import NavFooterWrapper from '@/wrappers/NavFooterWrapper';
 import Link from 'next/link';
 
 export default function page() {
