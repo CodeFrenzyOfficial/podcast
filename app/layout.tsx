@@ -25,7 +25,6 @@ export default function RootLayout({
         {/* Google Console & analytics */}
         <meta name="google-site-verification" content="2RSxC6qT7omkQJ26kF882gXePFqzOYSwXwy9LZP2LEk" />
         {/* <!-- Google Tag Manager --> */}
-        <GoogleAnalytics gaId="GTM-WKBD6GQQ" />
         {/* <script>
           (function(w,d,s,l,i){w[l] = w[l] || [];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -47,6 +46,8 @@ export default function RootLayout({
         {children}
         <Toaster />
       </body>
+      <GoogleAnalytics gaId="GTM-WKBD6GQQ" />
+
     </html>
   );
 }
