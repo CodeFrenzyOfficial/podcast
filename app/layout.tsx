@@ -1,5 +1,4 @@
 import "./globals.css";
-import { GoogleAnalytics } from '@next/third-parties/google'
 import { Toaster } from "@/components/ui/toaster";
 import AuthInit from "@/services/AuthInit";
 
@@ -25,13 +24,15 @@ export default function RootLayout({
         {/* Google Console & analytics */}
         <meta name="google-site-verification" content="2RSxC6qT7omkQJ26kF882gXePFqzOYSwXwy9LZP2LEk" />
         {/* <!-- Google Tag Manager --> */}
-        {/* <script>
-          (function(w,d,s,l,i){w[l] = w[l] || [];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-WKBD6GQQ');
-        </script> */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-WKBD6GQQ');
+          `
+        }} />
         {/* <!-- End Google Tag Manager --> */}
       </head>
 
@@ -46,7 +47,6 @@ export default function RootLayout({
         {children}
         <Toaster />
       </body>
-      <GoogleAnalytics gaId="GTM-WKBD6GQQ" />
 
     </html>
   );
