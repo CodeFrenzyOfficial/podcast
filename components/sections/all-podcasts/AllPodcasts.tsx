@@ -30,21 +30,25 @@ export default function AllPodcasts({ heading, subHeading }: { heading?: string 
                                         <img src={podcast.imgSrc} className="w-full h-60 object-cover" alt="" />
                                     </div>
                                     {/* icon & Content*/}
-                                    <div className='px-4 py-2 flex items-center gap-5'>
+                                    <div className='lg:w-1/3 px-4 py-2 flex items-center gap-5 text-start'>
                                         <div className='rounded-full bg-yellow-500 text-white p-3 shadow-xl'>
                                             <FaPlay className='text-2xl' />
                                         </div>
-                                        <h2 className='leading-tight text-lg font-medium'>{podcast.title}</h2>
+                                        <h2 className='leading-tight text-lg font-medium w-[]'>{podcast.title}</h2>
                                     </div>
 
-                                    <div className='w-full lg:w-auto px-4 py-2 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-20'>
-                                        <div className="w-full lg:w-auto flex items-center justify-between gap-5">
-                                            {/* <h2>{podcast.hostname}</h2> */}
-                                            <h2 >{podcast.desc}</h2>
+                                    <div className='w-full lg:w-2/3 px-4 py-2 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-5'>
+                                        <div className="w-full flex items-center justify-between gap-5">
+                                            <h2 className="line-clamp-1">{podcast.desc}</h2>
                                         </div>
 
                                         {/* Static button */}
-                                        <EpisodeButton content="Check Episode" link={podcast.videoSrc} contentClassName="text-xs md:text-base" className="px-2 md:px-5" />
+                                        <EpisodeButton
+                                            content="Check Episode"
+                                            link={podcast.videoSrc}
+                                            contentClassName="w-fit text-xs md:text-base text-center"
+                                            className="w-fit"
+                                        />
                                         {/* <div className={('w-fit py-2 px-8 flex justify-center items-center gap-2 rounded-full bg-blue-700 text-white relative overflow-hidden group/card-btn transition-all duration-300 text-center md:text-left z-0')}>
 
                                             <h2 className={("text-sm md:text-base z-10")}>{'Watch Episode'}</h2>
