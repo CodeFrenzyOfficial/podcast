@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 export default function PodcastCard({ id, title, desc, imgSrc, videoSrc, upload_date }: PodcastDataType) {
     return (
-        <div className="w-full lg:max-h-[26rem] h-full rounded-lg bg-neutral-100 shadow-xl space-y-4">
+        <div className="w-full lg:max-h-[28rem] h-auto rounded-lg bg-neutral-100 shadow-xl space-y-4">
             {/* podcast thumbnail */}
             <img src={imgSrc} className="w-full h-52 object-contain rounded-lg" alt="" />
 
@@ -15,7 +15,7 @@ export default function PodcastCard({ id, title, desc, imgSrc, videoSrc, upload_
             <div className="px-4 pb-4 space-y-4 flex flex-col justify-between">
                 <div className="text-center grid place-items-center space-y-2">
                     <h2 className="text-xl font-medium">{title}</h2>
-                    <p className="text-neutral-500 text-sm">{desc}</p>
+                    <p className="text-neutral-500 text-sm line-clamp-2">{desc}</p>
                 </div>
 
                 <div className="w-full flex items-center justify-between">
