@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Form,
   FormControl,
@@ -10,11 +9,17 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { uploadPodcastSchema } from "@/schemas/dashboard/admin/upload/schema";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuthStore from "@/store/store";
 import usePodcastStore from "@/store/podcast";
@@ -22,6 +27,7 @@ import { useStore } from "zustand";
 import { useToast } from "@/hooks/use-toast";
 import { FaCircleNotch } from "react-icons/fa6";
 import { getAuth } from "firebase/auth";
+import RichTextEditor from "@/components/@dashboard/admin/upload-podcast/RichTextEditor";
 
 interface UploadFormType {
   title: string;
@@ -37,6 +43,8 @@ export default function UploadPodcastPage() {
   const { user } = useStore(useAuthStore);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [retryData, setRetryData] = useState<UploadFormType | null>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const { loading, uploadProgress, create_podcast } = useStore(usePodcastStore);
 
@@ -82,7 +90,6 @@ export default function UploadPodcastPage() {
   //   }
   // };
 
-
   const onSubmit = async (formData: UploadFormType) => {
     if (!firebaseUid) {
       toast({
@@ -111,7 +118,6 @@ export default function UploadPodcastPage() {
     }
   };
 
-
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -135,7 +141,7 @@ export default function UploadPodcastPage() {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="lg:w-2/3 space-y-3"
+                className="lg:w-full space-y-3"
               >
                 <FormField
                   control={form.control}
@@ -158,7 +164,11 @@ export default function UploadPodcastPage() {
                     <FormItem>
                       <FormLabel>Description</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter description" {...field} />
+                        <RichTextEditor
+                          value={field.value}
+                          onChange={field.onChange}
+                          placeholder="Enter description"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -171,7 +181,10 @@ export default function UploadPodcastPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Category</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select category" />
@@ -185,7 +198,9 @@ export default function UploadPodcastPage() {
                           <SelectItem value="service worker">
                             Service Worker
                           </SelectItem>
-                          <SelectItem value="venue owner">Venue Owner</SelectItem>
+                          <SelectItem value="venue owner">
+                            Venue Owner
+                          </SelectItem>
                           <SelectItem value="regular patron">
                             Regular Patron (Party Goer)
                           </SelectItem>
@@ -261,7 +276,9 @@ export default function UploadPodcastPage() {
                   </Button>
                 ) : (
                   <div className="w-full space-y-2">
-                    <p className="text-red-500 text-sm text-center">{uploadError}</p>
+                    <p className="text-red-500 text-sm text-center">
+                      {uploadError}
+                    </p>
                     <Button
                       type="button"
                       variant="outline"
@@ -269,7 +286,12 @@ export default function UploadPodcastPage() {
                       onClick={async () => {
                         if (retryData && user?.uid) {
                           try {
-                            await create_podcast(retryData, router, user, toast);
+                            await create_podcast(
+                              retryData,
+                              router,
+                              user,
+                              toast
+                            );
                             form.reset();
                             setThumbnailPreview(null);
                             setUploadError(null);

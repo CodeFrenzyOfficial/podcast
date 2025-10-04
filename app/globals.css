@@ -272,3 +272,7 @@ body {
     background-position: center;
   }
 }
+
+.tiptap{
+  border: none !important;
+}

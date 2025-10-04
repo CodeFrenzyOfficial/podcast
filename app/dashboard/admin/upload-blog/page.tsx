@@ -18,8 +18,8 @@ import { useRouter } from "next/navigation";
 import useAuthStore from "@/store/store";
 import { useStore } from "zustand";
 import { FaCircleNotch } from "react-icons/fa6";
-import { Textarea } from "@/components/ui/textarea";
-
+// NEW: Editor
+import RichTextEditor from "@/components/@dashboard/admin/upload-podcast/RichTextEditor";
 interface UploadFormType {
   title: string;
   description: string;
@@ -69,7 +69,7 @@ export default function Page() {
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="lg:w-2/3 space-y-3"
+                  className="lg:w-full space-y-3"
                 >
                   <FormField
                     control={form.control}
@@ -114,14 +114,11 @@ export default function Page() {
                       <FormItem>
                         <FormLabel>Description</FormLabel>
                         <FormControl>
-                          {/* <Input maxLength={1000} placeholder="Podcast Description" {...field} /> */}
-                          <Textarea
-                            maxLength={5000}
-                            rows={8}
-                            cols={8}
-                            placeholder="Description of the blog"
-                            {...field}
-                          />
+                        <RichTextEditor
+                          value={field.value}
+                          onChange={field.onChange}
+                          placeholder="Enter description"
+                        />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

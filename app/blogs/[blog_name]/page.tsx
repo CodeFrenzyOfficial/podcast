@@ -7,6 +7,8 @@ import { blogData, BlogCardProps } from "@/data/blogs/data";
 import Link from "next/link";
 import useBlogStore from "@/store/blog";
 import { useStore } from "zustand";
+// NEW: sanitize HTML
+import DOMPurify from "isomorphic-dompurify";
 
 export default function Page() {
   const { blog_name } = useParams();
@@ -38,7 +40,14 @@ export default function Page() {
                 </div>
                 <div className="space-y-2">
                   <h1 className="text-2xl font-bold">{blog.title}</h1>
-                  <p className="text-base text-neutral-500">{blog.desc}</p>
+                  <div className="space-y-2">
+                    <div
+                      className="prose max-w-none"
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(blog.desc),
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             ) : (
@@ -53,24 +62,22 @@ export default function Page() {
               Recent Blogs
             </h2>
             <div className="flex flex-col gap-5">
-              {blogs.reverse().slice(0, 3).map((blog, index) => (
-                <Link
-                  href={`/blogs/${blog.title}`}
-                  key={index}
-                >
-                  <div className="bg-white rounded-lg p-4 overflow-hidden shadow-lg shadow-black/20">
-                    <img
-                      src={blog.imgSrc[0]}
-                      className="w-full h-48 object-cover mb-2 rounded-lg"
-                      alt=""
-                    />
-                    <h3 className="text-lg font-semibold">{blog.title}</h3>
-                    <p className="text-gray-600 line-clamp-4">
-                      {blog.desc}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+              {blogs
+                .reverse()
+                .slice(0, 3)
+                .map((blog, index) => (
+                  <Link href={`/blogs/${blog.title}`} key={index}>
+                    <div className="bg-white rounded-lg p-4 overflow-hidden shadow-lg shadow-black/20">
+                      <img
+                        src={blog.imgSrc[0]}
+                        className="w-full h-48 object-cover mb-2 rounded-lg"
+                        alt=""
+                      />
+                      <h3 className="text-lg font-semibold">{blog.title}</h3>
+                      <p className="text-gray-600 line-clamp-4">{blog.desc}</p>
+                    </div>
+                  </Link>
+                ))}
             </div>
           </div>
         </div>
