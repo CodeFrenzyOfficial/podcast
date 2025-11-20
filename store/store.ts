@@ -5,13 +5,13 @@ interface AuthStore {
   loading: boolean;
   user: any;
   token: any;
-  
-  setLoading: (loading: boolean) => void;
-  register: (payload: any, router:any) => Promise<void>;
 
-  login: (payload: any, router:any) => Promise<void>;
-  logout: (router:any) => Promise<void>;
-  
+  setLoading: (loading: boolean) => void;
+  register: (payload: any, router: any) => Promise<void>;
+
+  login: (payload: any, router: any) => Promise<void>;
+  logout: (router: any) => Promise<void>;
+
   currentUser: () => Promise<void>;
 }
 
@@ -134,10 +134,15 @@ const useAuthStore = create<AuthStore>()(
         },
 
         currentUser: async () => {
+          const uid = get().user?.uid;
+
+          // If there is no logged-in user, don't call the backend
+          if (!uid) {
+            return;
+          }
+
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/auth/current/${
-              get().user?.uid
-            }/`,
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/current/${uid}/`,
             {
               method: "GET",
               headers: {
