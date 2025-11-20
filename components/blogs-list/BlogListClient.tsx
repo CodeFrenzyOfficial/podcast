@@ -1,32 +1,23 @@
-'use client';
+"use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Input } from "../ui/input";
 import BlogCard from "../cards/blog-card/BlogCard";
 import Link from "next/link";
-import useBlogStore from "@/store/blog";
-import { useStore } from "zustand";
 import { BlogCardProps } from "@/data/blogs/data";
 
-export default function BlogList() {
-    const { blogs, fetch_blogs } = useStore(useBlogStore);
-    const [search, setSearch] = useState('');
-    console.log("BLOG", blogs);
-
-    useEffect(() => {
-        fetch_blogs();
-    }, []);
+export default function BlogListClient({ blogs }: { blogs: BlogCardProps[] }) {
+    const [search, setSearch] = useState("");
 
     const filteredBlogs = useMemo(() => {
-        if (!search) return blogs || [];
-        return (blogs || []).filter((blog: any) =>
+        if (!search) return blogs;
+        return blogs.filter((blog) =>
             blog.title.toLowerCase().includes(search.toLowerCase())
         );
     }, [search, blogs]);
 
     return (
         <div className="max-w-screen-xl mx-auto space-y-8">
-            {/* Search Input */}
             <div className="grid place-items-center">
                 <Input
                     value={search}
@@ -36,10 +27,9 @@ export default function BlogList() {
                 />
             </div>
 
-            {/* Blogs Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredBlogs.length > 0 ? (
-                    filteredBlogs.map((blog: BlogCardProps, index: number) => (
+                    filteredBlogs.map((blog, index) => (
                         <Link href={`/blogs/${blog.slug}`} key={index}>
                             <BlogCard
                                 blogDesc={blog.desc}

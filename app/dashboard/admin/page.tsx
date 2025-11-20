@@ -16,11 +16,11 @@ export default function page() {
   const { user } = useStore(useAuthStore);
   const { fetch_podcasts, podcasts, podcastMutate } = useStore(usePodcastStore);
   const { fetch_user_blogs, blogs, fetch_blogs, mutate, loading } = useStore(useBlogStore);
-
+  // console.log("blogs",blogs)
   useEffect(() => {
     if (user && user.uid) {
       fetch_podcasts();
-      fetch_user_blogs(user.uid);
+      // fetch_user_blogs(user.uid);
       fetch_blogs();
     }
   }, [user, mutate, podcastMutate]);
