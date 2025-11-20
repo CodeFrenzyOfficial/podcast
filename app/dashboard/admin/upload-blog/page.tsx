@@ -18,40 +18,88 @@ import { useRouter } from "next/navigation";
 import useAuthStore from "@/store/store";
 import { useStore } from "zustand";
 import { FaCircleNotch } from "react-icons/fa6";
-import { getAuth } from "firebase/auth";
 import { useToast } from "@/hooks/use-toast";
 import RichTextEditor from "@/components/@dashboard/admin/upload-podcast/RichTextEditor";
 
 interface UploadFormType {
   title: string;
   description: string;
-  thumbnail: FileList | any;
+  thumbnail: File | null;
 }
 
 export default function Page() {
   const { user } = useStore(useAuthStore);
-  const { create_admin_blog, loading } = useStore(useBlogStore);
+  // const { create_admin_blog, loading } = useStore(useBlogStore);
+  const [loading, setLoading] = useState(false)
   const { toast } = useToast();
 
   const router = useRouter();
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const [contentImages, setContentImages] = useState<File[]>([]);
 
-  // Get Firebase UID directly from Firebase Auth
-  const firebaseUid = getAuth().currentUser?.uid;
-
   const form = useForm<UploadFormType>({
     resolver: yupResolver(uploadBlogSchema),
     defaultValues: {
       title: "",
       description: "",
-      thumbnail: undefined as unknown as FileList,
+      thumbnail: null,
     },
   });
 
+  const create_admin_blog = async (payload: any, user_id: string, router: any) => {
+    try {
+      if (!user_id) {
+        alert("User ID missing. Please log in again.");
+        return;
+      }
+
+      setLoading(true)
+
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      const form_data = new FormData();
+
+      // Required fields
+      form_data.append("title", payload.title);
+      form_data.append("desc", payload.description);
+
+      // Thumbnail
+      if (payload.thumbnail) {
+        form_data.append("thumbnail", payload.thumbnail); // single file
+      }
+
+      // Content images
+      // payload.content_images?.forEach((file: File) => {
+      //   form_data.append("content_files", file); // multiple files
+      // });
+      // converting and appending the payload.contentImage setting through for loop
+       for (let i = 0; i < payload.content_images.length; i++) {
+        await form_data.append("content_files", payload.content_images[i]);
+      }
+
+      if (!payload.content_images || !payload.content_images.length) return console.log("Cant find content images")
+      console.log("payload", payload);
+      console.log("FormDta", FormData)
+      const response = await fetch(`${apiUrl}/blog/${user_id}/`, {
+        method: "POST",
+        body: form_data,
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        router.push("/dashboard/admin");
+      } else {
+        alert(`Error: ${result.error || "Failed to create blog"}`);
+      }
+    } catch (err) {
+      console.error("Upload error:", err);
+      alert("Error uploading blog");
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const onSubmit = async (formData: UploadFormType) => {
-    // Validate user is authenticated
-    if (!firebaseUid) {
+    if (!user?.uid) {
       toast({
         title: "Authentication Error",
         description: "Please log in to upload blogs",
@@ -60,20 +108,19 @@ export default function Page() {
       return;
     }
 
-    // Add content images to the payload
     const payload = {
       ...formData,
       content_images: contentImages,
     };
 
-    create_admin_blog(payload, firebaseUid, router);
+    create_admin_blog(payload, user.uid, router);
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files) {
-      setThumbnailPreview(URL.createObjectURL(files[0]));
-      form.setValue("thumbnail", files, { shouldValidate: true });
+    const file = e.target.files?.[0] || null;
+    if (file) {
+      setThumbnailPreview(URL.createObjectURL(file));
+      form.setValue("thumbnail", file, { shouldValidate: true });
     }
   };
 
@@ -89,86 +136,83 @@ export default function Page() {
           Upload your blogs effortlessly!
         </p>
       </div>
+
       <div className="max-w-screen-lg mx-auto min-h-[50vh] rounded-2xl shadow-lg shadow-neutral-400/30 bg-gradient-to-tl from-neutral-400/70 to-neutral-100/10 p-5">
         <div className="flex flex-col-reverse lg:flex-row justify-around items-center gap-3">
           <div className="w-full lg:w-2/3 space-y-2 mt-5">
-            <div className="grid place-items-start">
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="lg:w-full space-y-3"
-                >
-                  <FormField
-                    control={form.control}
-                    name="thumbnail"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Thumbnail</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => {
-                              handleThumbnailChange(e);
-                              field.onChange(e.target.files || null);
-                            }}
-                            multiple={true}
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="lg:w-full space-y-3"
+              >
+                <FormField
+                  control={form.control}
+                  name="thumbnail"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Thumbnail</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            handleThumbnailChange(e);
+                            field.onChange(e.target.files?.[0] || null);
+                          }}
+                          multiple={false}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Title</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Blog Title" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <RichTextEditor
+                            value={field.value || ""}
+                            onChange={(html) => field.onChange(html)}
+                            onImagesChange={handleImagesChange}
                           />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                  <FormField
-                    control={form.control}
-                    name="title"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Title</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Blog Title" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Description</FormLabel>
-                        <FormControl>
-                          <div className="relative">
-
-                            <RichTextEditor
-                              value={field.value || ""}
-                              onChange={(html) => field.onChange(html)}
-                              onImagesChange={handleImagesChange}
-                            />
-                          </div>
-
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <Button size="lg" type="submit" disabled={loading}>
-                    {loading ? (
-                      <div className="flex items-center gap-2">
-                        <FaCircleNotch className="animate-spin" />
-                        <span>Uploading...</span>
-                      </div>
-                    ) : (
-                      "Upload Blog"
-                    )}
-                  </Button>
-                </form>
-              </Form>
-            </div>
+                <Button size="lg" type="submit" disabled={loading}>
+                  {loading ? (
+                    <div className="flex items-center gap-2">
+                      <FaCircleNotch className="animate-spin" />
+                      <span>Uploading...</span>
+                    </div>
+                  ) : (
+                    "Upload Blog"
+                  )}
+                </Button>
+              </form>
+            </Form>
           </div>
 
           {thumbnailPreview ? (

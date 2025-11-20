@@ -18,31 +18,31 @@ export default function UserDashBlogCard({
   updated_at,
 }: PodcastDataType) {
   // const router = useRouter();
-  const { toast } = useToast()
+  const { toast } = useToast();
   const { user } = useAuthStore();
   const { delete_blog, fetch_user_blogs, fetch_blogs } = useBlogStore();
   const remove_blog = async () => {
     await delete_blog(user.uid, id, toast);
     fetch_user_blogs(user.uid);
     fetch_blogs();
-  }
+  };
 
   return (
-    <div className="w-full lg:max-h-[26rem] h-fit rounded-lg bg-neutral-100 shadow-xl space-y-4">
+    <div className="w-full h-[26rem] rounded-lg bg-neutral-100 shadow-xl flex flex-col">
       {/* podcast thumbnail */}
       <img
         src={imgSrc[0]}
-        className="w-full h-52 object-cover rounded-lg"
+        className="w-full h-52 object-cover rounded-t-lg"
         alt=""
       />
 
       {/* content */}
-      <div className="px-4 pb-4 space-y-4 flex flex-col justify-between">
+      <div className="px-4 pb-4 pt-3 flex-1 flex flex-col justify-between">
         <div className="text-center grid place-items-center space-y-2">
           <h2 className="text-xl font-medium">{title}</h2>
           <DescriptionPurifier
             html={desc}
-            className="text-neutral-500 line-clamp-2 text-sm"
+            className="text-neutral-500 text-center text-sm line-clamp-3 max-h-20 overflow-hidden !break-words w-[80%]"
             actualText={false}
           />
         </div>
@@ -65,7 +65,9 @@ export default function UserDashBlogCard({
             </UserBlogDeleteDialog>
 
             {/* button */}
-            <BlogEditSheet blog={{ id, title, desc, imgSrc, upload_date, updated_at }}>
+            <BlogEditSheet
+              blog={{ id, title, desc, imgSrc, upload_date, updated_at }}
+            >
               <div className="flex items-center">
                 <div className="flex items-center relative transition-all duration-300 group">
                   <p className="transition-all duration-300 z-20 relative left-0 group-hover:-left-5">

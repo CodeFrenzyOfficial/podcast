@@ -41,19 +41,19 @@ const extractImagesFromHTML = (html: string): File[] => {
       const [, mimeType, base64Data] = matches;
       const byteCharacters = atob(base64Data);
       const byteNumbers = new Array(byteCharacters.length);
-      
+
       for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
       }
-      
+
       const byteArray = new Uint8Array(byteNumbers);
       const blob = new Blob([byteArray], { type: `image/${mimeType}` });
-      
+
       // Create File from Blob
       const fileExtension = mimeType === 'png' ? 'png' : mimeType === 'jpeg' ? 'jpg' : 'png';
       const fileName = `content-image-${Date.now()}-${index}.${fileExtension}`;
       const file = new File([blob], fileName, { type: `image/${mimeType}` });
-      
+
       files.push(file);
     } catch (error) {
       console.error('Error extracting image:', error);
@@ -140,11 +140,11 @@ const useBlogStore = create<BlogStore>()(
 
             const form_data = new FormData();
             form_data.append("title", payload.title);
-            
+
             // Extract images from description HTML
             const contentImages = extractImagesFromHTML(payload.description);
             const descriptionWithPlaceholders = replaceBase64ImagesWithPlaceholders(payload.description);
-            
+
             form_data.append("desc", descriptionWithPlaceholders);
 
             // Add thumbnail images
@@ -196,17 +196,16 @@ const useBlogStore = create<BlogStore>()(
             form_data.append("desc", payload.description);
 
             // Thumbnail
-            Array.from(payload.thumbnail || []).forEach((file:any) => {
-              form_data.append("image", file);
-            });
-
-            // Inline editor images
-            if (payload.content_images?.length) {
-              payload.content_images.forEach((file: File) => {
-                form_data.append("image", file);
-              });
+            if (payload.thumbnail) {
+              form_data.append("thumbnail", payload.thumbnail); // single file
             }
 
+            // Content images
+            payload.content_images?.forEach((file: File) => {
+              form_data.append("content_files", file); // multiple files
+            });
+            console.log("payload", payload);
+            console.log("FormDta", FormData)
             const response = await fetch(`${apiUrl}/blog/${user_id}/`, {
               method: "POST",
               body: form_data,
@@ -227,52 +226,46 @@ const useBlogStore = create<BlogStore>()(
         },
 
 
-        update_blog: async (
-          payload: any,
-          user_id: any,
-          blog_id: any,
-          router: any,
-          toast: any
-        ) => {
+        update_blog: async (payload, user_id, blog_id, router, toast) => {
           try {
             set({ loading: true });
 
             const form_data = new FormData();
             form_data.append("title", payload.title);
-            
-            // Extract images from description HTML if it contains base64 images
-            const contentImages = extractImagesFromHTML(payload.description);
-            const descriptionWithPlaceholders = replaceBase64ImagesWithPlaceholders(payload.description);
-            
-            form_data.append("desc", descriptionWithPlaceholders);
+            form_data.append("desc", payload.description);
 
-            // Add thumbnail images
-            Array.from(payload?.thumbnail || [])?.forEach((img: any) => {
-              form_data.append(`image`, img);
+            if (payload.thumbnail) {
+              form_data.append("thumbnail", payload.thumbnail); // single
+            }
+
+            payload.content_images?.forEach((file: File) => {
+              form_data.append("content_files", file);
             });
 
-            // Add content images
-            contentImages.forEach((img) => {
-              form_data.append(`content_images`, img);
-            });
-
-            await fetch(
+            const response = await fetch(
               `${process.env.NEXT_PUBLIC_API_URL}/blog/${user_id}/${blog_id}/`,
               {
-                method: "PUT",
+                method: "POST", // use POST since backend handles create/update
                 body: form_data,
               }
             );
-            toast({
-              title: "Blog updated successfully",
-            })
-            set({ mutate: get().mutate + 1 });
+
+            const result = await response.json();
+            if (response.ok) {
+              toast({
+                title: "Blog updated successfully",
+              });
+              set({ mutate: get().mutate + 1 });
+            } else {
+              toast({ title: result.error || "Failed to update blog" });
+            }
           } catch (error) {
             console.log(error);
           } finally {
             set({ loading: false });
           }
         },
+
 
         delete_blog: async (user_uid: any, id: any, toast: any) => {
           try {

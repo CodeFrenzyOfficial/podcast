@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { FaComments } from "react-icons/fa6";
 
-export default function BlogCard({ blogDesc, imgSrc, title }: BlogCardProps) {
+export default function BlogCard({ blogDesc, imgSrc, title }: { blogDesc: string, imgSrc: string, title: string }) {
     return (
         <div className="w-full min-h-[30vh] md:min-h-[50vh] rounded-2xl overflow-hidden group shadow-lg shadow-black/10">
             <div className="w-full overflow-hidden z-0">

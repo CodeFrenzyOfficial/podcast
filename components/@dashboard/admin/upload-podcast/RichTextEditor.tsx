@@ -18,7 +18,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   onImagesChange,
   placeholder = "Write your blog content here...",
 }) => {
-  const imageFiles = useRef<File[]>([]);
+  const [imageFiles, setImageFiles] = React.useState<File[]>([]);
   const { quill, quillRef } = useQuill({
     theme: "snow",
     placeholder,
@@ -37,8 +37,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       ],
     },
   });
-
-  // ✅ Handle image uploads
+  //  Handle image uploads
   useEffect(() => {
     if (!quill) return;
     const toolbar = quill.getModule("toolbar") as Toolbar;
@@ -52,31 +51,34 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       input.onchange = () => {
         const files = Array.from(input.files || []);
         if (files.length > 0) {
-          imageFiles.current = [...imageFiles.current, ...files];
-          onImagesChange?.(imageFiles.current);
+          const newFiles = [...imageFiles, ...files];
+          setImageFiles(newFiles);
+          onImagesChange?.(newFiles);
         }
       };
     });
   }, [quill, onImagesChange]);
 
-  // ✅ Sync editor content
+  //  Sync editor content
   useEffect(() => {
     if (!quill) return;
     quill.on("text-change", () => onChange(quill.root.innerHTML));
   }, [quill, onChange]);
 
-  // ✅ Load existing HTML
+  //  Load existing HTML
   useEffect(() => {
     if (quill && value && quill.root.innerHTML !== value) {
       quill.root.innerHTML = value;
     }
   }, [quill, value]);
 
-  // ✅ Remove image from preview
+  // Remove image from preview
   const handleRemoveImage = (index: number) => {
-    imageFiles.current.splice(index, 1);
-    onImagesChange?.([...imageFiles.current]);
+    const newFiles = imageFiles.filter((_, i) => i !== index);
+    setImageFiles(newFiles);
+    onImagesChange?.(newFiles);
   };
+
 
   return (
     <div className="w-full relative">
@@ -85,10 +87,10 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         className="bg-white rounded-t-lg min-h-[300px] border border-gray-300 break-all whitespace-break-spaces"
       />
 
-      {imageFiles.current.length > 0 && (
-        <div className="sticky bottom-0 left-0 w-full bg-white shadow-lg border-t border-gray-200 py-3 px-4 z-50">
+      {imageFiles.length > 0 && (
+        <div className="sticky bottom-0 ...">
           <div className="flex gap-3 overflow-x-auto">
-            {imageFiles.current.map((img, index) => {
+            {imageFiles.map((img, index) => {
               const src = URL.createObjectURL(img);
               return (
                 <div key={index} className="relative flex-shrink-0">
